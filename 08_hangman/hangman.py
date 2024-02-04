@@ -1,6 +1,7 @@
 def read_words(): 
     with open('08_hangman/words.txt') as f:
         text = f.read().split(',')
+
     return text
 
 def select_random_word():
@@ -10,11 +11,11 @@ def select_random_word():
 letters = set(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
 chosen_char = set()
 
-word = select_random_word()
-guess = ['-' for _ in range(len(word)-1)]
+word = select_random_word().strip()
+guess = ['-' for _ in range(len(word))]
 
 num_turns = 5
-
+num_letters_guessed = 0
 print(word)
 
 while num_turns > 0:
@@ -34,11 +35,16 @@ while num_turns > 0:
         index = []
         for i, v in enumerate(word):
             if v == char:
-                guess[i-1] = char
+                guess[i] = char
+                num_letters_guessed += 1
                 
         print('The letter is present in the word')
 
-
+    print(num_letters_guessed)
+    if len(word) == num_letters_guessed:
+        print('Congrats. You correctly guessed the word:', word)
+        break
+    
     print(f'You have {num_turns} more turns left.')    
         
     
