@@ -14,12 +14,13 @@ chosen_char = set()
 word = select_random_word().strip()
 guess = ['-' for _ in range(len(word))]
 
-num_turns = 5
+num_turns = 7
 num_letters_guessed = 0
 
 while num_turns > 0:
     print(f'You have {num_turns} more turns left.')    
     print('\nGuess: ',''.join(guess))
+    print('Letters used:', list(chosen_char))
     
     char = input("Type a character: ")
     if char in chosen_char or char not in letters: 
@@ -42,5 +43,6 @@ while num_turns > 0:
 
     if len(word) == num_letters_guessed:
         print('Congrats. You correctly guessed the word:', word)
-        break
+        quit(0)
     
+print('You lost. The word was', word)
