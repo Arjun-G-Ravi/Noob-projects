@@ -23,13 +23,14 @@ while num_turns > 0:
     print('Letters used:', list(chosen_char))
     
     char = input("Type a character: ")
+    if char.isalpha(): char = char.lower()
     if char in chosen_char or char not in letters: 
         print('Wrong letter')
         continue
     
+    chosen_char.add(char)
     if char not in word: 
         print('Character is not in the word.')
-        chosen_char.add(char)
         num_turns -= 1
         continue
     
@@ -42,7 +43,7 @@ while num_turns > 0:
     print('The letter is present in the word')
 
     if len(word) == num_letters_guessed:
-        print('Congrats. You correctly guessed the word:', word)
+        print('Congrats!!!!!!!!!!!!!!!!!!!!!!!!!!\n You correctly guessed the word:', word)
         quit(0)
     
 print('You lost. The word was', word)
