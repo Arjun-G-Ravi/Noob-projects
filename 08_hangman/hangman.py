@@ -16,7 +16,6 @@ guess = ['-' for _ in range(len(word))]
 
 num_turns = 5
 num_letters_guessed = 0
-print(word)
 
 while num_turns > 0:
     print(f'You have {num_turns} more turns left.')    
@@ -32,7 +31,6 @@ while num_turns > 0:
         chosen_char.add(char)
         num_turns -= 1
         continue
-    
     
     index = []
     for i, v in enumerate(word):
