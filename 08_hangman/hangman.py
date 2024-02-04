@@ -19,6 +19,7 @@ num_letters_guessed = 0
 print(word)
 
 while num_turns > 0:
+    print(f'You have {num_turns} more turns left.')    
     print('\nGuess: ',''.join(guess))
     
     char = input("Type a character: ")
@@ -30,23 +31,18 @@ while num_turns > 0:
         print('Character is not in the word.')
         chosen_char.add(char)
         num_turns -= 1
+        continue
     
-    else:
-        index = []
-        for i, v in enumerate(word):
-            if v == char:
-                guess[i] = char
-                num_letters_guessed += 1
-                
-        print('The letter is present in the word')
+    
+    index = []
+    for i, v in enumerate(word):
+        if v == char:
+            guess[i] = char
+            num_letters_guessed += 1
+            
+    print('The letter is present in the word')
 
-    print(num_letters_guessed)
     if len(word) == num_letters_guessed:
         print('Congrats. You correctly guessed the word:', word)
         break
     
-    print(f'You have {num_turns} more turns left.')    
-        
-    
-
-
