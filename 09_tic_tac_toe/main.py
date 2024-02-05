@@ -10,7 +10,7 @@ def terminal_state(state): return True
 
 def utility(state): return 1
 
-def is_valid(action); return True
+def is_valid(action): return True
 
 def minimax(state):
     if terminal_state(state):
