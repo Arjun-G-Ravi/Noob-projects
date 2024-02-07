@@ -101,14 +101,23 @@ for i in range(5):
         continue # bug here
     
     state = transition(state, move, 'X')
+    
+    if terminal_state(state)[0]: 
+        print(terminal_state(state)[1])
+        print('Player Won')     
+        break
     # print(state)
     
     # Mini-max
     
-    print(minimax_max(state))
+    _, act = minimax_max(state)
+    state = transition(state, act, 'O')
+    
     print('-'*20)
     print(state)
     
-    
-    
+    if terminal_state(state)[0]: 
+        print(terminal_state(state)[1])
+        print('Computer Won')     
+        break   
     
