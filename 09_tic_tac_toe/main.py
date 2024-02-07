@@ -13,23 +13,50 @@ def action(state):
                 empty.append([ind1, ind2])
     return empty
 
-def transition(state,action): return 'new state'
+def transition(state,action,player):
+    new_state = state.copy()
+    new_state[action[0]][action[1]] = player
+    return new_state
+    
+    
 
-def terminal_state(state): return True
+def terminal_state(state): 
+    if action(state) == []: return True
+    
+    wins = [[[0,0], [0,1], [0,2]],
+            [[1,0], [1,1], [1,2]],
+            [[2,0], [2,1], [2,2]],
+            [[0,0], [1,0], [2,0]],
+            [[0,1], [1,1], [2,1]],
+            [[0,2], [1,2], [2,2]],
+            [[0,0], [1,1], [2,2]],
+            [[0,2], [1,1], [2,0]],
+    ]
+    for win in wins:
+        x,o = 0, 0
+        for w in win:
+            if state[w[0]][w[1]] == 'X': x += 1
+            if state[w[0]][w[1]] == 'O': o += 1
+        if x == 3: return True, 'X'
+        if o == 3: return True, 'O'
+    return False, None
+            
 
-def utility(state): return 1
-
-def is_valid(action): return True
+def is_valid(state, act):
+    if act in action(state):
+        return True
+    return False
 
 
 if __name__ == '__main__':
-    print(action(state))
+    print(transition(state,[1,2],'o'))
+
 
 
 
 def minimax_max(state):
-    if terminal_state(state):
-        return utility(state), state
+    if terminal_state(state)[0]:
+        return terminal_state(state)[1], state
     
     actions = action(state)
     v = 10
@@ -42,8 +69,8 @@ def minimax_max(state):
             
  
 def minimax_min(state):
-    if terminal_state(state):
-        return utility(state), state
+    if terminal_state(state)[0]:
+        return terminal_state(state)[1], state
     
     actions = action(state)
     
