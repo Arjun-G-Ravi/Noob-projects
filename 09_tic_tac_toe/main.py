@@ -1,7 +1,8 @@
 # Tic-tac-toe using minimax
 
 state = [['' for _ in range(3)] for _ in range(3)]
-# state = [[1,2,3], ['', 4,''], [1,2,'']]
+state = [[1,2,3], [5, 4,5], [1,2,'x']]
+
 
 
 def action(state):
@@ -21,7 +22,6 @@ def transition(state,action,player):
     
 
 def terminal_state(state): 
-    if action(state) == []: return True
     
     wins = [[[0,0], [0,1], [0,2]],
             [[1,0], [1,1], [1,2]],
@@ -39,6 +39,8 @@ def terminal_state(state):
             if state[w[0]][w[1]] == 'O': o += 1
         if x == 3: return True, 'X'
         if o == 3: return True, 'O'
+        
+    if action(state) == []: return True, None
     return False, None
             
 
@@ -49,7 +51,7 @@ def is_valid(state, act):
 
 
 if __name__ == '__main__':
-    print(transition(state,[1,2],'o'))
+    print(terminal_state(state))
 
 
 
