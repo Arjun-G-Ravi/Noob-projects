@@ -1,5 +1,5 @@
 # Tic-tac-toe using minimax
-
+from copy import deepcopy
 state = [['' for _ in range(3)] for _ in range(3)]
 # state = [[1,2,3], [5, 4,5], [1,2,'x']]
 
@@ -15,7 +15,7 @@ def action(state):
     return empty
 
 def transition(state,action,player):
-    new_state = state.copy()
+    new_state = deepcopy(state)
     new_state[action[0]][action[1]] = player
     return new_state
     
@@ -59,12 +59,12 @@ def minimax_max(state):
     actions = action(state)
     v = 10
     for a in actions:
-        new_state = transition(state, a, "O")
-        v_, s = minimax_min(state)
+        new_state = transition(state, a, "O").copy()
+        v_, s = minimax_min(new_state)
         if v_ < v:
             v = v_
-            return_state = s
-            
+            return_action= a
+    return v,return_action 
  
 def minimax_min(state):
     print(state)
@@ -75,13 +75,14 @@ def minimax_min(state):
     
     v = -10
     for a in actions:
-        new_state = transition(state, a, 'X')
+        new_state = transition(state, a, 'X').copy()
         
-        v_, s = minimax_max(state)
+        v_, s = minimax_max(new_state)
         
         if v_ > v:
             v = v_
-            return_state = s
+            return_action = a
+    return v,return_action
             
         
 
@@ -100,11 +101,13 @@ for i in range(5):
         continue # bug here
     
     state = transition(state, move, 'X')
-    print(state)
+    # print(state)
     
     # Mini-max
     
-    minimax_max(state)
+    print(minimax_max(state))
+    print('-'*20)
+    print(state)
     
     
     
