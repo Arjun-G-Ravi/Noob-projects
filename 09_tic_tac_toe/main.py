@@ -1,9 +1,8 @@
 # Tic-tac-toe using minimax
+
 from copy import deepcopy
 state = [['' for _ in range(3)] for _ in range(3)]
 # state = [[1,2,3], [5, 4,5], [1,2,'x']]
-
-
 
 def action(state):
     empty = []
@@ -20,7 +19,6 @@ def transition(state,action,player):
     return new_state
     
     
-
 def terminal_state(state): 
     
     wins = [[[0,0], [0,1], [0,2]],
@@ -51,51 +49,50 @@ def is_valid(state, act):
 
 
 def minimax_max(state):
-    print(state)
+    # print(state)
     if terminal_state(state)[0]:
+        print(state)
         print('Terminal')
         return terminal_state(state)[1], state
     
     actions = action(state)
     v = 10
     for a in actions:
-        new_state = transition(state, a, "O").copy()
+        new_state = transition(state, a, "O")
         v_, s = minimax_min(new_state)
+        # print(s)
         if v_ < v:
             v = v_
             return_action= a
     return v,return_action 
  
 def minimax_min(state):
-    print(state)
+    # print(state)
     if terminal_state(state)[0]:
-        return terminal_state(state)[1], state
+        print(state)
+        return terminal_state(state)[1], 'cow' # state
     
     actions = action(state)
     
     v = -10
     for a in actions:
-        new_state = transition(state, a, 'X').copy()
+        new_state = transition(state, a, 'X')
         
         v_, s = minimax_max(new_state)
+        # print(s)
         
         if v_ > v:
             v = v_
             return_action = a
     return v,return_action
-            
-        
-
-    
-    
-    
+                
     
 for i in range(5):
     # print(state)
     
     move = input('Enter a move: ')
     move = [int(move[0]), int(move[-1])]
-    print(move)
+    # print(move)
     if not is_valid(state, move):
         print("Move is Invalid")
         continue # bug here
@@ -114,10 +111,18 @@ for i in range(5):
     state = transition(state, act, 'O')
     
     print('-'*20)
-    print(state)
+    # print(state)
     
     if terminal_state(state)[0]: 
         print(terminal_state(state)[1])
         print('Computer Won')     
         break   
     
+'''    
+(0,0)(0,1)(0,2)
+_______________
+(1,0)(1,1)(1,2)
+_______________
+(2,0)(2,1)(2,2)
+
+'''
