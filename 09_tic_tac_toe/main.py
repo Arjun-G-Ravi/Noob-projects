@@ -57,7 +57,7 @@ def minimax_max(state):
     actions = action(state)
     v = 10
     for a in actions:
-        new_state = transition(state, a)
+        new_state = transition(state, a, "X")
         v_, s = minimax_min(state)
         if v_ < v:
             v = v_
@@ -72,7 +72,7 @@ def minimax_min(state):
     
     v = -10
     for a in actions:
-        new_state = transition(state, a)
+        new_state = transition(state, a, 'O')
         
         v_, s = minimax_max(state)
         
@@ -86,20 +86,22 @@ def minimax_min(state):
     
     
     
-# for i in range(5):
-#     print(state)
+for i in range(5):
+    print(state)
     
-#     move = tuple(input('Enter a move'))
-#     print(move)
-
-#     if not is_valid(move):
-#         continue # bug here
+    move = input('Enter a move: ')
+    move = [int(move[0]), int(move[-1])]
+    print(move)
+    if not is_valid(state, move):
+        print("Move is Invalid")
+        continue # bug here
     
-#     state = transition(state, move)
+    state = transition(state, move, 'X')
+    print(state)
     
-#     # Mini-max
+    # Mini-max
     
-#     minimax_max(state)
+    minimax_max(state)
     
     
     
