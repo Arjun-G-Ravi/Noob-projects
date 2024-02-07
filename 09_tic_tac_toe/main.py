@@ -37,10 +37,10 @@ def terminal_state(state):
         for w in win:
             if state[w[0]][w[1]] == 'X': x += 1
             if state[w[0]][w[1]] == 'O': o += 1
-        if x == 3: return True, 'X'
-        if o == 3: return True, 'O'
+        if x == 3: return True, -1
+        if o == 3: return True, 1
         
-    if action(state) == []: return True, None
+    if action(state) == []: return True, 0
     return False, None
             
 
@@ -51,7 +51,9 @@ def is_valid(state, act):
 
 
 def minimax_max(state):
+    print(state)
     if terminal_state(state)[0]:
+        print('Terminal')
         return terminal_state(state)[1], state
     
     actions = action(state)
@@ -65,6 +67,7 @@ def minimax_max(state):
             
  
 def minimax_min(state):
+    print(state)
     if terminal_state(state)[0]:
         return terminal_state(state)[1], state
     
@@ -87,7 +90,7 @@ def minimax_min(state):
     
     
 for i in range(5):
-    print(state)
+    # print(state)
     
     move = input('Enter a move: ')
     move = [int(move[0]), int(move[-1])]
