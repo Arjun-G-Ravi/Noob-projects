@@ -59,7 +59,7 @@ def minimax_max(state):
     actions = action(state)
     v = 10
     for a in actions:
-        new_state = transition(state, a, "X")
+        new_state = transition(state, a, "O")
         v_, s = minimax_min(state)
         if v_ < v:
             v = v_
@@ -75,7 +75,7 @@ def minimax_min(state):
     
     v = -10
     for a in actions:
-        new_state = transition(state, a, 'O')
+        new_state = transition(state, a, 'X')
         
         v_, s = minimax_max(state)
         
