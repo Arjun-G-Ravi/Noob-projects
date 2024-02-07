@@ -1,7 +1,7 @@
 # Tic-tac-toe using minimax
 
 state = [['' for _ in range(3)] for _ in range(3)]
-state = [[1,2,3], [5, 4,5], [1,2,'x']]
+# state = [[1,2,3], [5, 4,5], [1,2,'x']]
 
 
 
@@ -48,12 +48,6 @@ def is_valid(state, act):
     if act in action(state):
         return True
     return False
-
-
-if __name__ == '__main__':
-    print(terminal_state(state))
-
-
 
 
 def minimax_max(state):
