@@ -41,6 +41,9 @@ def terminal_state(state):
     if action(state) == []: return True, 0
     return False, None
             
+def display(state):
+    for row in state:
+        print(row)
 
 def is_valid(state, act):
     if act in action(state):
@@ -51,17 +54,17 @@ def is_valid(state, act):
 def minimax_max(state):
     # print(state)
     if terminal_state(state)[0]:
-        print(state)
-        print('Terminal')
-        return terminal_state(state)[1], state
+        # print(state)
+        # print('Terminal')
+        return terminal_state(state)[1], 'cow'
     
     actions = action(state)
-    v = 10
+    v = -10
     for a in actions:
         new_state = transition(state, a, "O")
         v_, s = minimax_min(new_state)
         # print(s)
-        if v_ < v:
+        if v_ >= v:
             v = v_
             return_action= a
     return v,return_action 
@@ -69,26 +72,25 @@ def minimax_max(state):
 def minimax_min(state):
     # print(state)
     if terminal_state(state)[0]:
-        print(state)
+        # print(state)
         return terminal_state(state)[1], 'cow' # state
     
     actions = action(state)
     
-    v = -10
+    v = 10
     for a in actions:
         new_state = transition(state, a, 'X')
         
         v_, s = minimax_max(new_state)
         # print(s)
         
-        if v_ > v:
+        if v_ <= v:
             v = v_
             return_action = a
     return v,return_action
                 
-    
-for i in range(5):
-    # print(state)
+i = 0
+while i<5:    # print(state)
     
     move = input('Enter a move: ')
     move = [int(move[0]), int(move[-1])]
@@ -100,8 +102,10 @@ for i in range(5):
     state = transition(state, move, 'X')
     
     if terminal_state(state)[0]: 
-        print(terminal_state(state)[1])
-        print('Player Won')     
+        if terminal_state(state)[1]:
+            print('Player Won')    
+        else:
+            print("Draw") 
         break
     # print(state)
     
@@ -110,13 +114,16 @@ for i in range(5):
     _, act = minimax_max(state)
     state = transition(state, act, 'O')
     
-    print('-'*20)
-    # print(state)
+    # print('-'*20)
+    display(state)
+    
     
     if terminal_state(state)[0]: 
         print(terminal_state(state)[1])
         print('Computer Won')     
         break   
+    i+=1
+    
     
 '''    
 (0,0)(0,1)(0,2)
