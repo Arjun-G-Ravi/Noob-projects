@@ -1,4 +1,4 @@
-# Tic-tac-toe using minimax
+# Tic-tac-toe using minimax algorithm
 
 from copy import deepcopy
 state = [['' for _ in range(3)] for _ in range(3)]
@@ -16,7 +16,6 @@ def transition(state,action,player):
     new_state = deepcopy(state)
     new_state[action[0]][action[1]] = player
     return new_state
-    
     
 def terminal_state(state): 
     
@@ -49,11 +48,9 @@ def is_valid(state, act):
         return True
     return False
 
-
 def minimax_max(state):
     if terminal_state(state)[0]:
         return terminal_state(state)[1], 'cow'
-    
     actions = action(state)
     v = -10
     for a in actions:
@@ -67,9 +64,7 @@ def minimax_max(state):
 def minimax_min(state):
     if terminal_state(state)[0]:
         return terminal_state(state)[1], 'cow' # state
-    
     actions = action(state)
-    
     v = 10
     for a in actions:
         new_state = transition(state, a, 'X')
@@ -84,15 +79,12 @@ def minimax_min(state):
                 
 i = 0
 while i<5:
-    
     move = input('Enter a move: ')
     move = [int(move[0]), int(move[-1])]
     if not is_valid(state, move):
         print("Move is Invalid")
         continue
-    
     state = transition(state, move, 'X')
-    
     if terminal_state(state)[0]: 
         if terminal_state(state)[1]:
             print('Player Won')    
@@ -103,7 +95,6 @@ while i<5:
     # Mini-max
     _, act = minimax_max(state)
     state = transition(state, act, 'O')
-    
     display(state)
     if terminal_state(state)[0]: 
         print(terminal_state(state)[1])
