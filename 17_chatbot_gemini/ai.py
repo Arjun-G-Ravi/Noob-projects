@@ -15,7 +15,7 @@ class LLM:
     def generate(self, inp):
         '''Generates output using Google API, given the input.'''
         try:
-            response = self.model.generate_content(inp+"Answer in character in two sentences.", generation_config=self.generation_config)
+            response = self.model.generate_content(inp+"Answer in one sentences.", generation_config=self.generation_config)
         except:
             return 'Failed to fetch data from API'
         return response.text
