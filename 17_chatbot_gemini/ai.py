@@ -10,7 +10,7 @@ class LLM:
         {"category": "HARM_CATEGORY_DANGEROUS_CONTENT","threshold": "BLOCK_NONE"}]
 
         self.model = genai.GenerativeModel('gemini-pro', safety_settings)
-        self.generation_config=genai.types.GenerationConfig(candidate_count=1, max_output_tokens=900, temperature=0.7, top_p=.9)
+        self.generation_config=genai.types.GenerationConfig(candidate_count=1, max_output_tokens=900, temperature=0.1, top_p=.9)
     
     def generate(self, inp):
         '''Generates output using Google API, given the input.'''
