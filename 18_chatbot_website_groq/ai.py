@@ -7,6 +7,6 @@ class LLM:
     def generate(self, inp):
         '''Generates output using Google API, given the input.'''
         chat_completion = self.client.chat.completions.create(
-            messages=[{"role": "user","content": "Explain the importance of fast language models"}],
+            messages=[{"role": "user","content": f"{inp}"}],
             model="mixtral-8x7b-32768",)
         return chat_completion.choices[0].message.content
