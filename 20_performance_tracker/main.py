@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import os
 from datetime import date, datetime
 import helper
+from PIL import Image
+
 
 db_location = '/home/arjun/Desktop/Datasets/plan.csv'
 work = ['AI Theory', 'AI Project', 'Programming', 'Non-AI', 'Workout', 'Total']
@@ -20,7 +22,6 @@ else:
     db = pd.DataFrame(data)
     db.to_csv(db_location, index=False)
     print('Created empty database')
-
 
 ct = 0
 new_data = {}
@@ -67,5 +68,8 @@ for index, value in enumerate(df['Time']):
 plt.title(f'Year Progress: {year_progress*100} %')
 plt.ylabel('Work')
 plt.xlabel('Time')
-# plt.show()
-plt.savefig('./20_performance_tracker/year_progress_plot.png')
+image_path = './20_performance_tracker/year_progress_plot.png'
+plt.savefig(image_path)
+
+img = Image.open(image_path)
+img.show()
