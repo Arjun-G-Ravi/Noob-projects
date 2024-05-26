@@ -5,9 +5,10 @@ from datetime import date, datetime
 import helper
 from PIL import Image
 
-
 db_location = '/home/arjun/Desktop/Datasets/plan.csv'
 work = ['AI Theory', 'AI Project', 'Programming', 'Non-AI', 'Workout', 'Total']
+ct = 0
+new_data = {}
 
 if os.path.exists(db_location):
     db = pd.read_csv(db_location)
@@ -23,8 +24,6 @@ else:
     db.to_csv(db_location, index=False)
     print('Created empty database')
 
-ct = 0
-new_data = {}
 
 try:
     for k in work + ['Date']:
@@ -44,7 +43,6 @@ try:
     db.to_csv(db_location, index=False)
 except:
     print('Did not create new row.')
-
 
 d = {k:sum(v) for k,v in db.items() if k!='Date'}
 df = pd.DataFrame({'Work': d.keys(), 'Time': d.values()})
