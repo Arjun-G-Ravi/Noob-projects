@@ -33,7 +33,7 @@ try:
         elif k == 'Total':
             new_data[k] = ct
         else:
-            val = float(input(f'Time spend in {k}:'))
+            val = float(input(f'Time spend in {k}: '))
             if k == 'Workout':
                 if val: val=1 # Workout is True/ False
             new_data[k] = val
@@ -66,7 +66,7 @@ for index, value in enumerate(df['Time']):
 plt.title(f'Year Progress: {year_progress*100} %')
 plt.ylabel('Work')
 plt.xlabel('Time')
-image_path = './20_performance_tracker/year_progress_plot.png'
+image_path = '/home/arjun/Desktop/GitHub/Noob-projects/20_performance_tracker/year_progress_plot.png'
 plt.savefig(image_path)
 
 img = Image.open(image_path)
