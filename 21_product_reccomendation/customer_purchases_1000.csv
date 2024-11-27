@@ -1,0 +1,1001 @@
+customer_id,age,gender,country,city,item_purchase_date,item_price,item_category,item_rating,item_qty
+1,26,Female,UK,Toronto,2024-05-16,108.85,Automotive,3.1,4
+1,26,Female,UK,Toronto,2024-02-09,413.07,Automotive,3.6,1
+1,26,Female,UK,Toronto,2024-09-03,164.1,Automotive,3.7,5
+1,26,Female,UK,Toronto,2023-12-09,452.66,Automotive,2.1,2
+1,26,Female,UK,Toronto,2023-12-17,63.24,Automotive,4.5,4
+1,26,Female,UK,Toronto,2024-03-01,195.43,Automotive,1.2,1
+1,26,Female,UK,Toronto,2024-08-22,181.6,Automotive,1.1,5
+1,26,Female,UK,Toronto,2024-01-15,236.91,Automotive,4.9,3
+1,26,Female,UK,Toronto,2024-02-14,458.93,Automotive,3.3,5
+1,26,Female,UK,Toronto,2024-09-26,160.01,Automotive,3.1,4
+2,55,Male,USA,London,2024-08-24,267.78,Clothing,3.6,3
+2,55,Male,USA,London,2024-05-11,486.73,Automotive,4.0,4
+2,55,Male,USA,London,2024-11-22,359.25,Electronics,1.8,2
+2,55,Male,USA,London,2023-12-17,80.52,Automotive,2.9,4
+2,55,Male,USA,London,2024-02-12,273.59,Clothing,1.6,3
+2,55,Male,USA,London,2024-02-09,232.53,Clothing,4.5,4
+2,55,Male,USA,London,2024-11-09,188.23,Clothing,2.8,4
+2,55,Male,USA,London,2024-02-10,352.66,Automotive,1.1,3
+2,55,Male,USA,London,2024-02-15,139.54,Clothing,4.3,3
+2,55,Male,USA,London,2024-05-26,182.73,Clothing,4.0,5
+3,59,Female,UK,New York,2024-03-17,76.07,Clothing,4.4,5
+3,59,Female,UK,New York,2024-09-08,341.23,Clothing,1.0,4
+3,59,Female,UK,New York,2023-12-09,42.5,Clothing,2.6,2
+3,59,Female,UK,New York,2023-12-16,469.1,Clothing,3.6,4
+3,59,Female,UK,New York,2024-02-03,471.6,Clothing,1.3,1
+3,59,Female,UK,New York,2024-09-30,292.86,Clothing,4.3,1
+3,59,Female,UK,New York,2024-11-14,491.49,Clothing,4.5,1
+3,59,Female,UK,New York,2024-11-07,320.0,Clothing,1.7,5
+3,59,Female,UK,New York,2024-09-11,78.97,Clothing,2.5,5
+3,59,Female,UK,New York,2024-02-26,269.85,Clothing,3.8,4
+4,36,Male,Canada,Berlin,2024-04-16,299.35,Automotive,3.9,4
+4,36,Male,Canada,Berlin,2024-10-02,348.5,Beauty,4.8,2
+4,36,Male,Canada,Berlin,2024-02-25,255.99,Toys & Games,2.7,1
+4,36,Male,Canada,Berlin,2024-06-12,266.78,Beauty,3.4,2
+4,36,Male,Canada,Berlin,2024-08-08,396.73,Beauty,3.3,2
+4,36,Male,Canada,Berlin,2024-03-16,406.65,Toys & Games,3.9,2
+4,36,Male,Canada,Berlin,2024-01-12,13.84,Automotive,2.9,5
+4,36,Male,Canada,Berlin,2024-10-11,74.16,Automotive,3.3,3
+4,36,Male,Canada,Berlin,2024-04-09,227.67,Toys & Games,1.8,2
+4,36,Male,Canada,Berlin,2024-09-17,170.65,Automotive,4.7,2
+5,50,Male,Canada,Sydney,2023-12-15,376.66,Automotive,2.9,1
+5,50,Male,Canada,Sydney,2023-12-08,188.37,Books,2.3,4
+5,50,Male,Canada,Sydney,2024-02-06,94.84,Books,3.4,1
+5,50,Male,Canada,Sydney,2024-01-29,345.46,Automotive,2.4,1
+5,50,Male,Canada,Sydney,2024-11-18,284.84,Books,2.2,1
+5,50,Male,Canada,Sydney,2024-03-05,488.94,Books,1.1,5
+5,50,Male,Canada,Sydney,2024-09-13,39.05,Books,3.4,1
+5,50,Male,Canada,Sydney,2024-10-24,182.88,Jewelry,1.8,1
+5,50,Male,Canada,Sydney,2024-02-20,434.46,Jewelry,3.6,4
+5,50,Male,Canada,Sydney,2024-10-09,323.5,Books,2.1,3
+6,54,Female,Australia,New York,2024-06-30,366.55,Toys & Games,1.4,1
+6,54,Female,Australia,New York,2024-08-24,396.4,Toys & Games,3.9,1
+6,54,Female,Australia,New York,2024-03-18,452.63,Jewelry,3.8,1
+6,54,Female,Australia,New York,2024-08-29,158.71,Jewelry,4.8,1
+6,54,Female,Australia,New York,2024-02-15,428.12,Jewelry,1.5,4
+6,54,Female,Australia,New York,2024-06-02,198.72,Jewelry,2.6,4
+6,54,Female,Australia,New York,2024-04-18,187.9,Toys & Games,1.7,3
+6,54,Female,Australia,New York,2024-05-31,248.14,Toys & Games,1.2,4
+6,54,Female,Australia,New York,2024-08-05,192.98,Toys & Games,4.7,2
+6,54,Female,Australia,New York,2024-06-26,262.01,Toys & Games,2.0,4
+7,53,Female,Canada,London,2024-10-08,355.57,Toys & Games,3.4,2
+7,53,Female,Canada,London,2024-01-10,208.4,Furniture,2.9,5
+7,53,Female,Canada,London,2023-12-03,481.21,Furniture,2.4,3
+7,53,Female,Canada,London,2024-03-01,446.15,Toys & Games,3.1,1
+7,53,Female,Canada,London,2024-07-23,454.64,Furniture,3.8,3
+7,53,Female,Canada,London,2024-09-12,364.54,Furniture,1.3,1
+7,53,Female,Canada,London,2024-03-27,195.17,Toys & Games,5.0,5
+7,53,Female,Canada,London,2024-04-14,329.66,Toys & Games,4.2,5
+7,53,Female,Canada,London,2024-01-03,404.66,Furniture,3.6,2
+7,53,Female,Canada,London,2024-08-01,470.08,Toys & Games,3.1,5
+8,32,Female,USA,Sydney,2024-04-23,188.5,Beauty,3.2,2
+8,32,Female,USA,Sydney,2024-09-02,424.66,Automotive,4.7,3
+8,32,Female,USA,Sydney,2023-11-28,123.02,Automotive,1.3,1
+8,32,Female,USA,Sydney,2024-06-26,58.02,Beauty,3.6,2
+8,32,Female,USA,Sydney,2024-07-19,111.32,Automotive,4.2,1
+8,32,Female,USA,Sydney,2024-03-09,145.82,Automotive,3.3,5
+8,32,Female,USA,Sydney,2024-04-24,334.57,Beauty,3.3,4
+8,32,Female,USA,Sydney,2024-11-19,62.64,Automotive,4.8,4
+8,32,Female,USA,Sydney,2024-06-02,14.84,Beauty,4.1,1
+8,32,Female,USA,Sydney,2024-10-08,52.87,Beauty,4.5,1
+9,26,Male,Australia,Sydney,2024-07-18,463.92,Books,3.6,3
+9,26,Male,Australia,Sydney,2024-02-12,92.17,Books,1.6,5
+9,26,Male,Australia,Sydney,2024-06-23,434.44,Toys & Games,4.3,5
+9,26,Male,Australia,Sydney,2023-12-31,278.08,Sporting Goods,4.9,3
+9,26,Male,Australia,Sydney,2024-01-15,255.68,Books,2.7,2
+9,26,Male,Australia,Sydney,2024-05-05,458.66,Sporting Goods,3.2,3
+9,26,Male,Australia,Sydney,2023-12-19,77.46,Sporting Goods,4.9,5
+9,26,Male,Australia,Sydney,2024-03-06,315.19,Toys & Games,4.9,2
+9,26,Male,Australia,Sydney,2024-05-28,266.64,Books,3.3,2
+9,26,Male,Australia,Sydney,2024-06-19,352.04,Toys & Games,2.3,5
+10,22,Female,Germany,Sydney,2024-06-19,212.39,Beauty,3.8,5
+10,22,Female,Germany,Sydney,2024-02-21,385.66,Beauty,3.2,5
+10,22,Female,Germany,Sydney,2024-10-13,397.09,Beauty,3.2,2
+10,22,Female,Germany,Sydney,2024-02-26,51.36,Beauty,3.6,1
+10,22,Female,Germany,Sydney,2024-10-15,131.65,Beauty,4.4,2
+10,22,Female,Germany,Sydney,2024-07-24,375.92,Beauty,1.5,2
+10,22,Female,Germany,Sydney,2024-02-06,490.8,Beauty,4.3,1
+10,22,Female,Germany,Sydney,2024-05-19,172.94,Beauty,2.0,5
+10,22,Female,Germany,Sydney,2024-03-31,212.15,Beauty,1.6,5
+10,22,Female,Germany,Sydney,2024-09-14,49.48,Beauty,3.2,4
+11,39,Female,UK,Toronto,2024-09-16,212.72,Sporting Goods,3.4,1
+11,39,Female,UK,Toronto,2024-01-27,496.88,Sporting Goods,3.8,4
+11,39,Female,UK,Toronto,2024-04-06,473.37,Automotive,4.4,2
+11,39,Female,UK,Toronto,2024-02-01,288.22,Jewelry,2.2,5
+11,39,Female,UK,Toronto,2024-08-15,307.92,Jewelry,2.0,3
+11,39,Female,UK,Toronto,2024-08-07,130.58,Automotive,3.1,3
+11,39,Female,UK,Toronto,2024-09-22,440.99,Automotive,2.7,5
+11,39,Female,UK,Toronto,2024-11-26,402.84,Jewelry,1.1,1
+11,39,Female,UK,Toronto,2024-11-20,318.08,Sporting Goods,4.3,1
+11,39,Female,UK,Toronto,2024-01-09,20.91,Automotive,1.5,1
+12,35,Male,USA,London,2024-03-05,346.95,Automotive,2.0,4
+12,35,Male,USA,London,2024-04-09,200.83,Automotive,1.2,2
+12,35,Male,USA,London,2024-11-01,211.28,Beauty,2.0,2
+12,35,Male,USA,London,2024-01-07,260.21,Jewelry,3.8,2
+12,35,Male,USA,London,2024-02-07,202.76,Beauty,4.3,5
+12,35,Male,USA,London,2024-10-02,393.96,Beauty,3.7,4
+12,35,Male,USA,London,2024-04-18,354.34,Beauty,4.0,5
+12,35,Male,USA,London,2024-08-02,487.62,Automotive,4.5,1
+12,35,Male,USA,London,2024-07-19,375.81,Beauty,1.1,3
+12,35,Male,USA,London,2024-03-06,25.24,Automotive,3.9,1
+13,42,Female,Australia,London,2024-07-11,220.02,Jewelry,2.7,5
+13,42,Female,Australia,London,2024-06-16,497.59,Jewelry,4.6,4
+13,42,Female,Australia,London,2024-09-30,62.39,Jewelry,4.6,5
+13,42,Female,Australia,London,2024-03-08,431.66,Jewelry,1.6,2
+13,42,Female,Australia,London,2024-07-11,209.83,Jewelry,4.5,3
+13,42,Female,Australia,London,2024-09-21,175.41,Beauty,3.9,2
+13,42,Female,Australia,London,2024-11-06,188.68,Beauty,4.2,4
+13,42,Female,Australia,London,2024-04-25,374.24,Jewelry,1.3,5
+13,42,Female,Australia,London,2024-01-12,480.24,Beauty,4.9,5
+13,42,Female,Australia,London,2024-09-25,26.96,Jewelry,3.8,2
+14,43,Female,USA,Sydney,2024-03-25,365.98,Furniture,1.1,5
+14,43,Female,USA,Sydney,2024-07-25,178.92,Electronics,2.8,1
+14,43,Female,USA,Sydney,2024-01-27,168.33,Electronics,1.3,4
+14,43,Female,USA,Sydney,2024-08-11,131.1,Furniture,1.1,2
+14,43,Female,USA,Sydney,2024-03-11,311.54,Electronics,4.3,4
+14,43,Female,USA,Sydney,2024-02-14,478.82,Furniture,2.8,4
+14,43,Female,USA,Sydney,2024-06-19,408.81,Furniture,4.7,2
+14,43,Female,USA,Sydney,2024-06-04,404.59,Furniture,4.2,4
+14,43,Female,USA,Sydney,2024-02-22,226.56,Electronics,4.7,3
+14,43,Female,USA,Sydney,2024-01-21,146.8,Furniture,2.3,3
+15,55,Female,USA,New York,2024-07-28,365.92,Jewelry,2.4,2
+15,55,Female,USA,New York,2024-10-13,150.89,Jewelry,2.5,1
+15,55,Female,USA,New York,2023-12-09,430.85,Jewelry,4.4,2
+15,55,Female,USA,New York,2024-10-26,208.22,Jewelry,4.8,4
+15,55,Female,USA,New York,2024-07-12,86.6,Jewelry,4.8,4
+15,55,Female,USA,New York,2024-02-24,302.54,Jewelry,3.8,3
+15,55,Female,USA,New York,2024-04-03,492.21,Jewelry,2.2,4
+15,55,Female,USA,New York,2024-07-23,274.33,Jewelry,3.4,4
+15,55,Female,USA,New York,2024-04-26,317.0,Jewelry,2.4,2
+15,55,Female,USA,New York,2024-03-15,395.3,Jewelry,3.4,3
+16,51,Female,Canada,London,2024-07-22,263.86,Jewelry,2.3,1
+16,51,Female,Canada,London,2024-08-03,187.65,Automotive,4.7,2
+16,51,Female,Canada,London,2024-04-18,417.56,Clothing,4.1,2
+16,51,Female,Canada,London,2024-04-03,388.25,Clothing,4.1,5
+16,51,Female,Canada,London,2024-10-08,50.07,Automotive,1.6,1
+16,51,Female,Canada,London,2024-03-02,460.27,Clothing,2.9,2
+16,51,Female,Canada,London,2024-10-26,249.43,Automotive,1.7,4
+16,51,Female,Canada,London,2024-05-11,378.78,Automotive,1.3,3
+16,51,Female,Canada,London,2024-04-25,305.89,Jewelry,4.9,1
+16,51,Female,Canada,London,2024-08-08,467.74,Clothing,3.5,5
+17,18,Male,UK,Sydney,2024-01-02,285.07,Furniture,1.5,4
+17,18,Male,UK,Sydney,2024-01-12,153.03,Furniture,3.2,5
+17,18,Male,UK,Sydney,2023-12-05,193.93,Toys & Games,4.1,5
+17,18,Male,UK,Sydney,2024-03-09,455.95,Furniture,2.1,3
+17,18,Male,UK,Sydney,2024-05-06,95.17,Furniture,4.0,2
+17,18,Male,UK,Sydney,2024-05-29,65.76,Toys & Games,4.2,1
+17,18,Male,UK,Sydney,2024-10-18,149.02,Toys & Games,4.2,1
+17,18,Male,UK,Sydney,2024-03-03,441.39,Toys & Games,4.0,1
+17,18,Male,UK,Sydney,2024-01-14,403.98,Automotive,2.4,3
+17,18,Male,UK,Sydney,2024-01-02,417.84,Furniture,3.3,3
+18,42,Female,Canada,Sydney,2023-12-21,298.34,Home & Kitchen,1.6,1
+18,42,Female,Canada,Sydney,2024-10-12,277.61,Toys & Games,2.6,5
+18,42,Female,Canada,Sydney,2024-07-04,458.78,Home & Kitchen,3.3,3
+18,42,Female,Canada,Sydney,2024-04-14,90.98,Toys & Games,2.1,2
+18,42,Female,Canada,Sydney,2024-09-22,224.86,Toys & Games,2.4,4
+18,42,Female,Canada,Sydney,2024-06-05,263.53,Toys & Games,2.3,2
+18,42,Female,Canada,Sydney,2024-07-01,348.76,Home & Kitchen,4.6,4
+18,42,Female,Canada,Sydney,2024-09-18,179.25,Toys & Games,2.9,4
+18,42,Female,Canada,Sydney,2024-05-10,346.58,Toys & Games,4.6,3
+18,42,Female,Canada,Sydney,2024-05-05,443.63,Home & Kitchen,2.7,2
+19,19,Male,USA,Sydney,2024-01-04,485.63,Home & Kitchen,3.4,4
+19,19,Male,USA,Sydney,2024-11-23,352.76,Home & Kitchen,3.9,4
+19,19,Male,USA,Sydney,2023-12-31,312.73,Home & Kitchen,3.3,3
+19,19,Male,USA,Sydney,2023-12-28,480.44,Home & Kitchen,1.2,1
+19,19,Male,USA,Sydney,2024-01-11,323.27,Home & Kitchen,2.8,3
+19,19,Male,USA,Sydney,2023-12-12,434.98,Home & Kitchen,3.1,5
+19,19,Male,USA,Sydney,2024-07-31,81.84,Home & Kitchen,4.6,5
+19,19,Male,USA,Sydney,2024-08-07,190.9,Home & Kitchen,2.8,5
+19,19,Male,USA,Sydney,2024-06-15,348.65,Home & Kitchen,2.8,2
+19,19,Male,USA,Sydney,2023-12-24,327.74,Home & Kitchen,3.9,2
+20,25,Female,USA,Toronto,2024-06-14,373.11,Beauty,4.2,5
+20,25,Female,USA,Toronto,2024-07-22,56.56,Beauty,3.0,1
+20,25,Female,USA,Toronto,2024-09-02,293.02,Beauty,2.5,2
+20,25,Female,USA,Toronto,2024-01-05,180.97,Beauty,2.6,1
+20,25,Female,USA,Toronto,2024-08-17,118.23,Beauty,1.4,4
+20,25,Female,USA,Toronto,2024-02-14,79.35,Beauty,1.1,4
+20,25,Female,USA,Toronto,2024-01-21,229.72,Beauty,2.1,5
+20,25,Female,USA,Toronto,2024-10-01,300.88,Beauty,3.9,4
+20,25,Female,USA,Toronto,2023-12-14,417.42,Beauty,3.8,2
+20,25,Female,USA,Toronto,2024-09-03,113.84,Beauty,1.1,2
+21,42,Female,Canada,London,2024-01-02,377.09,Toys & Games,1.6,2
+21,42,Female,Canada,London,2024-10-07,344.58,Toys & Games,4.1,3
+21,42,Female,Canada,London,2024-07-24,369.19,Jewelry,4.1,1
+21,42,Female,Canada,London,2024-10-01,43.68,Jewelry,1.2,3
+21,42,Female,Canada,London,2024-03-17,292.65,Jewelry,4.7,5
+21,42,Female,Canada,London,2024-05-10,174.01,Jewelry,1.5,2
+21,42,Female,Canada,London,2024-04-21,351.86,Toys & Games,4.7,5
+21,42,Female,Canada,London,2024-11-21,34.2,Jewelry,4.7,1
+21,42,Female,Canada,London,2024-04-26,73.3,Toys & Games,4.9,5
+21,42,Female,Canada,London,2024-06-21,422.72,Jewelry,2.3,2
+22,40,Male,USA,Berlin,2023-12-18,192.67,Furniture,1.4,2
+22,40,Male,USA,Berlin,2024-02-28,183.11,Furniture,4.2,2
+22,40,Male,USA,Berlin,2024-02-17,375.96,Furniture,1.1,3
+22,40,Male,USA,Berlin,2023-12-06,409.39,Furniture,1.5,2
+22,40,Male,USA,Berlin,2024-02-19,392.0,Furniture,4.6,2
+22,40,Male,USA,Berlin,2024-07-08,311.91,Furniture,3.6,1
+22,40,Male,USA,Berlin,2024-01-07,83.33,Furniture,3.9,1
+22,40,Male,USA,Berlin,2024-09-04,452.37,Furniture,2.3,3
+22,40,Male,USA,Berlin,2024-10-19,90.48,Furniture,1.5,4
+22,40,Male,USA,Berlin,2024-01-07,84.06,Furniture,4.9,5
+23,42,Female,Germany,New York,2024-04-05,215.81,Books,4.3,4
+23,42,Female,Germany,New York,2024-05-26,107.59,Books,4.1,1
+23,42,Female,Germany,New York,2024-09-19,88.1,Automotive,3.7,1
+23,42,Female,Germany,New York,2024-06-30,344.75,Automotive,1.8,5
+23,42,Female,Germany,New York,2024-04-21,25.97,Electronics,4.2,1
+23,42,Female,Germany,New York,2024-07-01,189.17,Electronics,2.3,2
+23,42,Female,Germany,New York,2024-06-22,471.15,Automotive,3.2,4
+23,42,Female,Germany,New York,2024-07-05,348.28,Automotive,2.4,1
+23,42,Female,Germany,New York,2024-02-14,108.89,Electronics,2.2,3
+23,42,Female,Germany,New York,2024-09-15,387.08,Automotive,4.4,4
+24,32,Male,USA,Berlin,2024-09-17,36.25,Jewelry,4.2,1
+24,32,Male,USA,Berlin,2023-12-07,391.7,Jewelry,2.8,3
+24,32,Male,USA,Berlin,2024-11-10,99.26,Jewelry,3.7,1
+24,32,Male,USA,Berlin,2024-05-18,166.22,Beauty,1.6,1
+24,32,Male,USA,Berlin,2024-04-26,437.74,Beauty,3.4,3
+24,32,Male,USA,Berlin,2024-08-10,426.94,Beauty,4.4,4
+24,32,Male,USA,Berlin,2024-06-17,177.65,Jewelry,1.0,5
+24,32,Male,USA,Berlin,2024-08-10,129.97,Jewelry,2.2,2
+24,32,Male,USA,Berlin,2024-01-25,235.06,Beauty,1.5,3
+24,32,Male,USA,Berlin,2024-10-09,321.77,Jewelry,4.2,5
+25,44,Male,Canada,New York,2024-02-01,76.75,Sporting Goods,2.3,4
+25,44,Male,Canada,New York,2024-02-16,134.08,Sporting Goods,1.2,2
+25,44,Male,Canada,New York,2023-11-29,451.14,Sporting Goods,3.0,3
+25,44,Male,Canada,New York,2024-08-07,444.14,Sporting Goods,4.0,1
+25,44,Male,Canada,New York,2024-10-13,137.8,Sporting Goods,1.8,2
+25,44,Male,Canada,New York,2024-05-08,466.67,Sporting Goods,3.8,1
+25,44,Male,Canada,New York,2024-06-07,181.74,Sporting Goods,3.7,3
+25,44,Male,Canada,New York,2023-12-07,87.69,Sporting Goods,4.3,1
+25,44,Male,Canada,New York,2024-09-28,408.01,Sporting Goods,4.4,1
+25,44,Male,Canada,New York,2024-11-22,394.69,Sporting Goods,3.9,4
+26,48,Male,UK,Sydney,2024-02-21,467.97,Sporting Goods,2.2,1
+26,48,Male,UK,Sydney,2024-04-21,48.86,Sporting Goods,4.4,1
+26,48,Male,UK,Sydney,2024-04-07,333.47,Electronics,3.3,2
+26,48,Male,UK,Sydney,2024-09-02,317.13,Sporting Goods,1.8,5
+26,48,Male,UK,Sydney,2024-08-09,490.83,Sporting Goods,3.5,2
+26,48,Male,UK,Sydney,2024-05-31,314.06,Sporting Goods,1.6,4
+26,48,Male,UK,Sydney,2024-09-11,110.41,Electronics,1.7,5
+26,48,Male,UK,Sydney,2024-06-15,20.49,Electronics,5.0,4
+26,48,Male,UK,Sydney,2024-11-22,76.87,Electronics,2.5,4
+26,48,Male,UK,Sydney,2023-12-10,135.96,Electronics,2.7,1
+27,21,Male,Germany,Toronto,2024-02-09,481.82,Jewelry,4.2,3
+27,21,Male,Germany,Toronto,2024-07-06,213.01,Sporting Goods,2.1,2
+27,21,Male,Germany,Toronto,2024-02-01,49.85,Electronics,4.5,3
+27,21,Male,Germany,Toronto,2024-04-26,12.31,Jewelry,4.8,5
+27,21,Male,Germany,Toronto,2023-12-11,183.2,Sporting Goods,3.3,1
+27,21,Male,Germany,Toronto,2024-11-19,109.82,Sporting Goods,1.1,4
+27,21,Male,Germany,Toronto,2024-11-03,151.81,Sporting Goods,1.1,5
+27,21,Male,Germany,Toronto,2024-03-29,460.15,Electronics,1.8,3
+27,21,Male,Germany,Toronto,2024-10-18,302.29,Electronics,3.0,5
+27,21,Male,Germany,Toronto,2024-04-07,142.66,Electronics,4.0,5
+28,60,Male,Germany,Sydney,2024-01-28,104.88,Clothing,4.2,3
+28,60,Male,Germany,Sydney,2024-01-09,431.1,Clothing,1.1,1
+28,60,Male,Germany,Sydney,2024-06-16,463.6,Clothing,4.5,2
+28,60,Male,Germany,Sydney,2024-07-20,254.88,Clothing,4.3,5
+28,60,Male,Germany,Sydney,2024-01-26,391.73,Clothing,1.2,4
+28,60,Male,Germany,Sydney,2024-01-12,175.06,Clothing,2.3,2
+28,60,Male,Germany,Sydney,2024-05-06,151.5,Clothing,1.7,1
+28,60,Male,Germany,Sydney,2024-03-16,143.45,Clothing,3.9,2
+28,60,Male,Germany,Sydney,2024-10-21,191.77,Clothing,2.4,3
+28,60,Male,Germany,Sydney,2024-03-12,321.97,Clothing,2.9,2
+29,58,Female,UK,Toronto,2024-04-19,355.76,Sporting Goods,1.8,5
+29,58,Female,UK,Toronto,2024-02-19,55.4,Furniture,1.3,4
+29,58,Female,UK,Toronto,2023-12-25,272.98,Sporting Goods,1.8,1
+29,58,Female,UK,Toronto,2024-10-28,183.42,Sporting Goods,1.6,2
+29,58,Female,UK,Toronto,2024-03-30,74.96,Sporting Goods,3.5,1
+29,58,Female,UK,Toronto,2024-07-10,430.54,Home & Kitchen,4.6,5
+29,58,Female,UK,Toronto,2023-11-30,169.74,Home & Kitchen,4.7,5
+29,58,Female,UK,Toronto,2024-02-15,344.48,Sporting Goods,3.4,2
+29,58,Female,UK,Toronto,2024-09-14,32.75,Home & Kitchen,1.5,1
+29,58,Female,UK,Toronto,2024-01-05,151.57,Furniture,4.0,3
+30,26,Female,Australia,Berlin,2024-09-18,421.07,Automotive,3.6,3
+30,26,Female,Australia,Berlin,2024-09-09,414.81,Automotive,3.1,5
+30,26,Female,Australia,Berlin,2024-11-03,315.14,Automotive,4.7,2
+30,26,Female,Australia,Berlin,2023-12-11,218.26,Books,1.5,3
+30,26,Female,Australia,Berlin,2024-02-26,106.04,Automotive,4.8,3
+30,26,Female,Australia,Berlin,2024-01-02,268.8,Automotive,2.7,2
+30,26,Female,Australia,Berlin,2024-02-06,61.1,Automotive,3.9,2
+30,26,Female,Australia,Berlin,2024-04-16,139.14,Automotive,1.5,3
+30,26,Female,Australia,Berlin,2024-10-30,48.98,Books,3.2,1
+30,26,Female,Australia,Berlin,2024-05-30,162.91,Automotive,2.8,4
+31,21,Female,Canada,Berlin,2024-06-08,147.57,Automotive,2.3,2
+31,21,Female,Canada,Berlin,2024-08-22,150.26,Automotive,2.3,5
+31,21,Female,Canada,Berlin,2024-03-27,14.29,Automotive,1.4,2
+31,21,Female,Canada,Berlin,2024-05-16,297.57,Automotive,2.2,2
+31,21,Female,Canada,Berlin,2024-05-28,478.07,Clothing,2.1,5
+31,21,Female,Canada,Berlin,2024-11-02,67.81,Clothing,4.0,1
+31,21,Female,Canada,Berlin,2024-06-04,256.42,Automotive,4.7,4
+31,21,Female,Canada,Berlin,2024-07-03,250.76,Clothing,2.3,4
+31,21,Female,Canada,Berlin,2024-07-30,272.8,Automotive,4.5,3
+31,21,Female,Canada,Berlin,2023-12-05,348.94,Automotive,1.7,3
+32,20,Female,UK,Sydney,2024-05-09,466.38,Toys & Games,3.1,3
+32,20,Female,UK,Sydney,2024-04-11,458.06,Toys & Games,3.6,4
+32,20,Female,UK,Sydney,2024-05-19,308.04,Toys & Games,1.9,5
+32,20,Female,UK,Sydney,2024-06-04,274.14,Toys & Games,1.2,4
+32,20,Female,UK,Sydney,2023-11-30,317.63,Toys & Games,1.3,4
+32,20,Female,UK,Sydney,2024-05-22,348.07,Toys & Games,3.3,4
+32,20,Female,UK,Sydney,2024-07-20,433.03,Toys & Games,4.1,2
+32,20,Female,UK,Sydney,2024-03-06,27.39,Toys & Games,4.5,5
+32,20,Female,UK,Sydney,2024-03-07,11.11,Toys & Games,4.8,5
+32,20,Female,UK,Sydney,2023-12-24,300.87,Toys & Games,2.4,4
+33,51,Female,USA,Toronto,2024-11-19,191.87,Books,4.6,5
+33,51,Female,USA,Toronto,2024-08-30,149.28,Books,2.1,4
+33,51,Female,USA,Toronto,2024-09-13,287.66,Books,3.5,2
+33,51,Female,USA,Toronto,2023-12-05,256.25,Books,3.7,2
+33,51,Female,USA,Toronto,2024-03-10,434.38,Books,1.0,3
+33,51,Female,USA,Toronto,2024-01-09,183.74,Books,2.9,3
+33,51,Female,USA,Toronto,2024-02-17,477.96,Books,3.0,5
+33,51,Female,USA,Toronto,2024-07-27,178.84,Books,3.9,3
+33,51,Female,USA,Toronto,2024-07-11,103.91,Books,3.1,3
+33,51,Female,USA,Toronto,2023-12-04,362.92,Books,2.2,5
+34,47,Male,USA,Berlin,2024-07-08,88.42,Books,4.5,1
+34,47,Male,USA,Berlin,2024-08-26,150.64,Home & Kitchen,2.2,4
+34,47,Male,USA,Berlin,2024-02-06,72.69,Home & Kitchen,3.2,2
+34,47,Male,USA,Berlin,2024-11-21,197.31,Home & Kitchen,1.6,1
+34,47,Male,USA,Berlin,2024-11-22,441.78,Books,4.9,5
+34,47,Male,USA,Berlin,2023-12-04,338.15,Books,4.7,5
+34,47,Male,USA,Berlin,2024-01-21,13.92,Home & Kitchen,4.3,2
+34,47,Male,USA,Berlin,2024-03-30,336.26,Books,4.0,2
+34,47,Male,USA,Berlin,2024-03-30,194.83,Books,2.4,2
+34,47,Male,USA,Berlin,2024-03-16,140.87,Home & Kitchen,2.3,2
+35,19,Female,Germany,London,2024-11-04,191.28,Books,2.6,5
+35,19,Female,Germany,London,2024-10-14,204.07,Books,4.2,4
+35,19,Female,Germany,London,2024-04-10,83.14,Books,1.2,1
+35,19,Female,Germany,London,2023-12-14,138.13,Books,3.2,5
+35,19,Female,Germany,London,2024-10-19,104.81,Books,2.3,1
+35,19,Female,Germany,London,2024-08-23,29.74,Clothing,3.8,4
+35,19,Female,Germany,London,2024-08-29,57.53,Books,3.2,3
+35,19,Female,Germany,London,2024-07-27,406.42,Clothing,1.8,1
+35,19,Female,Germany,London,2024-02-16,460.02,Books,2.7,4
+35,19,Female,Germany,London,2024-05-29,397.23,Books,3.3,1
+36,59,Female,UK,Berlin,2024-03-04,138.09,Beauty,1.8,4
+36,59,Female,UK,Berlin,2024-08-03,127.43,Beauty,1.9,4
+36,59,Female,UK,Berlin,2024-06-18,224.16,Beauty,4.1,5
+36,59,Female,UK,Berlin,2024-09-16,376.83,Beauty,4.2,1
+36,59,Female,UK,Berlin,2024-10-04,406.67,Beauty,3.0,4
+36,59,Female,UK,Berlin,2024-08-12,60.08,Beauty,4.4,3
+36,59,Female,UK,Berlin,2024-10-04,373.51,Beauty,3.2,2
+36,59,Female,UK,Berlin,2024-11-13,33.05,Beauty,1.7,2
+36,59,Female,UK,Berlin,2023-12-27,336.84,Beauty,5.0,2
+36,59,Female,UK,Berlin,2024-04-04,333.08,Beauty,1.3,5
+37,54,Male,UK,Toronto,2024-01-04,405.4,Clothing,2.0,2
+37,54,Male,UK,Toronto,2024-08-28,432.82,Jewelry,3.4,5
+37,54,Male,UK,Toronto,2024-04-04,411.39,Toys & Games,4.8,5
+37,54,Male,UK,Toronto,2023-12-27,263.26,Clothing,2.6,4
+37,54,Male,UK,Toronto,2024-09-15,433.88,Jewelry,2.3,4
+37,54,Male,UK,Toronto,2024-11-19,251.48,Jewelry,2.1,5
+37,54,Male,UK,Toronto,2024-07-10,482.37,Toys & Games,3.0,1
+37,54,Male,UK,Toronto,2024-07-26,253.66,Toys & Games,4.4,2
+37,54,Male,UK,Toronto,2024-09-13,404.97,Clothing,4.7,2
+37,54,Male,UK,Toronto,2024-04-30,299.51,Jewelry,4.3,2
+38,55,Male,USA,Sydney,2023-12-21,386.4,Automotive,2.3,1
+38,55,Male,USA,Sydney,2024-08-03,467.32,Automotive,3.2,5
+38,55,Male,USA,Sydney,2024-03-27,387.59,Automotive,4.8,4
+38,55,Male,USA,Sydney,2024-07-07,385.53,Automotive,1.4,1
+38,55,Male,USA,Sydney,2024-04-13,64.64,Automotive,2.9,3
+38,55,Male,USA,Sydney,2024-05-28,261.56,Automotive,3.9,1
+38,55,Male,USA,Sydney,2024-04-18,466.95,Automotive,1.9,1
+38,55,Male,USA,Sydney,2024-07-03,471.23,Automotive,4.2,4
+38,55,Male,USA,Sydney,2024-02-08,331.26,Automotive,1.4,1
+38,55,Male,USA,Sydney,2024-06-09,150.12,Automotive,4.6,2
+39,39,Female,USA,Sydney,2024-03-19,277.75,Home & Kitchen,2.9,5
+39,39,Female,USA,Sydney,2024-10-11,182.16,Automotive,2.1,2
+39,39,Female,USA,Sydney,2024-01-23,319.33,Home & Kitchen,1.2,4
+39,39,Female,USA,Sydney,2024-04-11,100.16,Automotive,2.4,3
+39,39,Female,USA,Sydney,2024-10-20,358.97,Home & Kitchen,3.5,4
+39,39,Female,USA,Sydney,2024-10-08,471.49,Home & Kitchen,2.6,5
+39,39,Female,USA,Sydney,2023-12-13,348.01,Automotive,2.4,5
+39,39,Female,USA,Sydney,2024-11-12,313.86,Automotive,1.3,2
+39,39,Female,USA,Sydney,2023-12-11,177.63,Home & Kitchen,2.7,4
+39,39,Female,USA,Sydney,2024-03-23,188.21,Automotive,3.4,1
+40,30,Male,Australia,Toronto,2024-10-09,181.09,Home & Kitchen,3.5,5
+40,30,Male,Australia,Toronto,2024-02-16,93.05,Home & Kitchen,2.6,2
+40,30,Male,Australia,Toronto,2024-05-20,311.61,Beauty,2.9,4
+40,30,Male,Australia,Toronto,2024-05-26,41.44,Beauty,2.1,1
+40,30,Male,Australia,Toronto,2024-09-02,310.11,Home & Kitchen,3.1,5
+40,30,Male,Australia,Toronto,2024-06-09,61.37,Beauty,1.5,4
+40,30,Male,Australia,Toronto,2024-10-02,305.56,Home & Kitchen,3.0,4
+40,30,Male,Australia,Toronto,2024-02-17,20.96,Beauty,1.6,5
+40,30,Male,Australia,Toronto,2023-12-04,103.3,Home & Kitchen,2.6,1
+40,30,Male,Australia,Toronto,2024-04-13,187.76,Beauty,1.6,5
+41,35,Female,Germany,New York,2024-06-12,250.41,Sporting Goods,2.5,5
+41,35,Female,Germany,New York,2024-08-13,214.82,Sporting Goods,1.5,4
+41,35,Female,Germany,New York,2024-08-25,23.92,Sporting Goods,3.9,5
+41,35,Female,Germany,New York,2024-03-08,146.52,Sporting Goods,2.0,3
+41,35,Female,Germany,New York,2024-01-07,231.42,Sporting Goods,2.8,3
+41,35,Female,Germany,New York,2024-11-01,34.37,Sporting Goods,3.4,4
+41,35,Female,Germany,New York,2024-11-22,91.99,Sporting Goods,2.2,1
+41,35,Female,Germany,New York,2024-09-06,354.95,Sporting Goods,2.9,3
+41,35,Female,Germany,New York,2024-06-07,490.01,Sporting Goods,2.5,2
+41,35,Female,Germany,New York,2024-02-25,16.25,Sporting Goods,1.5,2
+42,29,Female,USA,Berlin,2024-06-18,349.43,Sporting Goods,1.3,3
+42,29,Female,USA,Berlin,2024-06-28,192.73,Sporting Goods,1.4,1
+42,29,Female,USA,Berlin,2024-03-21,366.23,Sporting Goods,3.5,4
+42,29,Female,USA,Berlin,2024-06-10,387.27,Sporting Goods,1.1,4
+42,29,Female,USA,Berlin,2024-02-11,64.1,Sporting Goods,4.4,5
+42,29,Female,USA,Berlin,2024-02-27,109.9,Sporting Goods,3.5,4
+42,29,Female,USA,Berlin,2024-06-30,285.15,Sporting Goods,1.5,1
+42,29,Female,USA,Berlin,2024-05-04,181.16,Sporting Goods,3.0,3
+42,29,Female,USA,Berlin,2024-03-08,434.66,Sporting Goods,1.7,4
+42,29,Female,USA,Berlin,2024-10-28,277.63,Sporting Goods,3.3,4
+43,50,Male,USA,Toronto,2023-12-21,447.76,Sporting Goods,4.0,3
+43,50,Male,USA,Toronto,2024-02-17,354.95,Furniture,3.5,4
+43,50,Male,USA,Toronto,2024-01-02,368.34,Sporting Goods,1.7,3
+43,50,Male,USA,Toronto,2024-07-25,33.75,Furniture,4.6,4
+43,50,Male,USA,Toronto,2024-06-20,111.88,Furniture,2.1,3
+43,50,Male,USA,Toronto,2024-07-09,415.86,Sporting Goods,1.7,2
+43,50,Male,USA,Toronto,2024-10-14,55.66,Furniture,1.4,5
+43,50,Male,USA,Toronto,2024-03-06,243.79,Beauty,4.4,5
+43,50,Male,USA,Toronto,2023-12-20,170.91,Beauty,1.3,5
+43,50,Male,USA,Toronto,2024-05-25,389.73,Furniture,3.9,3
+44,55,Female,UK,Sydney,2024-08-14,492.26,Beauty,1.2,5
+44,55,Female,UK,Sydney,2024-11-09,416.67,Beauty,2.5,5
+44,55,Female,UK,Sydney,2024-08-29,197.93,Beauty,2.8,4
+44,55,Female,UK,Sydney,2024-03-18,480.6,Beauty,5.0,3
+44,55,Female,UK,Sydney,2024-10-26,332.18,Beauty,4.9,3
+44,55,Female,UK,Sydney,2023-12-31,245.62,Beauty,1.4,3
+44,55,Female,UK,Sydney,2023-12-02,423.04,Beauty,1.1,4
+44,55,Female,UK,Sydney,2024-06-05,448.65,Beauty,3.6,4
+44,55,Female,UK,Sydney,2024-01-14,111.8,Beauty,2.7,4
+44,55,Female,UK,Sydney,2023-12-05,191.63,Beauty,3.5,5
+45,59,Female,UK,Toronto,2024-02-29,237.31,Beauty,3.3,1
+45,59,Female,UK,Toronto,2024-03-16,357.75,Toys & Games,3.3,2
+45,59,Female,UK,Toronto,2024-04-03,39.52,Toys & Games,2.8,5
+45,59,Female,UK,Toronto,2024-07-16,10.94,Toys & Games,3.4,4
+45,59,Female,UK,Toronto,2024-09-22,453.63,Electronics,2.3,4
+45,59,Female,UK,Toronto,2024-05-03,239.65,Beauty,3.9,5
+45,59,Female,UK,Toronto,2024-06-26,242.56,Beauty,2.5,2
+45,59,Female,UK,Toronto,2024-09-08,356.19,Electronics,4.8,4
+45,59,Female,UK,Toronto,2024-04-27,75.93,Electronics,4.0,4
+45,59,Female,UK,Toronto,2024-04-28,56.15,Toys & Games,2.5,2
+46,32,Male,UK,Berlin,2024-01-28,53.71,Clothing,3.0,1
+46,32,Male,UK,Berlin,2024-07-19,21.66,Clothing,2.7,5
+46,32,Male,UK,Berlin,2024-08-16,335.88,Electronics,3.2,1
+46,32,Male,UK,Berlin,2024-02-26,11.15,Clothing,2.5,4
+46,32,Male,UK,Berlin,2024-06-03,479.39,Electronics,2.5,5
+46,32,Male,UK,Berlin,2024-07-19,414.0,Electronics,2.7,3
+46,32,Male,UK,Berlin,2024-10-10,203.32,Furniture,2.5,3
+46,32,Male,UK,Berlin,2024-10-14,438.89,Electronics,1.2,4
+46,32,Male,UK,Berlin,2024-01-16,225.54,Electronics,3.1,3
+46,32,Male,UK,Berlin,2024-07-19,148.15,Furniture,3.0,5
+47,43,Male,Germany,London,2023-12-04,251.31,Books,2.9,3
+47,43,Male,Germany,London,2024-08-27,232.33,Books,1.7,3
+47,43,Male,Germany,London,2024-03-12,344.07,Books,4.8,5
+47,43,Male,Germany,London,2024-10-15,42.51,Toys & Games,3.5,5
+47,43,Male,Germany,London,2024-05-10,221.94,Toys & Games,1.1,1
+47,43,Male,Germany,London,2024-09-17,485.66,Books,2.8,5
+47,43,Male,Germany,London,2023-12-21,427.94,Books,4.7,1
+47,43,Male,Germany,London,2024-06-28,295.89,Books,4.9,4
+47,43,Male,Germany,London,2024-03-14,324.04,Toys & Games,2.8,1
+47,43,Male,Germany,London,2024-02-01,298.28,Books,2.4,4
+48,41,Female,UK,Berlin,2024-05-11,332.31,Automotive,4.9,2
+48,41,Female,UK,Berlin,2024-11-18,271.14,Clothing,4.6,2
+48,41,Female,UK,Berlin,2024-08-06,175.47,Clothing,2.8,1
+48,41,Female,UK,Berlin,2024-08-30,216.33,Beauty,2.9,1
+48,41,Female,UK,Berlin,2024-06-28,374.8,Automotive,4.6,1
+48,41,Female,UK,Berlin,2024-11-25,205.95,Automotive,1.6,5
+48,41,Female,UK,Berlin,2024-10-29,187.6,Clothing,1.7,1
+48,41,Female,UK,Berlin,2024-10-27,69.78,Automotive,1.5,5
+48,41,Female,UK,Berlin,2024-06-11,411.97,Clothing,4.4,3
+48,41,Female,UK,Berlin,2024-05-21,77.8,Automotive,2.8,2
+49,42,Female,Canada,Berlin,2024-01-18,428.19,Books,2.2,3
+49,42,Female,Canada,Berlin,2024-05-30,134.12,Furniture,1.2,2
+49,42,Female,Canada,Berlin,2024-01-01,496.62,Books,4.6,5
+49,42,Female,Canada,Berlin,2024-08-13,379.71,Books,1.7,2
+49,42,Female,Canada,Berlin,2024-07-06,78.0,Books,4.5,2
+49,42,Female,Canada,Berlin,2024-02-07,373.61,Books,3.6,3
+49,42,Female,Canada,Berlin,2024-06-22,306.92,Books,3.1,2
+49,42,Female,Canada,Berlin,2024-01-16,74.95,Books,3.0,2
+49,42,Female,Canada,Berlin,2023-12-08,65.38,Books,3.1,1
+49,42,Female,Canada,Berlin,2024-10-14,31.89,Furniture,3.5,2
+50,29,Female,USA,Berlin,2024-07-15,400.88,Furniture,3.0,5
+50,29,Female,USA,Berlin,2024-01-15,421.47,Furniture,2.5,5
+50,29,Female,USA,Berlin,2024-03-23,163.0,Furniture,4.8,3
+50,29,Female,USA,Berlin,2024-09-01,178.2,Furniture,4.5,1
+50,29,Female,USA,Berlin,2024-08-25,216.4,Furniture,1.8,1
+50,29,Female,USA,Berlin,2024-10-16,359.18,Furniture,4.0,2
+50,29,Female,USA,Berlin,2024-04-28,220.74,Furniture,4.3,4
+50,29,Female,USA,Berlin,2023-12-06,493.6,Furniture,2.2,4
+50,29,Female,USA,Berlin,2024-09-03,68.05,Furniture,4.9,3
+50,29,Female,USA,Berlin,2024-04-15,40.12,Furniture,1.7,5
+51,50,Male,Australia,Sydney,2024-10-20,337.38,Clothing,4.0,4
+51,50,Male,Australia,Sydney,2024-10-22,201.92,Books,3.2,5
+51,50,Male,Australia,Sydney,2024-03-23,348.61,Clothing,2.5,4
+51,50,Male,Australia,Sydney,2024-02-22,484.62,Clothing,3.0,3
+51,50,Male,Australia,Sydney,2023-12-13,189.86,Books,4.9,3
+51,50,Male,Australia,Sydney,2024-10-12,11.39,Books,1.2,5
+51,50,Male,Australia,Sydney,2024-06-03,397.77,Books,1.3,2
+51,50,Male,Australia,Sydney,2024-02-28,458.0,Books,2.0,1
+51,50,Male,Australia,Sydney,2024-08-19,257.45,Books,3.7,4
+51,50,Male,Australia,Sydney,2024-03-18,72.48,Books,4.8,5
+52,23,Female,USA,Sydney,2024-06-28,27.46,Toys & Games,2.7,1
+52,23,Female,USA,Sydney,2024-05-07,223.02,Toys & Games,3.4,5
+52,23,Female,USA,Sydney,2024-05-05,465.74,Toys & Games,1.9,2
+52,23,Female,USA,Sydney,2024-04-16,448.76,Jewelry,2.3,1
+52,23,Female,USA,Sydney,2024-03-29,170.49,Jewelry,3.7,4
+52,23,Female,USA,Sydney,2024-04-25,99.62,Toys & Games,2.4,3
+52,23,Female,USA,Sydney,2024-06-29,449.48,Jewelry,4.5,4
+52,23,Female,USA,Sydney,2023-12-12,224.22,Toys & Games,4.8,4
+52,23,Female,USA,Sydney,2024-05-08,168.89,Toys & Games,2.1,4
+52,23,Female,USA,Sydney,2024-03-07,182.42,Jewelry,4.5,1
+53,25,Female,Australia,New York,2024-03-02,171.65,Toys & Games,1.5,2
+53,25,Female,Australia,New York,2024-11-17,365.73,Toys & Games,3.3,2
+53,25,Female,Australia,New York,2024-01-29,339.33,Toys & Games,4.3,1
+53,25,Female,Australia,New York,2024-06-05,435.38,Toys & Games,3.8,3
+53,25,Female,Australia,New York,2024-02-03,406.33,Home & Kitchen,3.0,1
+53,25,Female,Australia,New York,2024-01-13,178.77,Toys & Games,3.5,4
+53,25,Female,Australia,New York,2024-10-03,403.37,Home & Kitchen,3.8,2
+53,25,Female,Australia,New York,2024-11-11,37.33,Toys & Games,2.1,5
+53,25,Female,Australia,New York,2023-12-28,443.94,Home & Kitchen,3.7,2
+53,25,Female,Australia,New York,2024-08-20,111.25,Toys & Games,3.8,4
+54,27,Male,Australia,Sydney,2024-03-24,72.11,Furniture,4.8,2
+54,27,Male,Australia,Sydney,2024-06-21,34.76,Furniture,1.4,3
+54,27,Male,Australia,Sydney,2024-03-08,390.88,Furniture,3.0,2
+54,27,Male,Australia,Sydney,2024-02-02,289.55,Furniture,1.1,5
+54,27,Male,Australia,Sydney,2024-09-12,34.16,Furniture,3.4,4
+54,27,Male,Australia,Sydney,2023-11-30,23.05,Furniture,1.6,1
+54,27,Male,Australia,Sydney,2024-03-12,140.7,Furniture,2.0,1
+54,27,Male,Australia,Sydney,2024-01-12,382.46,Furniture,4.8,3
+54,27,Male,Australia,Sydney,2024-01-16,86.57,Furniture,3.1,3
+54,27,Male,Australia,Sydney,2024-05-22,463.1,Furniture,3.0,2
+55,32,Male,Germany,New York,2024-10-28,122.22,Books,4.1,5
+55,32,Male,Germany,New York,2024-04-09,490.81,Books,4.2,5
+55,32,Male,Germany,New York,2024-10-21,17.41,Books,4.8,4
+55,32,Male,Germany,New York,2024-03-14,185.99,Electronics,4.1,1
+55,32,Male,Germany,New York,2023-12-03,388.17,Books,1.1,2
+55,32,Male,Germany,New York,2024-10-03,127.03,Books,3.8,5
+55,32,Male,Germany,New York,2024-10-07,348.91,Electronics,1.3,5
+55,32,Male,Germany,New York,2024-06-30,190.3,Clothing,1.7,4
+55,32,Male,Germany,New York,2024-01-08,351.05,Electronics,2.4,2
+55,32,Male,Germany,New York,2024-01-05,151.75,Clothing,2.5,3
+56,33,Male,Canada,Berlin,2024-06-18,400.73,Books,4.2,2
+56,33,Male,Canada,Berlin,2024-05-26,11.41,Books,2.2,3
+56,33,Male,Canada,Berlin,2024-04-23,217.92,Books,4.8,1
+56,33,Male,Canada,Berlin,2024-11-15,119.09,Books,1.2,3
+56,33,Male,Canada,Berlin,2024-08-18,227.28,Sporting Goods,2.5,2
+56,33,Male,Canada,Berlin,2024-10-02,469.4,Books,3.2,2
+56,33,Male,Canada,Berlin,2024-05-10,476.53,Books,1.1,1
+56,33,Male,Canada,Berlin,2024-08-21,243.95,Sporting Goods,2.8,3
+56,33,Male,Canada,Berlin,2024-10-13,422.03,Sporting Goods,1.3,5
+56,33,Male,Canada,Berlin,2024-05-24,374.13,Sporting Goods,4.1,3
+57,43,Male,UK,Berlin,2024-04-08,265.88,Home & Kitchen,1.6,5
+57,43,Male,UK,Berlin,2024-03-05,382.17,Home & Kitchen,1.7,1
+57,43,Male,UK,Berlin,2024-10-15,325.01,Home & Kitchen,3.7,5
+57,43,Male,UK,Berlin,2024-03-04,311.86,Electronics,1.1,2
+57,43,Male,UK,Berlin,2024-03-03,341.96,Electronics,4.0,1
+57,43,Male,UK,Berlin,2024-06-02,496.54,Electronics,3.9,2
+57,43,Male,UK,Berlin,2024-09-15,405.49,Toys & Games,3.0,3
+57,43,Male,UK,Berlin,2024-02-19,193.26,Home & Kitchen,4.9,5
+57,43,Male,UK,Berlin,2024-09-14,133.33,Home & Kitchen,2.6,2
+57,43,Male,UK,Berlin,2024-01-10,394.01,Electronics,2.9,1
+58,38,Male,Canada,Toronto,2024-02-15,293.15,Clothing,4.8,2
+58,38,Male,Canada,Toronto,2023-12-08,370.49,Clothing,3.2,3
+58,38,Male,Canada,Toronto,2024-03-03,35.06,Automotive,2.0,5
+58,38,Male,Canada,Toronto,2024-02-11,273.81,Automotive,4.5,2
+58,38,Male,Canada,Toronto,2024-06-23,347.38,Electronics,2.6,2
+58,38,Male,Canada,Toronto,2024-04-10,474.72,Automotive,1.4,2
+58,38,Male,Canada,Toronto,2024-07-15,235.1,Electronics,1.4,1
+58,38,Male,Canada,Toronto,2024-03-29,311.12,Electronics,1.1,3
+58,38,Male,Canada,Toronto,2024-09-08,403.52,Electronics,3.9,4
+58,38,Male,Canada,Toronto,2024-07-08,461.81,Clothing,1.3,5
+59,42,Female,Canada,Sydney,2024-03-17,267.41,Home & Kitchen,1.9,2
+59,42,Female,Canada,Sydney,2024-09-29,89.69,Home & Kitchen,1.7,3
+59,42,Female,Canada,Sydney,2024-09-29,224.37,Home & Kitchen,1.9,5
+59,42,Female,Canada,Sydney,2024-03-15,330.64,Home & Kitchen,2.3,2
+59,42,Female,Canada,Sydney,2024-11-17,47.7,Home & Kitchen,1.3,5
+59,42,Female,Canada,Sydney,2024-04-06,450.83,Home & Kitchen,1.7,1
+59,42,Female,Canada,Sydney,2023-12-15,400.08,Home & Kitchen,3.2,4
+59,42,Female,Canada,Sydney,2024-07-08,204.51,Home & Kitchen,2.1,3
+59,42,Female,Canada,Sydney,2024-08-12,222.64,Home & Kitchen,3.6,1
+59,42,Female,Canada,Sydney,2024-11-01,52.08,Home & Kitchen,1.1,4
+60,45,Female,USA,Berlin,2024-07-11,347.2,Books,1.3,1
+60,45,Female,USA,Berlin,2024-01-11,194.23,Books,4.7,4
+60,45,Female,USA,Berlin,2024-06-17,208.64,Toys & Games,4.0,4
+60,45,Female,USA,Berlin,2024-06-10,199.62,Toys & Games,3.9,3
+60,45,Female,USA,Berlin,2024-04-17,310.21,Toys & Games,1.3,2
+60,45,Female,USA,Berlin,2023-12-14,84.28,Toys & Games,2.8,3
+60,45,Female,USA,Berlin,2024-01-17,107.14,Books,2.1,5
+60,45,Female,USA,Berlin,2024-02-12,283.15,Books,1.9,5
+60,45,Female,USA,Berlin,2024-04-26,416.88,Books,2.9,3
+60,45,Female,USA,Berlin,2024-07-01,367.45,Toys & Games,1.4,4
+61,60,Female,Canada,Berlin,2024-05-27,377.21,Books,2.4,4
+61,60,Female,Canada,Berlin,2024-02-13,317.03,Clothing,4.8,4
+61,60,Female,Canada,Berlin,2024-09-07,81.08,Beauty,2.2,5
+61,60,Female,Canada,Berlin,2023-12-29,176.53,Beauty,2.0,5
+61,60,Female,Canada,Berlin,2024-11-16,88.57,Books,4.0,2
+61,60,Female,Canada,Berlin,2024-10-02,391.26,Beauty,4.3,3
+61,60,Female,Canada,Berlin,2024-02-14,347.55,Beauty,3.0,5
+61,60,Female,Canada,Berlin,2024-06-29,453.69,Books,4.8,3
+61,60,Female,Canada,Berlin,2024-11-10,245.74,Clothing,1.9,1
+61,60,Female,Canada,Berlin,2023-12-31,477.32,Clothing,3.0,3
+62,53,Female,UK,Berlin,2024-08-09,245.54,Sporting Goods,1.5,3
+62,53,Female,UK,Berlin,2024-06-25,222.95,Sporting Goods,3.2,4
+62,53,Female,UK,Berlin,2024-09-10,438.28,Sporting Goods,1.8,1
+62,53,Female,UK,Berlin,2024-04-25,430.96,Sporting Goods,1.4,1
+62,53,Female,UK,Berlin,2024-04-26,207.01,Sporting Goods,2.6,2
+62,53,Female,UK,Berlin,2024-08-11,109.55,Sporting Goods,3.4,4
+62,53,Female,UK,Berlin,2024-05-03,149.24,Sporting Goods,3.9,4
+62,53,Female,UK,Berlin,2024-01-31,474.11,Sporting Goods,3.6,5
+62,53,Female,UK,Berlin,2024-11-09,148.97,Sporting Goods,3.1,2
+62,53,Female,UK,Berlin,2024-01-11,376.55,Sporting Goods,2.5,4
+63,42,Female,Germany,Toronto,2024-06-20,436.37,Furniture,2.4,2
+63,42,Female,Germany,Toronto,2024-02-24,376.63,Furniture,4.8,3
+63,42,Female,Germany,Toronto,2023-12-08,424.21,Furniture,2.1,2
+63,42,Female,Germany,Toronto,2024-02-15,457.07,Furniture,3.5,2
+63,42,Female,Germany,Toronto,2024-01-21,281.54,Furniture,4.5,2
+63,42,Female,Germany,Toronto,2024-10-18,395.13,Furniture,2.9,1
+63,42,Female,Germany,Toronto,2024-08-03,470.72,Furniture,1.1,5
+63,42,Female,Germany,Toronto,2024-06-05,194.48,Furniture,4.4,2
+63,42,Female,Germany,Toronto,2024-05-05,38.63,Furniture,4.5,5
+63,42,Female,Germany,Toronto,2024-11-06,228.21,Furniture,2.4,3
+64,51,Male,Germany,London,2024-11-14,461.95,Jewelry,2.8,4
+64,51,Male,Germany,London,2024-05-17,446.49,Automotive,4.1,1
+64,51,Male,Germany,London,2024-03-18,488.8,Automotive,1.4,2
+64,51,Male,Germany,London,2024-06-21,102.7,Automotive,3.5,1
+64,51,Male,Germany,London,2024-09-08,430.02,Jewelry,3.8,5
+64,51,Male,Germany,London,2024-07-26,130.17,Automotive,3.9,4
+64,51,Male,Germany,London,2024-05-23,426.21,Jewelry,3.4,1
+64,51,Male,Germany,London,2024-09-29,364.29,Automotive,3.4,5
+64,51,Male,Germany,London,2024-04-30,69.49,Jewelry,4.1,3
+64,51,Male,Germany,London,2024-11-24,390.67,Automotive,1.1,1
+65,33,Female,Germany,New York,2024-01-12,378.88,Electronics,4.9,2
+65,33,Female,Germany,New York,2024-10-21,250.41,Beauty,3.9,4
+65,33,Female,Germany,New York,2023-12-04,271.62,Electronics,1.6,2
+65,33,Female,Germany,New York,2024-01-27,230.84,Electronics,3.7,3
+65,33,Female,Germany,New York,2024-05-27,188.2,Electronics,1.5,2
+65,33,Female,Germany,New York,2024-08-08,301.74,Electronics,3.9,3
+65,33,Female,Germany,New York,2024-03-27,477.31,Electronics,2.8,2
+65,33,Female,Germany,New York,2024-05-04,315.47,Beauty,2.8,5
+65,33,Female,Germany,New York,2024-11-08,269.94,Electronics,2.7,1
+65,33,Female,Germany,New York,2024-01-23,396.66,Beauty,2.1,1
+66,40,Male,Canada,New York,2024-07-23,191.13,Automotive,2.6,2
+66,40,Male,Canada,New York,2024-09-12,184.0,Jewelry,1.6,4
+66,40,Male,Canada,New York,2024-04-26,418.92,Automotive,3.6,5
+66,40,Male,Canada,New York,2024-10-07,107.52,Automotive,2.2,2
+66,40,Male,Canada,New York,2023-12-31,216.19,Toys & Games,1.8,3
+66,40,Male,Canada,New York,2024-07-20,366.9,Jewelry,2.3,5
+66,40,Male,Canada,New York,2024-08-04,92.7,Toys & Games,3.6,2
+66,40,Male,Canada,New York,2024-11-22,136.48,Automotive,1.7,5
+66,40,Male,Canada,New York,2024-06-05,132.6,Toys & Games,3.7,1
+66,40,Male,Canada,New York,2024-01-22,463.5,Toys & Games,1.7,4
+67,39,Female,Canada,New York,2024-09-22,272.4,Beauty,3.5,4
+67,39,Female,Canada,New York,2024-04-26,158.31,Beauty,2.2,2
+67,39,Female,Canada,New York,2023-12-16,198.81,Beauty,3.2,5
+67,39,Female,Canada,New York,2024-02-22,280.48,Beauty,4.3,2
+67,39,Female,Canada,New York,2024-10-02,427.96,Beauty,2.5,4
+67,39,Female,Canada,New York,2024-03-30,24.52,Beauty,2.7,4
+67,39,Female,Canada,New York,2024-09-08,361.92,Beauty,4.4,3
+67,39,Female,Canada,New York,2024-01-24,175.12,Beauty,1.7,1
+67,39,Female,Canada,New York,2024-04-04,194.42,Beauty,2.4,5
+67,39,Female,Canada,New York,2024-04-24,309.34,Beauty,1.2,3
+68,51,Male,Canada,New York,2024-05-07,186.5,Jewelry,5.0,4
+68,51,Male,Canada,New York,2024-09-08,324.65,Furniture,4.1,4
+68,51,Male,Canada,New York,2023-12-01,346.53,Furniture,3.2,5
+68,51,Male,Canada,New York,2024-09-17,371.81,Jewelry,2.8,4
+68,51,Male,Canada,New York,2024-06-08,274.25,Furniture,1.1,2
+68,51,Male,Canada,New York,2024-08-14,285.39,Furniture,1.2,3
+68,51,Male,Canada,New York,2024-08-28,19.58,Furniture,1.0,3
+68,51,Male,Canada,New York,2023-12-27,80.94,Jewelry,4.7,1
+68,51,Male,Canada,New York,2024-09-11,243.41,Furniture,1.5,3
+68,51,Male,Canada,New York,2024-03-01,298.75,Furniture,3.5,3
+69,51,Female,Germany,Berlin,2024-01-02,52.65,Automotive,3.8,4
+69,51,Female,Germany,Berlin,2024-04-30,266.3,Furniture,3.0,1
+69,51,Female,Germany,Berlin,2024-08-15,338.16,Automotive,3.7,3
+69,51,Female,Germany,Berlin,2024-07-26,59.87,Toys & Games,3.3,5
+69,51,Female,Germany,Berlin,2024-08-05,270.16,Automotive,1.1,1
+69,51,Female,Germany,Berlin,2024-07-31,178.11,Toys & Games,3.7,1
+69,51,Female,Germany,Berlin,2024-08-16,310.3,Toys & Games,5.0,3
+69,51,Female,Germany,Berlin,2024-08-17,221.67,Toys & Games,3.0,4
+69,51,Female,Germany,Berlin,2024-04-17,250.96,Toys & Games,1.1,5
+69,51,Female,Germany,Berlin,2023-12-14,459.26,Furniture,2.5,2
+70,27,Male,USA,London,2024-05-19,361.6,Automotive,4.6,4
+70,27,Male,USA,London,2024-04-11,393.39,Automotive,2.3,5
+70,27,Male,USA,London,2024-11-01,156.58,Jewelry,4.4,2
+70,27,Male,USA,London,2024-11-08,340.25,Jewelry,1.0,2
+70,27,Male,USA,London,2024-04-29,145.96,Jewelry,1.1,5
+70,27,Male,USA,London,2024-08-29,90.52,Automotive,3.9,1
+70,27,Male,USA,London,2023-12-03,432.17,Jewelry,4.7,3
+70,27,Male,USA,London,2024-02-14,214.33,Automotive,3.9,1
+70,27,Male,USA,London,2024-02-17,298.4,Automotive,1.9,2
+70,27,Male,USA,London,2024-03-18,352.52,Automotive,3.0,1
+71,45,Male,USA,Berlin,2024-03-28,326.71,Electronics,4.6,2
+71,45,Male,USA,Berlin,2024-11-11,490.88,Home & Kitchen,3.7,1
+71,45,Male,USA,Berlin,2024-04-04,356.35,Electronics,1.2,3
+71,45,Male,USA,Berlin,2024-04-13,467.8,Electronics,3.2,2
+71,45,Male,USA,Berlin,2023-12-16,392.63,Home & Kitchen,3.3,3
+71,45,Male,USA,Berlin,2024-02-01,79.94,Home & Kitchen,3.3,3
+71,45,Male,USA,Berlin,2024-11-24,74.22,Electronics,4.5,3
+71,45,Male,USA,Berlin,2024-05-27,113.77,Home & Kitchen,1.6,1
+71,45,Male,USA,Berlin,2024-05-09,293.1,Electronics,4.9,2
+71,45,Male,USA,Berlin,2024-03-01,199.67,Clothing,1.8,1
+72,19,Male,UK,Sydney,2023-12-26,136.69,Electronics,1.1,1
+72,19,Male,UK,Sydney,2023-12-28,448.89,Electronics,4.5,4
+72,19,Male,UK,Sydney,2023-12-18,73.76,Electronics,2.4,3
+72,19,Male,UK,Sydney,2024-11-18,160.39,Electronics,4.1,1
+72,19,Male,UK,Sydney,2024-10-18,127.24,Electronics,1.4,4
+72,19,Male,UK,Sydney,2024-02-04,181.2,Electronics,4.3,3
+72,19,Male,UK,Sydney,2024-08-14,335.68,Electronics,2.3,5
+72,19,Male,UK,Sydney,2023-12-05,176.02,Electronics,4.2,3
+72,19,Male,UK,Sydney,2023-12-16,361.61,Electronics,2.9,2
+72,19,Male,UK,Sydney,2024-01-24,82.49,Electronics,2.2,5
+73,55,Female,USA,Berlin,2024-03-11,166.64,Home & Kitchen,3.4,5
+73,55,Female,USA,Berlin,2024-05-07,364.97,Beauty,1.1,3
+73,55,Female,USA,Berlin,2024-06-12,335.29,Home & Kitchen,2.9,5
+73,55,Female,USA,Berlin,2024-01-30,420.02,Home & Kitchen,5.0,4
+73,55,Female,USA,Berlin,2024-11-16,72.82,Home & Kitchen,1.9,1
+73,55,Female,USA,Berlin,2023-12-17,229.44,Beauty,1.7,4
+73,55,Female,USA,Berlin,2024-07-14,481.08,Beauty,3.5,5
+73,55,Female,USA,Berlin,2024-02-10,67.33,Home & Kitchen,2.9,5
+73,55,Female,USA,Berlin,2024-06-06,337.37,Beauty,3.4,3
+73,55,Female,USA,Berlin,2024-04-08,138.24,Beauty,4.0,4
+74,23,Female,UK,London,2024-07-06,358.05,Sporting Goods,4.7,2
+74,23,Female,UK,London,2024-05-25,445.52,Jewelry,3.3,1
+74,23,Female,UK,London,2024-07-26,161.29,Sporting Goods,1.3,1
+74,23,Female,UK,London,2024-07-25,82.49,Toys & Games,3.3,2
+74,23,Female,UK,London,2023-12-20,94.41,Sporting Goods,1.1,3
+74,23,Female,UK,London,2024-02-06,15.15,Sporting Goods,3.1,4
+74,23,Female,UK,London,2024-01-30,398.6,Toys & Games,1.4,4
+74,23,Female,UK,London,2024-02-19,210.31,Toys & Games,3.1,4
+74,23,Female,UK,London,2024-01-10,149.09,Jewelry,4.6,1
+74,23,Female,UK,London,2024-04-10,419.02,Sporting Goods,4.0,4
+75,23,Male,USA,London,2024-07-23,96.87,Beauty,1.5,3
+75,23,Male,USA,London,2024-08-14,209.88,Beauty,3.3,1
+75,23,Male,USA,London,2024-09-28,137.28,Furniture,1.8,4
+75,23,Male,USA,London,2024-01-11,440.67,Automotive,2.5,5
+75,23,Male,USA,London,2024-04-07,262.88,Furniture,1.0,4
+75,23,Male,USA,London,2024-08-20,346.98,Automotive,1.9,1
+75,23,Male,USA,London,2024-01-30,475.84,Furniture,1.7,5
+75,23,Male,USA,London,2024-10-21,233.2,Furniture,1.6,2
+75,23,Male,USA,London,2024-10-04,409.54,Furniture,1.6,5
+75,23,Male,USA,London,2023-12-01,41.75,Beauty,1.1,3
+76,55,Female,USA,Toronto,2024-03-27,233.67,Sporting Goods,4.2,5
+76,55,Female,USA,Toronto,2024-01-30,85.19,Sporting Goods,3.9,2
+76,55,Female,USA,Toronto,2024-01-26,120.76,Sporting Goods,1.6,3
+76,55,Female,USA,Toronto,2024-08-19,117.31,Sporting Goods,1.2,3
+76,55,Female,USA,Toronto,2024-03-28,90.28,Sporting Goods,1.6,5
+76,55,Female,USA,Toronto,2024-07-01,265.45,Sporting Goods,1.1,2
+76,55,Female,USA,Toronto,2024-01-26,453.72,Sporting Goods,4.2,4
+76,55,Female,USA,Toronto,2023-12-06,71.78,Sporting Goods,3.6,2
+76,55,Female,USA,Toronto,2024-04-28,309.33,Sporting Goods,1.3,3
+76,55,Female,USA,Toronto,2024-03-26,487.25,Sporting Goods,3.2,1
+77,41,Male,Canada,Berlin,2024-06-17,273.74,Toys & Games,2.0,1
+77,41,Male,Canada,Berlin,2024-02-24,402.92,Furniture,2.3,2
+77,41,Male,Canada,Berlin,2024-02-29,180.48,Sporting Goods,4.1,2
+77,41,Male,Canada,Berlin,2024-04-19,215.7,Furniture,2.5,2
+77,41,Male,Canada,Berlin,2024-09-01,418.34,Sporting Goods,3.3,1
+77,41,Male,Canada,Berlin,2024-07-13,363.8,Toys & Games,2.1,4
+77,41,Male,Canada,Berlin,2024-01-21,143.1,Furniture,1.6,4
+77,41,Male,Canada,Berlin,2024-09-02,93.45,Sporting Goods,2.6,5
+77,41,Male,Canada,Berlin,2024-06-19,118.45,Sporting Goods,4.7,3
+77,41,Male,Canada,Berlin,2024-06-04,165.94,Toys & Games,2.6,4
+78,19,Female,USA,Sydney,2024-04-23,342.71,Sporting Goods,2.4,2
+78,19,Female,USA,Sydney,2023-12-19,160.93,Sporting Goods,1.5,5
+78,19,Female,USA,Sydney,2024-06-25,88.34,Sporting Goods,2.0,1
+78,19,Female,USA,Sydney,2024-03-08,483.49,Sporting Goods,2.1,3
+78,19,Female,USA,Sydney,2024-10-09,496.68,Sporting Goods,1.6,5
+78,19,Female,USA,Sydney,2024-03-10,105.24,Beauty,3.7,3
+78,19,Female,USA,Sydney,2024-06-08,471.02,Beauty,1.8,2
+78,19,Female,USA,Sydney,2024-11-16,462.71,Beauty,2.4,3
+78,19,Female,USA,Sydney,2024-02-06,153.28,Sporting Goods,1.7,2
+78,19,Female,USA,Sydney,2024-03-28,403.74,Beauty,2.7,1
+79,46,Female,Australia,London,2023-12-26,105.67,Jewelry,1.5,4
+79,46,Female,Australia,London,2024-08-24,162.4,Books,3.4,5
+79,46,Female,Australia,London,2024-03-03,327.83,Clothing,3.3,1
+79,46,Female,Australia,London,2023-12-08,151.31,Clothing,2.4,2
+79,46,Female,Australia,London,2024-01-03,416.43,Books,1.5,5
+79,46,Female,Australia,London,2024-01-13,430.51,Clothing,2.8,5
+79,46,Female,Australia,London,2024-11-24,132.75,Books,3.7,1
+79,46,Female,Australia,London,2024-01-27,420.19,Jewelry,1.9,3
+79,46,Female,Australia,London,2024-01-18,263.53,Clothing,1.9,3
+79,46,Female,Australia,London,2024-08-18,388.89,Jewelry,2.3,4
+80,44,Male,Germany,New York,2024-11-11,339.56,Books,2.1,1
+80,44,Male,Germany,New York,2024-07-09,395.75,Books,3.8,2
+80,44,Male,Germany,New York,2024-07-21,466.35,Books,2.3,4
+80,44,Male,Germany,New York,2024-11-06,439.83,Books,1.9,1
+80,44,Male,Germany,New York,2024-03-26,163.1,Books,2.1,5
+80,44,Male,Germany,New York,2024-02-03,389.6,Books,3.1,3
+80,44,Male,Germany,New York,2024-06-12,441.84,Books,1.8,2
+80,44,Male,Germany,New York,2024-11-22,105.59,Books,2.1,3
+80,44,Male,Germany,New York,2024-07-31,280.93,Books,4.4,5
+80,44,Male,Germany,New York,2024-04-08,489.71,Books,2.1,3
+81,32,Female,Germany,Toronto,2024-07-11,491.64,Jewelry,3.5,3
+81,32,Female,Germany,Toronto,2024-09-19,423.47,Automotive,2.2,5
+81,32,Female,Germany,Toronto,2024-04-13,75.19,Automotive,3.6,4
+81,32,Female,Germany,Toronto,2024-01-05,394.25,Automotive,2.5,5
+81,32,Female,Germany,Toronto,2024-11-04,439.75,Jewelry,4.9,5
+81,32,Female,Germany,Toronto,2024-09-10,243.69,Furniture,5.0,2
+81,32,Female,Germany,Toronto,2024-10-31,430.24,Jewelry,4.2,1
+81,32,Female,Germany,Toronto,2024-11-17,400.07,Automotive,3.1,3
+81,32,Female,Germany,Toronto,2024-01-19,371.51,Automotive,4.3,4
+81,32,Female,Germany,Toronto,2024-08-20,294.27,Jewelry,4.1,5
+82,50,Male,USA,Sydney,2024-06-29,496.45,Automotive,1.4,4
+82,50,Male,USA,Sydney,2024-06-16,214.38,Jewelry,5.0,2
+82,50,Male,USA,Sydney,2024-09-05,313.14,Jewelry,3.1,3
+82,50,Male,USA,Sydney,2024-07-03,54.06,Jewelry,3.0,5
+82,50,Male,USA,Sydney,2024-05-11,313.06,Books,4.9,4
+82,50,Male,USA,Sydney,2024-05-06,367.83,Jewelry,4.7,2
+82,50,Male,USA,Sydney,2024-09-24,346.99,Books,3.4,5
+82,50,Male,USA,Sydney,2023-12-01,245.26,Books,4.4,5
+82,50,Male,USA,Sydney,2024-08-02,252.53,Automotive,2.7,1
+82,50,Male,USA,Sydney,2024-09-19,270.32,Books,4.6,3
+83,49,Female,Australia,London,2024-04-05,338.7,Home & Kitchen,3.2,2
+83,49,Female,Australia,London,2024-10-23,453.07,Sporting Goods,3.3,4
+83,49,Female,Australia,London,2024-06-30,280.48,Home & Kitchen,3.2,4
+83,49,Female,Australia,London,2024-08-04,317.17,Sporting Goods,2.3,3
+83,49,Female,Australia,London,2024-08-06,75.42,Home & Kitchen,4.2,4
+83,49,Female,Australia,London,2024-04-03,246.96,Home & Kitchen,4.5,3
+83,49,Female,Australia,London,2024-05-12,16.46,Sporting Goods,3.6,4
+83,49,Female,Australia,London,2024-06-24,12.94,Home & Kitchen,2.0,1
+83,49,Female,Australia,London,2024-08-18,82.66,Home & Kitchen,1.4,1
+83,49,Female,Australia,London,2024-05-15,185.58,Home & Kitchen,4.9,1
+84,23,Male,UK,Toronto,2024-07-31,36.29,Automotive,3.6,4
+84,23,Male,UK,Toronto,2024-08-05,460.8,Automotive,1.8,4
+84,23,Male,UK,Toronto,2024-11-09,386.65,Beauty,3.5,2
+84,23,Male,UK,Toronto,2024-07-26,83.44,Automotive,3.7,5
+84,23,Male,UK,Toronto,2024-04-26,385.0,Beauty,2.5,3
+84,23,Male,UK,Toronto,2024-06-15,132.04,Automotive,1.6,4
+84,23,Male,UK,Toronto,2024-10-23,113.31,Beauty,1.4,1
+84,23,Male,UK,Toronto,2024-02-21,83.42,Beauty,4.7,3
+84,23,Male,UK,Toronto,2024-06-12,389.33,Automotive,4.3,2
+84,23,Male,UK,Toronto,2024-08-27,369.71,Automotive,1.2,5
+85,38,Male,Germany,Toronto,2024-10-30,270.92,Beauty,1.7,3
+85,38,Male,Germany,Toronto,2024-08-01,145.57,Beauty,4.9,5
+85,38,Male,Germany,Toronto,2024-09-21,362.08,Sporting Goods,2.4,1
+85,38,Male,Germany,Toronto,2024-06-09,383.68,Sporting Goods,1.9,3
+85,38,Male,Germany,Toronto,2024-10-14,293.81,Beauty,1.3,3
+85,38,Male,Germany,Toronto,2024-01-15,339.23,Books,3.3,5
+85,38,Male,Germany,Toronto,2024-02-25,100.21,Books,3.8,5
+85,38,Male,Germany,Toronto,2024-04-07,137.22,Beauty,4.9,1
+85,38,Male,Germany,Toronto,2024-06-15,465.76,Books,2.2,5
+85,38,Male,Germany,Toronto,2024-08-05,311.56,Sporting Goods,1.5,1
+86,24,Female,Germany,Berlin,2024-02-06,204.61,Books,4.1,5
+86,24,Female,Germany,Berlin,2024-04-26,102.5,Books,4.2,2
+86,24,Female,Germany,Berlin,2024-10-09,334.65,Books,4.1,1
+86,24,Female,Germany,Berlin,2024-03-05,51.67,Books,4.1,1
+86,24,Female,Germany,Berlin,2024-10-24,318.09,Books,4.4,5
+86,24,Female,Germany,Berlin,2024-07-26,315.78,Books,4.5,4
+86,24,Female,Germany,Berlin,2024-04-17,496.55,Books,3.0,3
+86,24,Female,Germany,Berlin,2024-08-13,283.23,Books,3.5,4
+86,24,Female,Germany,Berlin,2024-01-30,102.23,Books,4.7,2
+86,24,Female,Germany,Berlin,2024-11-26,81.47,Books,2.1,3
+87,26,Female,UK,Berlin,2024-03-18,207.36,Clothing,1.9,3
+87,26,Female,UK,Berlin,2024-02-11,45.83,Home & Kitchen,4.0,2
+87,26,Female,UK,Berlin,2024-01-02,17.5,Toys & Games,1.8,1
+87,26,Female,UK,Berlin,2024-01-03,329.43,Clothing,4.0,1
+87,26,Female,UK,Berlin,2024-11-17,155.14,Toys & Games,4.2,2
+87,26,Female,UK,Berlin,2024-08-23,442.14,Toys & Games,2.9,1
+87,26,Female,UK,Berlin,2024-07-20,198.57,Toys & Games,2.4,2
+87,26,Female,UK,Berlin,2024-04-04,394.16,Clothing,3.3,2
+87,26,Female,UK,Berlin,2024-06-20,105.48,Clothing,3.8,2
+87,26,Female,UK,Berlin,2024-04-25,267.81,Toys & Games,3.5,2
+88,31,Male,Germany,Sydney,2024-07-09,441.09,Automotive,4.7,1
+88,31,Male,Germany,Sydney,2024-09-08,239.18,Jewelry,2.4,3
+88,31,Male,Germany,Sydney,2024-06-29,250.84,Automotive,1.7,2
+88,31,Male,Germany,Sydney,2024-03-28,481.88,Jewelry,4.6,4
+88,31,Male,Germany,Sydney,2024-03-18,242.18,Jewelry,4.1,2
+88,31,Male,Germany,Sydney,2024-05-17,358.19,Automotive,2.4,4
+88,31,Male,Germany,Sydney,2024-06-04,438.03,Jewelry,3.6,3
+88,31,Male,Germany,Sydney,2023-12-13,330.31,Automotive,4.8,1
+88,31,Male,Germany,Sydney,2024-01-25,212.76,Automotive,1.1,4
+88,31,Male,Germany,Sydney,2024-03-06,362.16,Automotive,3.4,3
+89,19,Female,UK,Sydney,2024-10-27,201.96,Clothing,3.6,2
+89,19,Female,UK,Sydney,2024-01-24,260.87,Clothing,4.7,4
+89,19,Female,UK,Sydney,2024-05-15,123.5,Clothing,2.6,1
+89,19,Female,UK,Sydney,2024-03-15,364.79,Home & Kitchen,1.1,2
+89,19,Female,UK,Sydney,2024-08-19,286.48,Home & Kitchen,1.7,1
+89,19,Female,UK,Sydney,2024-06-27,415.42,Home & Kitchen,4.3,5
+89,19,Female,UK,Sydney,2024-07-25,209.16,Clothing,1.4,5
+89,19,Female,UK,Sydney,2023-12-20,492.63,Clothing,3.8,2
+89,19,Female,UK,Sydney,2024-04-20,181.3,Home & Kitchen,2.6,3
+89,19,Female,UK,Sydney,2024-05-02,153.85,Clothing,2.8,1
+90,40,Female,Canada,New York,2024-02-13,197.04,Furniture,2.9,1
+90,40,Female,Canada,New York,2024-05-30,403.81,Home & Kitchen,4.4,4
+90,40,Female,Canada,New York,2024-07-25,258.19,Home & Kitchen,1.5,3
+90,40,Female,Canada,New York,2024-10-09,202.3,Home & Kitchen,2.4,1
+90,40,Female,Canada,New York,2024-07-16,214.62,Home & Kitchen,3.2,1
+90,40,Female,Canada,New York,2024-01-24,354.98,Home & Kitchen,3.9,1
+90,40,Female,Canada,New York,2024-07-11,354.37,Home & Kitchen,4.8,2
+90,40,Female,Canada,New York,2024-04-24,384.09,Home & Kitchen,3.6,3
+90,40,Female,Canada,New York,2024-09-19,256.15,Furniture,4.8,4
+90,40,Female,Canada,New York,2024-01-26,443.12,Home & Kitchen,4.2,2
+91,31,Male,Canada,Sydney,2023-12-13,125.83,Home & Kitchen,4.8,4
+91,31,Male,Canada,Sydney,2024-07-10,140.26,Toys & Games,4.8,5
+91,31,Male,Canada,Sydney,2024-09-28,396.29,Home & Kitchen,4.7,2
+91,31,Male,Canada,Sydney,2024-06-23,325.36,Home & Kitchen,3.7,2
+91,31,Male,Canada,Sydney,2024-11-23,333.06,Toys & Games,2.1,1
+91,31,Male,Canada,Sydney,2024-05-14,368.81,Sporting Goods,4.9,4
+91,31,Male,Canada,Sydney,2024-09-05,268.65,Toys & Games,2.6,3
+91,31,Male,Canada,Sydney,2024-11-25,377.41,Sporting Goods,3.3,5
+91,31,Male,Canada,Sydney,2024-10-22,166.08,Sporting Goods,3.0,4
+91,31,Male,Canada,Sydney,2024-08-07,259.0,Sporting Goods,3.0,2
+92,47,Female,Germany,Toronto,2024-01-27,181.05,Clothing,1.6,5
+92,47,Female,Germany,Toronto,2024-09-26,202.01,Clothing,1.8,1
+92,47,Female,Germany,Toronto,2024-08-30,212.16,Clothing,4.1,4
+92,47,Female,Germany,Toronto,2024-08-31,198.9,Toys & Games,3.7,4
+92,47,Female,Germany,Toronto,2024-05-13,34.97,Clothing,1.1,5
+92,47,Female,Germany,Toronto,2024-08-26,400.48,Toys & Games,2.5,1
+92,47,Female,Germany,Toronto,2024-02-18,349.75,Clothing,1.4,5
+92,47,Female,Germany,Toronto,2024-04-17,143.0,Clothing,3.9,2
+92,47,Female,Germany,Toronto,2024-05-29,343.24,Clothing,3.4,2
+92,47,Female,Germany,Toronto,2024-07-04,229.47,Toys & Games,2.7,2
+93,46,Female,UK,New York,2024-01-20,94.13,Clothing,1.6,5
+93,46,Female,UK,New York,2023-12-17,284.03,Clothing,4.9,3
+93,46,Female,UK,New York,2024-03-05,295.05,Clothing,3.3,4
+93,46,Female,UK,New York,2024-08-12,160.63,Automotive,4.3,2
+93,46,Female,UK,New York,2024-02-19,191.13,Automotive,4.1,1
+93,46,Female,UK,New York,2024-04-06,93.41,Clothing,1.7,2
+93,46,Female,UK,New York,2024-06-26,141.94,Clothing,1.9,1
+93,46,Female,UK,New York,2024-06-21,324.48,Clothing,3.3,1
+93,46,Female,UK,New York,2024-08-17,414.06,Automotive,3.1,4
+93,46,Female,UK,New York,2024-03-27,102.84,Automotive,4.8,3
+94,57,Female,Australia,Sydney,2024-10-22,253.84,Furniture,4.0,5
+94,57,Female,Australia,Sydney,2024-10-24,111.22,Sporting Goods,3.3,3
+94,57,Female,Australia,Sydney,2024-10-04,378.34,Sporting Goods,5.0,2
+94,57,Female,Australia,Sydney,2024-07-30,225.49,Home & Kitchen,1.8,5
+94,57,Female,Australia,Sydney,2023-12-15,427.62,Home & Kitchen,1.7,2
+94,57,Female,Australia,Sydney,2024-10-05,60.15,Furniture,3.1,1
+94,57,Female,Australia,Sydney,2024-06-05,191.15,Sporting Goods,3.0,2
+94,57,Female,Australia,Sydney,2024-11-14,418.72,Furniture,3.7,2
+94,57,Female,Australia,Sydney,2024-04-24,473.3,Home & Kitchen,1.9,2
+94,57,Female,Australia,Sydney,2024-11-14,237.27,Home & Kitchen,4.4,1
+95,25,Male,Canada,Sydney,2024-05-16,366.26,Electronics,1.7,3
+95,25,Male,Canada,Sydney,2024-04-23,24.72,Furniture,1.5,4
+95,25,Male,Canada,Sydney,2024-10-20,218.6,Electronics,2.5,2
+95,25,Male,Canada,Sydney,2023-11-30,248.3,Electronics,2.4,5
+95,25,Male,Canada,Sydney,2024-11-09,273.91,Furniture,4.4,5
+95,25,Male,Canada,Sydney,2024-07-06,181.12,Jewelry,1.8,1
+95,25,Male,Canada,Sydney,2024-02-28,246.51,Furniture,3.0,3
+95,25,Male,Canada,Sydney,2023-12-03,31.21,Jewelry,3.7,3
+95,25,Male,Canada,Sydney,2024-03-30,57.65,Electronics,4.5,1
+95,25,Male,Canada,Sydney,2024-01-28,495.36,Jewelry,4.3,5
+96,18,Male,Canada,Toronto,2024-05-22,115.69,Jewelry,3.5,2
+96,18,Male,Canada,Toronto,2024-08-30,203.44,Jewelry,4.2,1
+96,18,Male,Canada,Toronto,2024-07-21,201.93,Beauty,3.9,2
+96,18,Male,Canada,Toronto,2024-02-09,174.21,Beauty,1.8,2
+96,18,Male,Canada,Toronto,2024-04-26,464.24,Beauty,4.3,4
+96,18,Male,Canada,Toronto,2024-07-05,210.38,Beauty,1.8,2
+96,18,Male,Canada,Toronto,2024-01-21,465.3,Beauty,4.6,2
+96,18,Male,Canada,Toronto,2024-05-10,35.3,Jewelry,2.0,1
+96,18,Male,Canada,Toronto,2024-01-16,493.15,Beauty,3.1,5
+96,18,Male,Canada,Toronto,2024-05-13,107.78,Jewelry,4.2,5
+97,19,Female,Australia,Berlin,2024-02-01,51.47,Automotive,1.3,3
+97,19,Female,Australia,Berlin,2024-06-19,48.16,Automotive,1.6,5
+97,19,Female,Australia,Berlin,2024-09-13,319.22,Automotive,3.1,4
+97,19,Female,Australia,Berlin,2024-07-18,197.67,Beauty,1.3,3
+97,19,Female,Australia,Berlin,2024-03-21,230.35,Automotive,1.4,2
+97,19,Female,Australia,Berlin,2024-03-05,488.86,Beauty,2.2,5
+97,19,Female,Australia,Berlin,2024-09-01,252.97,Electronics,2.1,3
+97,19,Female,Australia,Berlin,2024-01-22,53.34,Automotive,3.1,3
+97,19,Female,Australia,Berlin,2024-06-21,47.2,Electronics,1.8,1
+97,19,Female,Australia,Berlin,2023-12-26,188.98,Automotive,4.4,4
+98,31,Female,UK,Berlin,2024-06-22,87.61,Jewelry,3.8,2
+98,31,Female,UK,Berlin,2024-03-25,67.56,Clothing,1.7,5
+98,31,Female,UK,Berlin,2024-02-07,165.41,Clothing,4.8,3
+98,31,Female,UK,Berlin,2024-04-28,53.23,Jewelry,2.8,1
+98,31,Female,UK,Berlin,2023-12-24,22.74,Clothing,3.8,1
+98,31,Female,UK,Berlin,2024-05-24,176.57,Clothing,1.9,4
+98,31,Female,UK,Berlin,2024-07-06,287.61,Clothing,3.4,4
+98,31,Female,UK,Berlin,2024-10-29,327.95,Jewelry,1.9,1
+98,31,Female,UK,Berlin,2024-04-09,114.02,Jewelry,2.0,5
+98,31,Female,UK,Berlin,2024-04-30,451.59,Clothing,1.6,5
+99,50,Female,Australia,Berlin,2024-04-02,339.43,Electronics,3.6,5
+99,50,Female,Australia,Berlin,2024-06-09,60.4,Home & Kitchen,2.7,3
+99,50,Female,Australia,Berlin,2024-03-19,107.93,Toys & Games,4.5,1
+99,50,Female,Australia,Berlin,2024-07-28,298.08,Electronics,1.5,4
+99,50,Female,Australia,Berlin,2023-12-30,143.16,Toys & Games,3.0,5
+99,50,Female,Australia,Berlin,2024-07-28,79.48,Toys & Games,2.4,4
+99,50,Female,Australia,Berlin,2024-05-09,241.41,Electronics,4.2,1
+99,50,Female,Australia,Berlin,2024-02-19,338.59,Home & Kitchen,2.5,1
+99,50,Female,Australia,Berlin,2024-07-20,50.63,Toys & Games,1.5,4
+99,50,Female,Australia,Berlin,2024-01-08,222.85,Home & Kitchen,1.3,5
+100,56,Female,USA,London,2024-01-07,349.15,Toys & Games,4.5,1
+100,56,Female,USA,London,2024-10-26,445.33,Furniture,2.5,2
+100,56,Female,USA,London,2024-05-25,435.87,Toys & Games,2.4,3
+100,56,Female,USA,London,2024-01-17,245.62,Toys & Games,4.7,1
+100,56,Female,USA,London,2024-07-30,487.59,Toys & Games,3.0,1
+100,56,Female,USA,London,2024-02-23,160.21,Toys & Games,3.2,1
+100,56,Female,USA,London,2024-08-11,15.95,Furniture,3.4,3
+100,56,Female,USA,London,2024-08-22,44.18,Toys & Games,1.4,2
+100,56,Female,USA,London,2024-11-01,454.14,Furniture,1.0,4
+100,56,Female,USA,London,2024-03-28,102.4,Furniture,4.0,5
