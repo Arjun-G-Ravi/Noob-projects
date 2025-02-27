@@ -34,13 +34,18 @@ best_height = 0
 last_height = 0
 fall_sound = pygame.mixer.Sound("fall.ogg")
 sound_played = False
-falling = False  # New flag to track falling state
-last_platform_height = 0  # Track height of last platform landed on
+falling = False
+last_platform_height = 0
+
+# Load win sprite
+win_img = pygame.image.load("win.png").convert_alpha()
+win_img = pygame.transform.scale(win_img, (50, 50))
 
 # Font and clock
 font = pygame.font.SysFont(None, 30)
 clock = pygame.time.Clock()
 running = True
+win = False  # Added win flag initialization
 
 while running:
     screen.fill(WHITE)
@@ -100,15 +105,13 @@ while running:
             platform['rect'].y -= shift
 
     # Fall detection using height difference
-    if velocity_y > 0 and not on_ground:  # Player is falling
-        if not falling:  # Just started falling
+    if velocity_y > 0 and not on_ground:
+        if not falling:
             falling = True
-    elif on_ground and falling:  # Landed after falling
+    elif on_ground and falling:
         fall_distance = last_platform_height - current_height
         last_platform_height = current_height
-        # print(fall_distance)
-        if fall_distance > 2 and not sound_played:  # Significant fall
-            # print(f"Fell from {last_platform_height} to {current_height}")
+        if fall_distance > 2 and not sound_played:
             fall_sound.play()
             sound_played = True
         falling = False
@@ -122,11 +125,23 @@ while running:
         max_height = 0
         falling = False
 
-    # Draw player and platforms
+    # Draw player, win sprite, and platforms
     screen.blit(player_img, (player.x, player.y))
+    # Find the highest platform
+    highest_platform = max(platforms, key=lambda p: p['height_level'])
+    highest_rect = highest_platform['rect']
+    highest_height = highest_platform['height_level']
+    # Place win sprite one block above the highest platform
+    win_rect = win_img.get_rect(center=(highest_rect.centerx, highest_rect.centery - 20))
+    print(win_rect)  # For debugging
+    screen.blit(win_img, win_rect)
+    # Draw all platforms
     for platform in platforms:
-        platform['rect']
         pygame.draw.rect(screen, BLACK, platform['rect'])
+    # Check if player touches the win sprite
+    if player.colliderect(win_rect):
+        running = False
+        win = True
 
     # Display height tracker
     height_text = font.render(f"Height: {current_height}m | Max: {max_height}m | Best: {best_height}m", True, BLACK)
@@ -137,5 +152,13 @@ while running:
 
     pygame.display.flip()
     clock.tick(60)
+
+# Display a "You Win!" message before quitting if won
+screen.fill(WHITE)
+if win:
+    win_text = font.render("You Win!", True, BLACK)
+    screen.blit(win_text, (WIDTH // 2 - 40, HEIGHT // 2))
+    pygame.display.flip()
+    pygame.time.wait(2000)
 
 pygame.quit()
