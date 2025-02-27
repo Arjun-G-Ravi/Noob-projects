@@ -16,18 +16,28 @@ MOVE_SPEED = 0.1
 MOUSE_SENSITIVITY = 0.002
 ENEMY_SPEED = 0.02
 
-# Define the maze
+# Define the larger maze (20x20)
 MAP = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 1, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
 # Fonts
@@ -38,18 +48,24 @@ title_font = pygame.font.Font(None, 72)
 MAIN_MENU, PLAYING, GAME_OVER = 0, 1, 2
 game_state = MAIN_MENU
 
-# Player variables (will be reset when starting game)
+# Player variables
 def reset_player():
-    global player_x, player_y, player_angle, player_health, player_ammo, enemies
+    global player_x, player_y, player_angle, player_health, player_ammo, enemies, powerups
     player_x = 1.5
     player_y = 1.5
     player_angle = 0
     player_health = 100
     player_ammo = 50
     enemies = [
-        {"x": 3.5, "y": 1.5, "type": "regular", "health": 1},
-        {"x": 5.5, "y": 1.5, "type": "regular", "health": 1},
-        {"x": 8.5, "y": 8.5, "type": "big", "health": 5}
+        {"x": 5.5, "y": 3.5, "type": "regular", "health": 1, "max_health": 1},
+        {"x": 7.5, "y": 5.5, "type": "regular", "health": 1, "max_health": 1},
+        {"x": 18.5, "y": 18.5, "type": "big", "health": 10, "max_health": 10, "last_spawn_time": 0}
+    ]
+    powerups = [
+        {"x": 5.5, "y": 5.5, "type": "health"},
+        {"x": 12.5, "y": 12.5, "type": "health"},
+        {"x": 3.5, "y": 16.5, "type": "ammo"},
+        {"x": 16.5, "y": 3.5, "type": "ammo"}
     ]
 
 # Raycasting function
@@ -109,16 +125,35 @@ def project_enemy(enemy, player_x, player_y, player_angle):
     enemy_screen_width = enemy_screen_height
     return screen_x, enemy_screen_height, enemy_screen_width, distance
 
+# Project powerup positions
+def project_powerup(powerup, player_x, player_y, player_angle):
+    dx = powerup["x"] - player_x
+    dy = powerup["y"] - player_y
+    distance = math.sqrt(dx**2 + dy**2)
+    if distance == 0:
+        return None
+    powerup_angle = math.atan2(dy, dx)
+    angle_diff = (powerup_angle - player_angle) % (2 * math.pi)
+    if angle_diff > math.pi:
+        angle_diff -= 2 * math.pi
+    if abs(angle_diff) > FOV / 2:
+        return None
+    screen_x = WIDTH / 2 + (angle_diff / (FOV / 2)) * (WIDTH / 2)
+    powerup_screen_height = HEIGHT / distance * 0.5
+    powerup_screen_width = powerup_screen_height
+    return screen_x, powerup_screen_height, powerup_screen_width, distance
+
 # Move enemies
 def move_enemy(enemy, player_x, player_y):
+    speed = 0.01 if enemy["type"] == "big" else ENEMY_SPEED
     dx = player_x - enemy["x"]
     dy = player_y - enemy["y"]
     distance = math.sqrt(dx**2 + dy**2)
     if distance > 0:
         dx /= distance
         dy /= distance
-        new_x = enemy["x"] + dx * ENEMY_SPEED
-        new_y = enemy["y"] + dy * ENEMY_SPEED
+        new_x = enemy["x"] + dx * speed
+        new_y = enemy["y"] + dy * speed
         if MAP[int(new_y)][int(new_x)] == 0:
             enemy["x"] = new_x
             enemy["y"] = new_y
@@ -149,6 +184,22 @@ def shoot(player_x, player_y, player_angle, wall_distances):
                 enemies.remove(hit_enemy)
                 if hit_enemy["type"] == "big":
                     game_state = GAME_OVER
+
+# Mini-map (scaled to 100x100 for 20x20 map)
+def draw_minimap():
+    pygame.draw.rect(screen, (0, 0, 0), (700, 0, 100, 100))
+    for row in range(20):
+        for col in range(20):
+            if MAP[row][col] == 1:
+                pygame.draw.rect(screen, (100, 100, 100), (700 + col * 5, row * 5, 5, 5))
+    pygame.draw.rect(screen, (0, 255, 0), (700 + player_x * 5 - 2, player_y * 5 - 2, 4, 4))
+    for enemy in enemies:
+        color = (255, 0, 0) if enemy["type"] == "regular" else (0, 0, 255)
+        pygame.draw.rect(screen, color, (700 + enemy["x"] * 5 - 2, enemy["y"] * 5 - 2, 4, 4))
+    for powerup in powerups:
+        color = (0, 255, 0) if powerup["type"] == "health" else (255, 255, 0)
+        pygame.draw.rect(screen, color, (700 + powerup["x"] * 5 - 1, powerup["y"] * 5 - 1, 2, 2))
+    pygame.draw.rect(screen, (255, 255, 255), (700, 0, 100, 100), 1)
 
 # Menu rendering functions
 def draw_main_menu():
@@ -206,21 +257,56 @@ while running:
         # Player rotation
         mouse_dx, _ = pygame.mouse.get_rel()
         player_angle += mouse_dx * MOUSE_SENSITIVITY
+        if keys[pygame.K_LEFT]:
+            player_angle -= 0.02
+        if keys[pygame.K_RIGHT]:
+            player_angle += 0.02
         player_angle %= 2 * math.pi
 
-        # Player movement
-        if keys[pygame.K_UP]:
-            new_x = player_x + MOVE_SPEED * math.cos(player_angle)
-            new_y = player_y + MOVE_SPEED * math.sin(player_angle)
+        # Player movement with WASD and arrows
+        dx = math.cos(player_angle)
+        dy = math.sin(player_angle)
+        strafe_dx = -math.sin(player_angle)
+        strafe_dy = math.cos(player_angle)
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
+            new_x = player_x + MOVE_SPEED * dx
+            new_y = player_y + MOVE_SPEED * dy
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x = new_x
                 player_y = new_y
-        if keys[pygame.K_DOWN]:
-            new_x = player_x - MOVE_SPEED * math.cos(player_angle)
-            new_y = player_y - MOVE_SPEED * math.sin(player_angle)
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+            new_x = player_x - MOVE_SPEED * dx
+            new_y = player_y - MOVE_SPEED * dy
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x = new_x
                 player_y = new_y
+        if keys[pygame.K_a]:
+            new_x = player_x + MOVE_SPEED * strafe_dx
+            new_y = player_y + MOVE_SPEED * strafe_dy
+            if MAP[int(new_y)][int(new_x)] == 0:
+                player_x = new_x
+                player_y = new_y
+        if keys[pygame.K_d]:
+            new_x = player_x + MOVE_SPEED * -strafe_dx
+            new_y = player_y + MOVE_SPEED * -strafe_dy
+            if MAP[int(new_y)][int(new_x)] == 0:
+                player_x = new_x
+                player_y = new_y
+
+        # Check for powerup pickups
+        to_remove = []
+        for powerup in powerups:
+            dx = player_x - powerup["x"]
+            dy = player_y - powerup["y"]
+            distance = math.sqrt(dx**2 + dy**2)
+            if distance < 0.5:
+                if powerup["type"] == "health":
+                    player_health = min(100, player_health + 20)
+                elif powerup["type"] == "ammo":
+                    player_ammo += 10
+                to_remove.append(powerup)
+        for powerup in to_remove:
+            powerups.remove(powerup)
 
         # Compute wall distances
         wall_distances = []
@@ -229,9 +315,17 @@ while running:
             distance = cast_ray(player_x, player_y, ray_angle)
             wall_distances.append(distance)
 
-        # Move enemies
+        # Move enemies and spawn new ones
+        current_time = pygame.time.get_ticks()
         for enemy in enemies:
             move_enemy(enemy, player_x, player_y)
+            if enemy["type"] == "big" and current_time - enemy["last_spawn_time"] > 20000:
+                for offset in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
+                    new_col = int(enemy["x"]) + offset[0]
+                    new_row = int(enemy["y"]) + offset[1]
+                    if 0 <= new_row < 20 and 0 <= new_col < 20 and MAP[new_row][new_col] == 0:
+                        enemies.append({"x": new_col + 0.5, "y": new_row + 0.5, "type": "regular", "health": 1, "max_health": 1})
+                enemy["last_spawn_time"] = current_time
 
         # Enemy attacks
         for enemy in enemies:
@@ -257,7 +351,7 @@ while running:
             color = (shade, shade, shade)
             pygame.draw.line(screen, color, (col, HEIGHT / 2 - wall_height / 2), (col, HEIGHT / 2 + wall_height / 2))
 
-        # Draw enemies
+        # Draw enemies with health bars
         visible_enemies = []
         for enemy in enemies:
             projection = project_enemy(enemy, player_x, player_y, player_angle)
@@ -272,16 +366,43 @@ while running:
             top = HEIGHT / 2 - enemy_screen_height / 2
             left = screen_x - enemy_screen_width / 2
             pygame.draw.rect(screen, color, (left, top, enemy_screen_width, enemy_screen_height))
+            # Draw health bar
+            health_ratio = enemy["health"] / enemy["max_health"]
+            bar_width = enemy_screen_width * health_ratio
+            bar_height = 5
+            pygame.draw.rect(screen, (255, 0, 0), (left, top - bar_height - 2, enemy_screen_width, bar_height))
+            pygame.draw.rect(screen, (0, 255, 0), (left, top - bar_height - 2, bar_width, bar_height))
 
-        # Draw HUD
-        health_text = font.render(f"Health: {int(player_health)}", True, (255, 255, 255))
-        screen.blit(health_text, (10, 10))
+        # Draw powerups
+        visible_powerups = []
+        for powerup in powerups:
+            projection = project_powerup(powerup, player_x, player_y, player_angle)
+            if projection:
+                screen_x, powerup_screen_height, powerup_screen_width, distance = projection
+                ray_index = int(screen_x + 0.5)
+                if 0 <= ray_index < NUM_RAYS and distance < wall_distances[ray_index]:
+                    visible_powerups.append((screen_x, powerup_screen_height, powerup_screen_width, distance, powerup))
+        visible_powerups.sort(key=lambda p: p[3], reverse=True)
+        for screen_x, powerup_screen_height, powerup_screen_width, distance, powerup in visible_powerups:
+            color = (0, 255, 0) if powerup["type"] == "health" else (255, 255, 0)
+            top = HEIGHT / 2 - powerup_screen_height / 2
+            left = screen_x - powerup_screen_width / 2
+            pygame.draw.rect(screen, color, (left, top, powerup_screen_width, powerup_screen_height))
+
+        # Draw HUD with player health bar
+        health_text = font.render(f"Health:", True, (255, 255, 255))
         ammo_text = font.render(f"Ammo: {player_ammo}", True, (255, 255, 255))
-        screen.blit(ammo_text, (10, 50))
+        screen.blit(health_text, (10, 10))
+        pygame.draw.rect(screen, (255, 0, 0), (70, 15, 100, 10))
+        pygame.draw.rect(screen, (0, 255, 0), (70, 15, player_health, 10))
+        screen.blit(ammo_text, (10, 40))
 
         # Draw crosshair
         pygame.draw.line(screen, (255, 255, 255), (WIDTH / 2 - 10, HEIGHT / 2), (WIDTH / 2 + 10, HEIGHT / 2), 2)
         pygame.draw.line(screen, (255, 255, 255), (WIDTH / 2, HEIGHT / 2 - 10), (WIDTH / 2, HEIGHT / 2 + 10), 2)
+
+        # Draw minimap
+        draw_minimap()
 
         pygame.display.flip()
 

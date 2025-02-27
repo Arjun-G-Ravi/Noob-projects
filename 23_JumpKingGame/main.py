@@ -9,6 +9,9 @@ GRAVITY = 0.5
 JUMP_STRENGTH = -10
 PLAYER_SPEED = 5
 PLATFORM_WIDTH, PLATFORM_HEIGHT = 100, 10
+MAX_HEIGHT_METERS = 100  # Maximum height in meters
+METERS_PER_JUMP = 1  # Each platform is 1 meter higher
+PIXELS_PER_METER = 10  # 10 pixels per meter
 
 # Colors
 WHITE = (255, 255, 255)
@@ -23,47 +26,17 @@ pygame.display.set_caption("Jump King Clone")
 player = pygame.Rect(WIDTH // 2, HEIGHT - 100, 30, 30)
 velocity_y = 0
 on_ground = False
+current_height = 0
+max_height = 0
 
+# Generate platforms
+platforms = [pygame.Rect(200, HEIGHT - 200, PLATFORM_WIDTH, PLATFORM_HEIGHT)]
+for i in range(1, MAX_HEIGHT_METERS + 1):
+    y_position = HEIGHT - 200 - (i * PIXELS_PER_METER)
+    x_position = (i * 123) % WIDTH  # Spread platforms horizontally
+    platforms.append(pygame.Rect(x_position, y_position, PLATFORM_WIDTH, PLATFORM_HEIGHT))
 
-platforms = [  # (x, y, width, height)
-    pygame.Rect(0, 400, 800, 500),
-    pygame.Rect(200, 300, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(300, 200, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(100, 100, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(100, 0, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(250, -100, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(150, -200, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(350, -300, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(350, -400, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(350, -500, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(200, -600, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(300, -700, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(100, -800, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(250, -900, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(150, -1000, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(350, -1100, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(200, -1200, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(300, -1300, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(100, -1400, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(250, -1500, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(150, -1600, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(350, -1700, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(200, -1800, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(300, -1900, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(100, -2000, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(250, -2100, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(150, -2200, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(350, -2300, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(200, -2400, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(300, -2500, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(100, -2600, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(250, -2700, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(150, -2800, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(350, -2900, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-    pygame.Rect(200, -3000, PLATFORM_WIDTH, PLATFORM_HEIGHT),
-]
-
-
+font = pygame.font.SysFont(None, 30)
 clock = pygame.time.Clock()
 running = True
 
@@ -94,27 +67,28 @@ while running:
             player.y = platform.y - player.height
             velocity_y = 0
             on_ground = True
+            current_height = (HEIGHT - platform.y) // PIXELS_PER_METER  # Update current height
+            max_height = max(max_height, current_height)  # Track highest point reached
             break
 
-    # Vertical scrolling:
-    # If the player goes above the midline (jumping), scroll platforms down.
+    # Vertical scrolling
     if player.y < HEIGHT // 2 and velocity_y < 0:
         shift = HEIGHT // 2 - player.y
         player.y = HEIGHT // 2
         for platform in platforms:
             platform.y += shift
-    # If the player goes below the midline (falling), scroll platforms up.
     elif player.y > HEIGHT // 2 and velocity_y > 0:
         shift = player.y - HEIGHT // 2
         player.y = HEIGHT // 2
         for platform in platforms:
             platform.y -= shift
-
-    # Optional: Reset if the player falls too far (e.g., if platforms have scrolled out)
+    
+    # Reset if player falls too far
     if player.y - velocity_y > HEIGHT:
         player.x = WIDTH // 2
         player.y = HEIGHT - 100
         velocity_y = 0
+        current_height = 0  # Reset height on fall
 
     # Keep player within horizontal bounds
     if player.x < 0:
@@ -126,6 +100,10 @@ while running:
     pygame.draw.rect(screen, RED, player)
     for platform in platforms:
         pygame.draw.rect(screen, BLACK, platform)
+    
+    # Display height tracker
+    height_text = font.render(f"Height: {current_height}m | Max: {max_height}m", True, BLACK)
+    screen.blit(height_text, (10, 10))
     
     pygame.display.flip()
     clock.tick(60)
