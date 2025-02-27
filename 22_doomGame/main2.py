@@ -15,11 +15,17 @@ NUM_RAYS = WIDTH
 MOVE_SPEED = 0.2
 MOUSE_SENSITIVITY = 0.002
 
-# Enemy
+# Enemy speeds
 BOSS_SPEED = 0.01
 REGULAR_SPEED = 0.05
 FAST_SPEED = 0.1
 
+# Load enemy sprite images
+enemy_sprites = {
+    "boss": pygame.image.load("boss.png").convert_alpha(),
+    "regular": pygame.image.load("regular.png").convert_alpha(),
+    "fast": pygame.image.load("fast.png").convert_alpha()
+}
 
 # Define the larger maze (20x20)
 MAP = [
@@ -110,7 +116,7 @@ def cast_ray(x, y, angle):
                 distance = side_dist_y - delta_dist_y
             return distance
 
-# Project enemy positions
+# Project enemy positions with aspect ratio
 def project_enemy(enemy, player_x, player_y, player_angle):
     dx = enemy["x"] - player_x
     dy = enemy["y"] - player_y
@@ -127,7 +133,9 @@ def project_enemy(enemy, player_x, player_y, player_angle):
     enemy_screen_height = HEIGHT / distance
     if enemy["type"] == "boss":
         enemy_screen_height *= 2
-    enemy_screen_width = enemy_screen_height
+    sprite = enemy_sprites[enemy["type"]]
+    aspect_ratio = sprite.get_width() / sprite.get_height()
+    enemy_screen_width = enemy_screen_height * aspect_ratio
     return screen_x, enemy_screen_height, enemy_screen_width, distance
 
 # Project powerup positions
@@ -192,7 +200,7 @@ def shoot(player_x, player_y, player_angle, wall_distances):
                 if hit_enemy["type"] == "boss":
                     game_state = GAME_OVER
 
-# Mini-map (scaled to 100x100 for 20x20 map)
+# Mini-map
 def draw_minimap():
     pygame.draw.rect(screen, (0, 0, 0), (700, 0, 100, 100))
     for row in range(20):
@@ -201,12 +209,12 @@ def draw_minimap():
                 pygame.draw.rect(screen, (100, 100, 100), (700 + col * 5, row * 5, 5, 5))
     pygame.draw.rect(screen, (0, 255, 0), (700 + player_x * 5 - 2, player_y * 5 - 2, 4, 4))
     for enemy in enemies:
-        if enemy["type"] == "boss": color = (255, 0, 0) 
-        if enemy["type"] == "regular": color = (0, 0, 255) 
-        else: color = (255, 255, 0) 
+        if enemy["type"] == "boss": color = (255, 0, 0)
+        elif enemy["type"] == "regular": color = (0, 0, 255)
+        else: color = (255, 255, 0)
         pygame.draw.rect(screen, color, (700 + enemy["x"] * 5 - 2, enemy["y"] * 5 - 2, 4, 4))
     for powerup in powerups:
-        color = (0, 255, 0) if powerup["type"] == "health" else (0, 0, 0)
+        color = (0, 255, 0) if powerup["type"] == "health" else (255, 255, 0)
         pygame.draw.rect(screen, color, (700 + powerup["x"] * 5 - 1, powerup["y"] * 5 - 1, 2, 2))
     pygame.draw.rect(screen, (255, 255, 255), (700, 0, 100, 100), 1)
 
@@ -289,13 +297,13 @@ while running:
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x = new_x
                 player_y = new_y
-        if keys[pygame.K_a]:
+        if keys[pygame.K_d]:
             new_x = player_x + MOVE_SPEED * strafe_dx
             new_y = player_y + MOVE_SPEED * strafe_dy
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x = new_x
                 player_y = new_y
-        if keys[pygame.K_d]:
+        if keys[pygame.K_a]:
             new_x = player_x + MOVE_SPEED * -strafe_dx
             new_y = player_y + MOVE_SPEED * -strafe_dy
             if MAP[int(new_y)][int(new_x)] == 0:
@@ -350,10 +358,9 @@ while running:
             game_state = GAME_OVER
 
         # Rendering
-        pygame.draw.rect(screen, (40, 40, 255), (0, 0, WIDTH, HEIGHT / 2))
-        # pygame.draw.rect(screen, (0, 255, 0), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))
-        # pygame.draw.rect(screen, (255, 165, 0), (0, 0, WIDTH, HEIGHT / 2))  # Orange sky
-        pygame.draw.rect(screen, (139, 69, 19), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))
+        pygame.draw.rect(screen, (0, 0, 255), (0, 0, WIDTH, HEIGHT / 2))  # Sky
+        pygame.draw.rect(screen, (0, 255, 0), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))  # Ground
+
         # Draw walls
         for col in range(NUM_RAYS):
             distance = wall_distances[col]
@@ -362,7 +369,7 @@ while running:
             color = (shade, shade, shade)
             pygame.draw.line(screen, color, (col, HEIGHT / 2 - wall_height / 2), (col, HEIGHT / 2 + wall_height / 2))
 
-        # Draw enemies with health bars
+        # Draw enemies with sprites and health bars
         visible_enemies = []
         for enemy in enemies:
             projection = project_enemy(enemy, player_x, player_y, player_angle)
@@ -373,15 +380,11 @@ while running:
                     visible_enemies.append((screen_x, enemy_screen_height, enemy_screen_width, distance, enemy))
         visible_enemies.sort(key=lambda e: e[3], reverse=True)
         for screen_x, enemy_screen_height, enemy_screen_width, distance, enemy in visible_enemies:
-            if enemy["type"] == "boss": color = (255, 0, 0) 
-            if enemy["type"] == "regular": color = (0, 0, 255) 
-            else: color = (255, 255, 0) 
-
-
-
+            sprite = enemy_sprites[enemy["type"]]
+            scaled_sprite = pygame.transform.scale(sprite, (int(enemy_screen_width), int(enemy_screen_height)))
             top = HEIGHT / 2 - enemy_screen_height / 2
             left = screen_x - enemy_screen_width / 2
-            pygame.draw.rect(screen, color, (left, top, enemy_screen_width, enemy_screen_height))
+            screen.blit(scaled_sprite, (left, top))
             # Draw health bar
             health_ratio = enemy["health"] / enemy["max_health"]
             bar_width = enemy_screen_width * health_ratio
@@ -405,6 +408,7 @@ while running:
             left = screen_x - powerup_screen_width / 2
             pygame.draw.rect(screen, color, (left, top, powerup_screen_width, powerup_screen_height))
 
+        # Draw HUD
         ammo_text = font.render(f"Ammo: {player_ammo}", True, (255, 255, 255))
         pygame.draw.rect(screen, (255, 0, 0), (10, 15, 200, 25))
         pygame.draw.rect(screen, (0, 255, 0), (10, 15, 2*player_health, 25))
