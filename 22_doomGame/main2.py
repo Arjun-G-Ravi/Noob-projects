@@ -350,9 +350,10 @@ while running:
             game_state = GAME_OVER
 
         # Rendering
-        pygame.draw.rect(screen, (0, 0, 255), (0, 0, WIDTH, HEIGHT / 2))
-        pygame.draw.rect(screen, (0, 255, 0), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))
-
+        pygame.draw.rect(screen, (40, 40, 255), (0, 0, WIDTH, HEIGHT / 2))
+        # pygame.draw.rect(screen, (0, 255, 0), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))
+        # pygame.draw.rect(screen, (255, 165, 0), (0, 0, WIDTH, HEIGHT / 2))  # Orange sky
+        pygame.draw.rect(screen, (139, 69, 19), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))
         # Draw walls
         for col in range(NUM_RAYS):
             distance = wall_distances[col]
