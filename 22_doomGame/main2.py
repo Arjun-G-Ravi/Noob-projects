@@ -1,6 +1,7 @@
 import pygame
 import math
 import time
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -45,9 +46,9 @@ MAP = [
     [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
     [1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1],
     [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
     [1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
     [1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
@@ -72,15 +73,15 @@ def reset_player():
     player_health = 100
     player_ammo = 100
     enemies = [
-        {"x": 5.5, "y": 3.5, "type": "regular", "health": 10, "max_health": 10},
+        {"x": 1, "y": 18, "type": "regular", "health": 10, "max_health": 10},
         {"x": 7.5, "y": 5.5, "type": "regular", "health": 10, "max_health": 10},
         {"x": 18.5, "y": 18.5, "type": "boss", "health": 70, "max_health": 70, "last_spawn_time": 0, "last_fireball_time": 0}
     ]
     powerups = [
         {"x": 5.5, "y": 5.5, "type": "health"},
-        {"x": 12.5, "y": 12.5, "type": "health"},
-        {"x": 3.5, "y": 16.5, "type": "ammo"},
-        {"x": 16.5, "y": 3.5, "type": "ammo"}
+        {"x": 12.5, "y": 11.5, "type": "health"},
+        {"x": 1, "y": 17, "type": "ammo"},
+        {"x": 16.5, "y": 18.5, "type": "ammo"}
     ]
     fireballs = []
 
@@ -133,12 +134,15 @@ def move_enemy(enemy, player_x, player_y):
     dx = player_x - enemy["x"]
     dy = player_y - enemy["y"]
     distance = math.sqrt(dx**2 + dy**2)
-    if distance > 0:
+    if distance <0.2:pass
+    elif distance > 0:
         dx /= distance
         dy /= distance
         new_x, new_y = enemy["x"] + dx * speed, enemy["y"] + dy * speed
         if MAP[int(new_y)][int(new_x)] == 0:
             enemy["x"], enemy["y"] = new_x, new_y
+
+    
 
 def move_fireball(fireball):
     fireball["x"] += math.cos(fireball["angle"]) * FIREBALL_SPEED
@@ -253,12 +257,12 @@ while running:
             new_x, new_y = player_x - MOVE_SPEED * dx, player_y - MOVE_SPEED * dy
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x, player_y = new_x, new_y
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             new_x, new_y = player_x + MOVE_SPEED * strafe_dx, player_y + MOVE_SPEED * strafe_dy
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x, player_y = new_x, new_y
-        if keys[pygame.K_a]:
-            new_x, new_y = player_x - MOVE_SPEED * -strafe_dx, player_y - MOVE_SPEED * -strafe_dy
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+            new_x, new_y = player_x - MOVE_SPEED * strafe_dx, player_y - MOVE_SPEED * strafe_dy
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x, player_y = new_x, new_y
 
@@ -266,9 +270,9 @@ while running:
         to_remove = [p for p in powerups if math.hypot(player_x - p["x"], player_y - p["y"]) < 0.5]
         for powerup in to_remove:
             if powerup["type"] == "health":
-                player_health = min(100, player_health + 20)
+                player_health = 100
             elif powerup["type"] == "ammo":
-                player_ammo += 10
+                player_ammo += 100
             powerups.remove(powerup)
 
         # Compute wall distances
@@ -285,14 +289,15 @@ while running:
                     if distance > 0:
                         fireballs.append({"x": enemy["x"], "y": enemy["y"], "angle": math.atan2(dy, dx)})
                         enemy["last_fireball_time"] = current_time
-                if current_time - enemy["last_spawn_time"] > 7000:
+                if current_time - enemy["last_spawn_time"] > 10000:
                     for offset in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
                         new_col, new_row = int(enemy["x"]) + offset[0], int(enemy["y"]) + offset[1]
                         if 0 <= new_row < 20 and 0 <= new_col < 20 and MAP[new_row][new_col] == 0:
-                            enemies.extend([
+                            spawnable_enemies = [
                                 {"x": new_col + 0.5, "y": new_row + 0.5, "type": "regular", "health": 5, "max_health": 5},
                                 {"x": new_col + 0.5, "y": new_row + 0.5, "type": "fast", "health": 3, "max_health": 3}
-                            ])
+                            ]
+                            if len(enemies) < 10: enemies.extend([random.choice(spawnable_enemies)])
                     enemy["last_spawn_time"] = current_time
 
         # Update fireballs
@@ -301,7 +306,7 @@ while running:
             if not move_fireball(fireball):
                 to_remove.append(fireball)
             elif math.hypot(player_x - fireball["x"], player_y - fireball["y"]) < 0.5:
-                player_health -= 10
+                player_health -= 25
                 to_remove.append(fireball)
         for fireball in to_remove:
             if fireball in fireballs:
@@ -309,21 +314,24 @@ while running:
 
         # Enemy attacks
         for enemy in enemies:
-            if math.hypot(player_x - enemy["x"], player_y - enemy["y"]) < 0.5:
-                player_health -= 0.1
+            if math.hypot(player_x - enemy["x"], player_y - enemy["y"]) < 0.5: 
+                if enemy['type'] != 'boss':    
+                    player_health -= 0.1
+                else:
+                    player_health -= 1
 
         # Check game over
         if player_health <= 0:
             game_state = GAME_OVER
 
         # Rendering
-        pygame.draw.rect(screen, (0, 0, 255), (0, 0, WIDTH, HEIGHT / 2))  # Sky
-        pygame.draw.rect(screen, (0, 255, 0), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))  # Ground
+        pygame.draw.rect(screen, (30, 30, 30), (0, 0, WIDTH, HEIGHT / 2))  # black Sky
+        pygame.draw.rect(screen, (0, 0, 0), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))  # black Ground
 
         # Draw walls (fixed to avoid gaps)
         for col, distance in enumerate(wall_distances):
             wall_height = HEIGHT / (distance + 0.0001)
-            shade = max(0, 255 - distance * 30)
+            shade = max(0, 100 - distance * 10)
             color = (shade, shade, shade)
             pygame.draw.line(screen, color, (col, HEIGHT / 2 - wall_height / 2), (col, HEIGHT / 2 + wall_height / 2))
 
