@@ -3,20 +3,17 @@ import math
 import time
 import random
 
-# Initialize Pygame
 pygame.init()
-
-# Set up the display
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Maze Shooter")
 
 # Game constants
 FOV = 60 * (math.pi / 180)
-NUM_RAYS = WIDTH  # Restored for full resolution
+NUM_RAYS = WIDTH
 MOVE_SPEED = 0.2
 MOUSE_SENSITIVITY = 0.002
-MAX_SPRITE_SIZE = 500  # Still capping sprite size for memory safety
+MAX_SPRITE_SIZE = 500
 
 # Enemy speeds
 BOSS_SPEED = 0.01
@@ -32,7 +29,6 @@ enemy_sprites = {
     "fireball": pygame.image.load("fireball.png").convert_alpha()
 }
 
-# Define the maze (unchanged)
 MAP = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -56,7 +52,6 @@ MAP = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
-# Fonts
 font = pygame.font.Font(None, 36)
 title_font = pygame.font.Font(None, 72)
 
@@ -85,7 +80,6 @@ def reset_player():
     ]
     fireballs = []
 
-# Optimized raycasting
 def cast_ray(x, y, angle):
     angle %= 2 * math.pi
     dx, dy = math.cos(angle), math.sin(angle)
@@ -108,7 +102,6 @@ def cast_ray(x, y, angle):
         if MAP[map_y][map_x] == 1:
             return side_dist_x - delta_dist_x if side == 0 else side_dist_y - delta_dist_y
 
-# Project sprite (optimized with size capping)
 def project_sprite(obj, player_x, player_y, player_angle, sprite_type, scale_factor=1):
     dx = obj["x"] - player_x
     dy = obj["y"] - player_y
@@ -128,7 +121,6 @@ def project_sprite(obj, player_x, player_y, player_angle, sprite_type, scale_fac
     scaled_sprite = pygame.transform.scale(sprite, (int(width), int(height)))
     return screen_x, width, distance, scaled_sprite
 
-# Move functions
 def move_enemy(enemy, player_x, player_y):
     speed = {"boss": BOSS_SPEED, "fast": FAST_SPEED}.get(enemy["type"], REGULAR_SPEED)
     dx = player_x - enemy["x"]
@@ -141,7 +133,6 @@ def move_enemy(enemy, player_x, player_y):
         new_x, new_y = enemy["x"] + dx * speed, enemy["y"] + dy * speed
         if MAP[int(new_y)][int(new_x)] == 0:
             enemy["x"], enemy["y"] = new_x, new_y
-
     
 
 def move_fireball(fireball):
@@ -149,7 +140,6 @@ def move_fireball(fireball):
     fireball["y"] += math.sin(fireball["angle"]) * FIREBALL_SPEED
     return MAP[int(fireball["y"])][int(fireball["x"])] != 1
 
-# Shooting mechanics
 def shoot(player_x, player_y, player_angle, wall_distances):
     global player_ammo, game_state
     if player_ammo > 0:
@@ -176,7 +166,6 @@ def shoot(player_x, player_y, player_angle, wall_distances):
                 if hit_enemy["type"] == "boss":
                     game_state = GAME_OVER
 
-# Mini-map
 def draw_minimap():
     pygame.draw.rect(screen, (0, 0, 0), (700, 0, 100, 100))
     for row in range(20):
@@ -192,7 +181,6 @@ def draw_minimap():
         pygame.draw.rect(screen, color, (700 + powerup["x"] * 5 - 1, powerup["y"] * 5 - 1, 2, 2))
     pygame.draw.rect(screen, (255, 255, 255), (700, 0, 100, 100), 1)
 
-# Menu rendering
 def draw_main_menu():
     screen.fill((0, 0, 0))
     title = title_font.render("Maze Shooter", True, (255, 255, 255))
@@ -283,7 +271,7 @@ while running:
         for enemy in enemies[:]:
             move_enemy(enemy, player_x, player_y)
             if enemy["type"] == "boss":
-                if current_time - enemy["last_fireball_time"] > 2000:
+                if current_time - enemy["last_fireball_time"] > 3000:
                     dx, dy = player_x - enemy["x"], player_y - enemy["y"]
                     distance = math.hypot(dx, dy)
                     if distance > 0:
@@ -297,7 +285,7 @@ while running:
                                 {"x": new_col + 0.5, "y": new_row + 0.5, "type": "regular", "health": 5, "max_health": 5},
                                 {"x": new_col + 0.5, "y": new_row + 0.5, "type": "fast", "health": 3, "max_health": 3}
                             ]
-                            if len(enemies) < 10: enemies.extend([random.choice(spawnable_enemies)])
+                            if len(enemies) < 7: enemies.extend([random.choice(spawnable_enemies)])
                     enemy["last_spawn_time"] = current_time
 
         # Update fireballs
@@ -324,9 +312,8 @@ while running:
         if player_health <= 0:
             game_state = GAME_OVER
 
-        # Rendering
         pygame.draw.rect(screen, (30, 30, 30), (0, 0, WIDTH, HEIGHT / 2))  # black Sky
-        pygame.draw.rect(screen, (0, 0, 0), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))  # black Ground
+        pygame.draw.rect(screen, (0, 0, 0), (0, HEIGHT / 2, WIDTH, HEIGHT / 2))  # kinda black Ground
 
         # Draw walls (fixed to avoid gaps)
         for col, distance in enumerate(wall_distances):
@@ -392,7 +379,6 @@ while running:
         pygame.event.set_grab(False)
         draw_game_over(not enemies or not any(e["type"] == "boss" for e in enemies))
 
-    # FPS cap
     clock.tick(60)
 
 pygame.quit()
