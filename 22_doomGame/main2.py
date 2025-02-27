@@ -12,9 +12,14 @@ pygame.display.set_caption("Maze Shooter")
 # Game constants
 FOV = 60 * (math.pi / 180)
 NUM_RAYS = WIDTH
-MOVE_SPEED = 0.1
+MOVE_SPEED = 0.2
 MOUSE_SENSITIVITY = 0.002
-ENEMY_SPEED = 0.02
+
+# Enemy
+BOSS_SPEED = 0.01
+REGULAR_SPEED = 0.05
+FAST_SPEED = 0.1
+
 
 # Define the larger maze (20x20)
 MAP = [
@@ -55,11 +60,11 @@ def reset_player():
     player_y = 1.5
     player_angle = 0
     player_health = 100
-    player_ammo = 50
+    player_ammo = 100
     enemies = [
-        {"x": 5.5, "y": 3.5, "type": "regular", "health": 1, "max_health": 1},
-        {"x": 7.5, "y": 5.5, "type": "regular", "health": 1, "max_health": 1},
-        {"x": 18.5, "y": 18.5, "type": "big", "health": 10, "max_health": 10, "last_spawn_time": 0}
+        {"x": 5.5, "y": 3.5, "type": "regular", "health": 10, "max_health": 10},
+        {"x": 7.5, "y": 5.5, "type": "regular", "health": 10, "max_health": 10},
+        {"x": 18.5, "y": 18.5, "type": "boss", "health": 70, "max_health": 70, "last_spawn_time": 0}
     ]
     powerups = [
         {"x": 5.5, "y": 5.5, "type": "health"},
@@ -120,7 +125,7 @@ def project_enemy(enemy, player_x, player_y, player_angle):
         return None
     screen_x = WIDTH / 2 + (angle_diff / (FOV / 2)) * (WIDTH / 2)
     enemy_screen_height = HEIGHT / distance
-    if enemy["type"] == "big":
+    if enemy["type"] == "boss":
         enemy_screen_height *= 2
     enemy_screen_width = enemy_screen_height
     return screen_x, enemy_screen_height, enemy_screen_width, distance
@@ -145,7 +150,9 @@ def project_powerup(powerup, player_x, player_y, player_angle):
 
 # Move enemies
 def move_enemy(enemy, player_x, player_y):
-    speed = 0.01 if enemy["type"] == "big" else ENEMY_SPEED
+    if enemy["type"] == "boss": speed = BOSS_SPEED
+    elif enemy["type"] == "fast": speed = FAST_SPEED
+    else: speed = REGULAR_SPEED
     dx = player_x - enemy["x"]
     dy = player_y - enemy["y"]
     distance = math.sqrt(dx**2 + dy**2)
@@ -182,7 +189,7 @@ def shoot(player_x, player_y, player_angle, wall_distances):
             hit_enemy["health"] -= 1
             if hit_enemy["health"] <= 0:
                 enemies.remove(hit_enemy)
-                if hit_enemy["type"] == "big":
+                if hit_enemy["type"] == "boss":
                     game_state = GAME_OVER
 
 # Mini-map (scaled to 100x100 for 20x20 map)
@@ -194,10 +201,12 @@ def draw_minimap():
                 pygame.draw.rect(screen, (100, 100, 100), (700 + col * 5, row * 5, 5, 5))
     pygame.draw.rect(screen, (0, 255, 0), (700 + player_x * 5 - 2, player_y * 5 - 2, 4, 4))
     for enemy in enemies:
-        color = (255, 0, 0) if enemy["type"] == "regular" else (0, 0, 255)
+        if enemy["type"] == "boss": color = (255, 0, 0) 
+        if enemy["type"] == "regular": color = (0, 0, 255) 
+        else: color = (255, 255, 0) 
         pygame.draw.rect(screen, color, (700 + enemy["x"] * 5 - 2, enemy["y"] * 5 - 2, 4, 4))
     for powerup in powerups:
-        color = (0, 255, 0) if powerup["type"] == "health" else (255, 255, 0)
+        color = (0, 255, 0) if powerup["type"] == "health" else (0, 0, 0)
         pygame.draw.rect(screen, color, (700 + powerup["x"] * 5 - 1, powerup["y"] * 5 - 1, 2, 2))
     pygame.draw.rect(screen, (255, 255, 255), (700, 0, 100, 100), 1)
 
@@ -319,12 +328,13 @@ while running:
         current_time = pygame.time.get_ticks()
         for enemy in enemies:
             move_enemy(enemy, player_x, player_y)
-            if enemy["type"] == "big" and current_time - enemy["last_spawn_time"] > 20000:
+            if enemy["type"] == "boss" and current_time - enemy["last_spawn_time"] > 7000:
                 for offset in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
                     new_col = int(enemy["x"]) + offset[0]
                     new_row = int(enemy["y"]) + offset[1]
                     if 0 <= new_row < 20 and 0 <= new_col < 20 and MAP[new_row][new_col] == 0:
-                        enemies.append({"x": new_col + 0.5, "y": new_row + 0.5, "type": "regular", "health": 1, "max_health": 1})
+                        enemies.append({"x": new_col + 0.5, "y": new_row + 0.5, "type": "regular", "health": 5, "max_health": 5})
+                        enemies.append({"x": new_col + 0.5, "y": new_row + 0.5, "type": "fast", "health": 3, "max_health": 3})
                 enemy["last_spawn_time"] = current_time
 
         # Enemy attacks
@@ -362,7 +372,12 @@ while running:
                     visible_enemies.append((screen_x, enemy_screen_height, enemy_screen_width, distance, enemy))
         visible_enemies.sort(key=lambda e: e[3], reverse=True)
         for screen_x, enemy_screen_height, enemy_screen_width, distance, enemy in visible_enemies:
-            color = (255, 0, 0) if enemy["type"] == "regular" else (0, 0, 255)
+            if enemy["type"] == "boss": color = (255, 0, 0) 
+            if enemy["type"] == "regular": color = (0, 0, 255) 
+            else: color = (255, 255, 0) 
+
+
+
             top = HEIGHT / 2 - enemy_screen_height / 2
             left = screen_x - enemy_screen_width / 2
             pygame.draw.rect(screen, color, (left, top, enemy_screen_width, enemy_screen_height))
@@ -389,13 +404,10 @@ while running:
             left = screen_x - powerup_screen_width / 2
             pygame.draw.rect(screen, color, (left, top, powerup_screen_width, powerup_screen_height))
 
-        # Draw HUD with player health bar
-        health_text = font.render(f"Health:", True, (255, 255, 255))
         ammo_text = font.render(f"Ammo: {player_ammo}", True, (255, 255, 255))
-        screen.blit(health_text, (10, 10))
-        pygame.draw.rect(screen, (255, 0, 0), (70, 15, 100, 10))
-        pygame.draw.rect(screen, (0, 255, 0), (70, 15, player_health, 10))
-        screen.blit(ammo_text, (10, 40))
+        pygame.draw.rect(screen, (255, 0, 0), (10, 15, 200, 25))
+        pygame.draw.rect(screen, (0, 255, 0), (10, 15, 2*player_health, 25))
+        screen.blit(ammo_text, (10, 50))
 
         # Draw crosshair
         pygame.draw.line(screen, (255, 255, 255), (WIDTH / 2 - 10, HEIGHT / 2), (WIDTH / 2 + 10, HEIGHT / 2), 2)
@@ -409,7 +421,7 @@ while running:
     elif game_state == GAME_OVER:
         pygame.mouse.set_visible(True)
         pygame.event.set_grab(False)
-        won = not enemies or not any(e["type"] == "big" for e in enemies)
+        won = not enemies or not any(e["type"] == "boss" for e in enemies)
         draw_game_over(won)
 
     clock.tick(60)
