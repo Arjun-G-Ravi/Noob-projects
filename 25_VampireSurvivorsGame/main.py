@@ -50,7 +50,6 @@ class Player(pygame.sprite.Sprite):
         self.invincible_timer = 0
 
     def update(self, dt):
-        # Movement
         keys = pygame.key.get_pressed()
         velocity = Vector2(0, 0)
         if keys[pygame.K_w] or keys[pygame.K_UP]: velocity.y -= 1
@@ -63,11 +62,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = self.pos
         self.rect.clamp_ip(screen_rect)
 
-        # Invincibility timer
         if self.invincible_timer > 0:
             self.invincible_timer -= dt
 
-        # Update weapons
         for weapon in self.weapons:
             weapon.update(dt)
 
@@ -77,21 +74,18 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
         self.enemy_type = enemy_type
         self.image = pygame.Surface((20, 20))
-        
-        # Set properties based on enemy type
         if enemy_type == "normal":
             self.image.fill(GREEN)
             self.speed = 100
             self.health = 10
         elif enemy_type == "fast":
             self.image.fill(RED)
-            self.speed = 500
+            self.speed = 200
             self.health = 10
         elif enemy_type == "strong":
             self.image.fill(BLUE)
             self.speed = 100
             self.health = 100
-            
         self.rect = self.image.get_rect(center=pos)
         self.pos = Vector2(pos)
 
@@ -111,7 +105,8 @@ class Projectile(pygame.sprite.Sprite):
         self.velocity = direction * 500
         self.damage = damage
         self.lifetime = 2.0
-        self.piercing = piercing  # Whether it passes through enemies
+        self.piercing = piercing
+        self.hit_enemies = set()  # Track enemies already hit
 
     def update(self, dt):
         self.pos += self.velocity * dt
@@ -132,7 +127,7 @@ class Blob(pygame.sprite.Sprite):
         self.rotation_speed = speed
         self.angle = 0
         self.distance = 100
-        self.reset_pos = pos
+        self.hit_enemies = set()  # Track enemies already hit this cycle
 
     def update(self, dt):
         self.angle += self.rotation_speed * dt
@@ -141,11 +136,6 @@ class Blob(pygame.sprite.Sprite):
             player.pos.y + math.sin(self.angle) * self.distance
         )
         self.rect.center = self.pos
-
-    def collide(self):
-        self.pos = Vector2(self.reset_pos)  # Reset to initial position
-        self.rect.center = self.pos
-        self.angle = 0
 
 ### Item Class
 class Item(pygame.sprite.Sprite):
@@ -175,7 +165,7 @@ class Gun:
         if nearest_enemy:
             direction = (nearest_enemy.pos - self.player.pos).normalize()
             damage = self.base_damage + self.player.level * 2
-            projectile = Projectile(self.player.pos, direction, damage)
+            projectile = Projectile(self.player.pos, direction, damage, RED, piercing=False)
             all_sprites.add(projectile)
             projectiles.add(projectile)
 
@@ -189,7 +179,7 @@ class BlobWeapon:
         self.cooldown = 0.5
         self.timer = 0
         self.base_damage = 3
-        self.base_speed = 0.5
+        self.base_speed = 8.5
         self.blob = None
 
     def update(self, dt):
@@ -216,8 +206,8 @@ class BlobWeapon:
 class HeavyAttack:
     def __init__(self, player):
         self.player = player
-        self.cooldown = 30.0  # 30-second cooldown
-        self.timer = self.cooldown  # Start ready to fire
+        self.cooldown = 30.0
+        self.timer = self.cooldown
         self.base_damage = 20
         self.beam_count = 12
         self.ready = True
@@ -228,7 +218,7 @@ class HeavyAttack:
             self.timer += dt
             if self.timer >= self.cooldown:
                 self.ready = True
-                self.timer = self.cooldown  # Cap the timer at cooldown
+                self.timer = self.cooldown
         if keys[pygame.K_SPACE] and self.ready:
             self.fire()
             self.ready = False
@@ -295,11 +285,11 @@ while running:
             pos = (random.randint(0, screen_width), screen_height + 20)
         elif side == 'left':
             pos = (-20, random.randint(0, screen_height))
-        else:  # right
+        else:
             pos = (screen_width + 20, random.randint(0, screen_height))
         enemy_type = random.choices(
             ["normal", "fast", "strong"],
-            weights=[60, 20, 20],  # 60% normal, 20% fast, 20% strong
+            weights=[60, 20, 20],
             k=1
         )[0]
         enemy = Enemy(pos, enemy_type)
@@ -307,27 +297,36 @@ while running:
         enemies.add(enemy)
 
     # Collision detection
-    # Projectiles vs Enemies
     for projectile in projectiles:
         if isinstance(projectile, Blob):
             hits = pygame.sprite.spritecollide(projectile, enemies, False)
             for enemy in hits:
-                enemy.health -= projectile.damage
-                projectile.collide()  # Reset position on hit
-                if enemy.health <= 0:
-                    enemy.kill()
-                    item = Item(enemy.rect.center)
-                    all_sprites.add(item)
-                    items.add(item)
+                if enemy not in projectile.hit_enemies:  # Only damage if not hit this cycle
+                    enemy.health -= projectile.damage
+                    projectile.hit_enemies.add(enemy)
+                    if enemy.health <= 0:
+                        enemy.kill()
+                        item = Item(enemy.rect.center)
+                        all_sprites.add(item)
+                        items.add(item)
+            # Clear hit_enemies periodically to allow re-damage after a full rotation
+            if projectile.angle >= 2 * math.pi:
+                projectile.hit_enemies.clear()
+                projectile.angle -= 2 * math.pi
         else:
-            hits = pygame.sprite.spritecollide(projectile, enemies, not projectile.piercing)
+            hits = pygame.sprite.spritecollide(projectile, enemies, False)
             for enemy in hits:
-                enemy.health -= projectile.damage
-                if enemy.health <= 0:
-                    enemy.kill()
-                    item = Item(enemy.rect.center)
-                    all_sprites.add(item)
-                    items.add(item)
+                if enemy not in projectile.hit_enemies:
+                    enemy.health -= projectile.damage
+                    projectile.hit_enemies.add(enemy)
+                    if not projectile.piercing:
+                        projectile.kill()  # Non-piercing projectiles die after hitting
+                    if enemy.health <= 0:
+                        enemy.kill()
+                        item = Item(enemy.rect.center)
+                        all_sprites.add(item)
+                        items.add(item)
+                    break  # Only hit one enemy
 
     # Player vs Items
     hits = pygame.sprite.spritecollide(player, items, True)
