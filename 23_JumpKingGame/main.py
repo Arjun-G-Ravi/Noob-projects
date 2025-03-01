@@ -23,8 +23,8 @@ pygame.display.set_caption("Rohit Jump")
 
 # Load player sprite and sound
 player_img = pygame.image.load("player2.png").convert_alpha()
-player_img = pygame.transform.scale(player_img, (50, 50))
-player = pygame.Rect(WIDTH // 4, HEIGHT - 100, 40, 50)
+player_img = pygame.transform.scale(player_img, (70, 70))
+player = pygame.Rect(WIDTH // 4, HEIGHT - 100, 70, 70)
 velocity_y = 0
 velocity_x = 0
 on_ground = False
@@ -133,7 +133,6 @@ while running:
     highest_height = highest_platform['height_level']
     # Place win sprite one block above the highest platform
     win_rect = win_img.get_rect(center=(highest_rect.centerx, highest_rect.centery - 20))
-    print(win_rect)  # For debugging
     screen.blit(win_img, win_rect)
     # Draw all platforms
     for platform in platforms:
