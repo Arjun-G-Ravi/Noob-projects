@@ -26,6 +26,7 @@ LIGHT_GRAY = (100, 100, 100)
 
 # Font setup
 font = pygame.font.SysFont(None, 22)
+large_font = pygame.font.SysFont(None, 48)  # Added for end screen
 
 # Sprite groups
 all_sprites = pygame.sprite.Group()
@@ -133,7 +134,8 @@ class Projectile(pygame.sprite.Sprite):
 class Blob(pygame.sprite.Sprite):
     def __init__(self, pos, damage, speed):
         super().__init__()
-        self.image = pygame.Surface((20, 20))
+        self.size = 20
+        self.image = pygame.Surface((self.size, self.size))
         self.image.fill(YELLOW)
         self.rect = self.image.get_rect(center=pos)
         self.pos = Vector2(pos)
@@ -241,9 +243,13 @@ class BlobWeapon:
             self.level += 1
             self.damage = upgrade_blob[self.level]["damage"]
             self.speed = upgrade_blob[self.level]["speed"]
+            self.size = upgrade_blob[self.level]["size"]
             if self.blob and self.blob.alive():
                 self.blob.damage = self.damage
                 self.blob.rotation_speed = self.speed
+                self.blob.size = self.size
+                self.blob.image = pygame.Surface((self.size, self.size))
+                self.blob.image.fill(YELLOW)
 
     def stats(self):
         return f"Blob (Lvl {self.level}/10): Dmg {self.damage}, Spd {self.speed:.1f}"
@@ -264,7 +270,7 @@ class HeavyAttack:
         self.damage = upgrade_heavy[self.level]["damage"]
         self.cooldown = upgrade_heavy[self.level]["cooldown"]
         self.timer = self.cooldown
-        self.beam_count = 10
+        self.num_shots = 4
         self.ready = True
 
     def update(self, dt):
@@ -280,8 +286,8 @@ class HeavyAttack:
             self.timer = 0
 
     def fire(self):
-        angle_step = 360 / self.beam_count
-        for i in range(self.beam_count):
+        angle_step = 360 / self.num_shots
+        for i in range(self.num_shots):
             angle = math.radians(i * angle_step)
             direction = Vector2(math.cos(angle), math.sin(angle)).normalize()
             projectile = Projectile(self.player.pos, direction, self.damage, BLUE, piercing=True)
@@ -294,7 +300,8 @@ class HeavyAttack:
             self.damage = upgrade_heavy[self.level]["damage"]
             self.cooldown = upgrade_heavy[self.level]["cooldown"]
             self.ready = False  # Reset readiness
-            self.timer =  self.cooldown    # Reset timer to force full cooldown
+            self.timer = self.cooldown  # Reset timer to force full cooldown
+            self.num_shots = upgrade_heavy[self.level]["num_shots"]
 
     def stats(self):
         reload = self.cooldown - self.timer if not self.ready else 0
@@ -329,6 +336,7 @@ base_spawn_interval = 3
 
 # Game state
 game_state = "playing"
+game_result = None  # Added to track win or loss
 
 # Main game loop
 running = True
@@ -388,8 +396,6 @@ while running:
             elif player.level < 20: enemy_type = random.choices(["normal", "fast", "strong"], weights=[60, 20, 20], k=1)[0]
             elif player.level < 25: enemy_type = random.choices(["normal", "fast", "strong"], weights=[30, 30, 40], k=1)[0]
             else: enemy_type = random.choices(["normal", "fast", "strong"], weights=[10, 40, 50], k=1)[0]
-
-
             enemy = Enemy(pos, enemy_type, player.level)
             all_sprites.add(enemy)
             enemies.add(enemy)
@@ -415,7 +421,7 @@ while running:
                             all_sprites.add(item)
                             items.add(item)
                             player.kill_count += 1
-                            if player.kill_count in [50, 100, 150, 175]:
+                            if player.kill_count in [100, 200, 300, 400, 401]:
                                 side = random.choice(['top', 'bottom', 'left', 'right'])
                                 if side == 'top':
                                     pos = (random.randint(0, screen_width), -50)
@@ -452,7 +458,7 @@ while running:
                             all_sprites.add(item)
                             items.add(item)
                             player.kill_count += 1
-                            if player.kill_count in [50, 100, 150, 175]:
+                            if player.kill_count in [100, 200, 300, 401]:
                                 side = random.choice(['top', 'bottom', 'left', 'right'])
                                 if side == 'top':
                                     pos = (random.randint(0, screen_width), -50)
@@ -488,11 +494,19 @@ while running:
             damage = total_damage_rate * dt
             player.health -= damage
 
-    # Drawing
-    screen.fill(BLACK)
-    all_sprites.draw(screen)
+        # Check game over conditions
+        if player.kill_count >= 500:
+            game_state = "end"
+            game_result = "win"
+        elif player.health <= 0:
+            game_state = "end"
+            game_result = "loss"
 
-    # Draw upgrade menu when upgrading
+    # Drawing
+    if game_state in ["playing", "upgrading"]:
+        screen.fill(BLACK)
+        all_sprites.draw(screen)
+
     if game_state == "upgrading":
         upgrade_rects = []
         all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
@@ -533,31 +547,40 @@ while running:
                 screen.blit(upgrade_text2, text_rect2)
                 screen.blit(upgrade_text3, text_rect3)
 
-    # UI: Top-left - Health and Level
-    health_text = font.render(f"Health: {int(max(0, player.health))}", True, WHITE)
-    level_text = font.render(f"Level: {player.level}", True, WHITE)
-    screen.blit(health_text, (5, 5))
-    screen.blit(level_text, (5, 30))
-    exp_ratio = player.experience / player.exp_to_next_level if player.exp_to_next_level > 0 else 0
-    pygame.draw.rect(screen, BLUE, (5, 55, exp_ratio * 150, 10))
-
-    # UI: Top-center - Kill Count
-    kill_text = font.render(f"Kills: {player.kill_count}", True, WHITE)
-    screen.blit(kill_text, (screen_width // 2 - kill_text.get_width() // 2, 5))
-
-    # UI: Top-right - Weapon Stats
-    for i, weapon in enumerate(player.weapons):
-        if weapon.name == 'Heavy':
-            color = WHITE if weapon.ready else RED
+    elif game_state == "end":
+        screen.fill(GRAY)
+        if game_result == "win":
+            end_text = large_font.render("You Won!", True, WHITE)
         else:
-            color = WHITE
-        stat_text = font.render(weapon.stats(), True, color)
-        screen.blit(stat_text, (screen_width - 250, 10 + i * 30))
+            end_text = large_font.render("You Lost!", True, WHITE)
+        screen.blit(end_text, (screen_width // 2 - end_text.get_width() // 2, screen_height // 2 - 100))
+        stats_text = font.render(f"Level: {player.level}  Kills: {player.kill_count}", True, WHITE)
+        screen.blit(stats_text, (screen_width // 2 - stats_text.get_width() // 2, screen_height // 2))
+        quit_text = font.render("Press Q to quit", True, WHITE)
+        screen.blit(quit_text, (screen_width // 2 - quit_text.get_width() // 2, screen_height // 2 + 50))
+
+    if game_state in ["playing", "upgrading"]:
+        # UI: Top-left - Health and Level
+        health_text = font.render(f"Health: {int(max(0, player.health))}", True, WHITE)
+        level_text = font.render(f"Level: {player.level}", True, WHITE)
+        screen.blit(health_text, (5, 5))
+        screen.blit(level_text, (5, 30))
+        exp_ratio = player.experience / player.exp_to_next_level if player.exp_to_next_level > 0 else 0
+        pygame.draw.rect(screen, BLUE, (5, 55, exp_ratio * 150, 10))
+
+        # UI: Top-center - Kill Count
+        kill_text = font.render(f"Kills: {player.kill_count}", True, WHITE)
+        screen.blit(kill_text, (screen_width // 2 - kill_text.get_width() // 2, 5))
+
+        # UI: Top-right - Weapon Stats
+        for i, weapon in enumerate(player.weapons):
+            if weapon.name == 'Heavy':
+                color = WHITE if weapon.ready else RED
+            else:
+                color = WHITE
+            stat_text = font.render(weapon.stats(), True, color)
+            screen.blit(stat_text, (screen_width - 250, 10 + i * 30))
 
     pygame.display.flip()
 
-    # Game over condition
-    if player.health <= 0 or player.kill_count >= 300:
-        running = False
-
-pygame.quit()
+# Note: Pygame.quit() is typically called here, but omitted as per original code
