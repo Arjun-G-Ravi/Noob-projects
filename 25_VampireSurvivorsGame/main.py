@@ -36,13 +36,13 @@ items = pygame.sprite.Group()
 # Screen rectangle for boundary checking
 screen_rect = screen.get_rect()
 
-# Drop probabilities (modifiable)
+# Drop probabilities
 DROP_PROBABILITIES = {
     "experience": 0.7,  # 70% chance
-    "health": 0.05      # 30% chance
+    "health": 0.01      # 1% chance
 }
 
-### Player Class (unchanged)
+### Player Class
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -56,7 +56,7 @@ class Player(pygame.sprite.Sprite):
         self.level = 1
         self.exp_to_next_level = self.level
         self.weapons = [Gun(self), BlobWeapon(self), HeavyAttack(self)]
-        self.invincible_timer = 0
+        self.kill_count = 0
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -70,31 +70,36 @@ class Player(pygame.sprite.Sprite):
         self.pos += velocity * dt
         self.rect.center = self.pos
         self.rect.clamp_ip(screen_rect)
-
-        if self.invincible_timer > 0:
-            self.invincible_timer -= dt
-
         for weapon in self.weapons:
             weapon.update(dt)
 
 ### Enemy Classes
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, pos, enemy_type="normal"):
+    def __init__(self, pos, enemy_type="normal", player_level=1):
         super().__init__()
         self.enemy_type = enemy_type
         self.image = pygame.Surface((20, 20))
         if enemy_type == "normal":
             self.image.fill(GREEN)
             self.speed = 70
-            self.health = 10
+            self.health = 10 + player_level
+            self.damage_rate = 20  # 1 damage per second
         elif enemy_type == "fast":
             self.image.fill(RED)
             self.speed = 200
-            self.health = 10
+            self.health = 10 + player_level
+            self.damage_rate = 10  # 0.5 damage per second
         elif enemy_type == "strong":
             self.image.fill(BLUE)
             self.speed = 50
-            self.health = 100
+            self.health = 100 + 3 * player_level
+            self.damage_rate = 30  # 2 damage per second
+        elif enemy_type == "boss":
+            self.image = pygame.Surface((70, 70))
+            self.image.fill(YELLOW)
+            self.speed = 200
+            self.health = 500 + 10 * player_level
+            self.damage_rate = 50  # 5 damage per second
         self.rect = self.image.get_rect(center=pos)
         self.pos = Vector2(pos)
 
@@ -259,7 +264,7 @@ class HeavyAttack:
         self.damage = upgrade_heavy[self.level]["damage"]
         self.cooldown = upgrade_heavy[self.level]["cooldown"]
         self.timer = self.cooldown
-        self.beam_count = 12
+        self.beam_count = 10
         self.ready = True
 
     def update(self, dt):
@@ -288,6 +293,8 @@ class HeavyAttack:
             self.level += 1
             self.damage = upgrade_heavy[self.level]["damage"]
             self.cooldown = upgrade_heavy[self.level]["cooldown"]
+            self.ready = False  # Reset readiness
+            self.timer =  self.cooldown    # Reset timer to force full cooldown
 
     def stats(self):
         reload = self.cooldown - self.timer if not self.ready else 0
@@ -347,7 +354,6 @@ while running:
                     game_state = "playing"
         elif event.type == pygame.MOUSEBUTTONDOWN and game_state == "upgrading":
             mouse_pos = pygame.mouse.get_pos()
-            # Check if clicked on upgrade buttons
             all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
             if all_maxed:
                 if upgrade_rects[0].collidepoint(mouse_pos):
@@ -378,16 +384,17 @@ while running:
                 pos = (-20, random.randint(0, screen_height))
             else:
                 pos = (screen_width + 20, random.randint(0, screen_height))
-            enemy_type = random.choices(
-                ["normal", "fast", "strong"],
-                weights=[80, 15, 5],
-                k=1
-            )[0]
-            enemy = Enemy(pos, enemy_type)
+            if player.level < 10: enemy_type = random.choices(["normal", "fast", "strong"], weights=[85, 10, 5], k=1)[0]
+            elif player.level < 20: enemy_type = random.choices(["normal", "fast", "strong"], weights=[60, 20, 20], k=1)[0]
+            elif player.level < 25: enemy_type = random.choices(["normal", "fast", "strong"], weights=[30, 30, 40], k=1)[0]
+            else: enemy_type = random.choices(["normal", "fast", "strong"], weights=[10, 40, 50], k=1)[0]
+
+
+            enemy = Enemy(pos, enemy_type, player.level)
             all_sprites.add(enemy)
             enemies.add(enemy)
 
-        # Collision detection (unchanged)
+        # Collision detection
         for projectile in projectiles:
             if isinstance(projectile, Blob):
                 hits = pygame.sprite.spritecollide(projectile, enemies, False)
@@ -398,15 +405,29 @@ while running:
                         if enemy.health <= 0:
                             enemy.kill()
                             drop = random.choices(["experience", "health"], 
-                                                weights=[DROP_PROBABILITIES["experience"], 
-                                                        DROP_PROBABILITIES["health"]], 
-                                                k=1)[0]
+                                                  weights=[DROP_PROBABILITIES["experience"], 
+                                                           DROP_PROBABILITIES["health"]], 
+                                                  k=1)[0]
                             if drop == "experience":
                                 item = ExpItem(enemy.rect.center)
                             else:
                                 item = HealthItem(enemy.rect.center)
                             all_sprites.add(item)
                             items.add(item)
+                            player.kill_count += 1
+                            if player.kill_count in [50, 100, 150, 175]:
+                                side = random.choice(['top', 'bottom', 'left', 'right'])
+                                if side == 'top':
+                                    pos = (random.randint(0, screen_width), -50)
+                                elif side == 'bottom':
+                                    pos = (random.randint(0, screen_width), screen_height + 50)
+                                elif side == 'left':
+                                    pos = (-50, random.randint(0, screen_height))
+                                else:
+                                    pos = (screen_width + 50, random.randint(0, screen_height))
+                                boss = Enemy(pos, "boss", player.level)
+                                all_sprites.add(boss)
+                                enemies.add(boss)
                 if projectile.angle >= 2 * math.pi:
                     projectile.hit_enemies.clear()
                     projectile.angle -= 2 * math.pi
@@ -421,36 +442,51 @@ while running:
                         if enemy.health <= 0:
                             enemy.kill()
                             drop = random.choices(["experience", "health"], 
-                                                weights=[DROP_PROBABILITIES["experience"], 
-                                                        DROP_PROBABILITIES["health"]], 
-                                                k=1)[0]
+                                                  weights=[DROP_PROBABILITIES["experience"], 
+                                                           DROP_PROBABILITIES["health"]], 
+                                                  k=1)[0]
                             if drop == "experience":
                                 item = ExpItem(enemy.rect.center)
                             else:
                                 item = HealthItem(enemy.rect.center)
                             all_sprites.add(item)
                             items.add(item)
+                            player.kill_count += 1
+                            if player.kill_count in [50, 100, 150, 175]:
+                                side = random.choice(['top', 'bottom', 'left', 'right'])
+                                if side == 'top':
+                                    pos = (random.randint(0, screen_width), -50)
+                                elif side == 'bottom':
+                                    pos = (random.randint(0, screen_width), screen_height + 50)
+                                elif side == 'left':
+                                    pos = (-50, random.randint(0, screen_height))
+                                else:
+                                    pos = (screen_width + 50, random.randint(0, screen_height))
+                                boss = Enemy(pos, "boss", player.level)
+                                all_sprites.add(boss)
+                                enemies.add(boss)
                         break
 
-        # Player vs Items (unchanged)
-        hits = pygame.sprite.spritecollide(player, items, True)
-        for item in hits:
-            if isinstance(item, ExpItem):
-                player.experience += item.value
-                if player.experience >= player.exp_to_next_level:
-                    player.level += 1
-                    player.experience -= player.exp_to_next_level
-                    player.exp_to_next_level = player.level
-                    game_state = "upgrading"
-            elif isinstance(item, HealthItem):
-                player.health = min(100, player.health + item.value)
+        # Player vs Items
+        for item in items:
+            if (player.pos - Vector2(item.rect.center)).length() < 50:
+                if isinstance(item, ExpItem):
+                    player.experience += item.value
+                    if player.experience >= player.exp_to_next_level:
+                        player.level += 1
+                        player.experience -= player.exp_to_next_level
+                        player.exp_to_next_level = player.level
+                        game_state = "upgrading"
+                elif isinstance(item, HealthItem):
+                    player.health = min(100, player.health + item.value)
+                item.kill()
 
-        # Player vs Enemies (unchanged)
-        if player.invincible_timer <= 0:
-            hits = pygame.sprite.spritecollide(player, enemies, False)
-            if hits:
-                player.health -= 10
-                player.invincible_timer = 0.5
+        # Player vs Enemies
+        colliding_enemies = pygame.sprite.spritecollide(player, enemies, False)
+        if colliding_enemies:
+            total_damage_rate = sum(enemy.damage_rate for enemy in colliding_enemies)
+            damage = total_damage_rate * dt
+            player.health -= damage
 
     # Drawing
     screen.fill(BLACK)
@@ -461,13 +497,11 @@ while running:
         upgrade_rects = []
         all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
         
-        # Background
         pygame.draw.rect(screen, GRAY, (100, 200, 600, 200))
         title_text = font.render("Level Up! Choose an upgrade:", True, WHITE)
         screen.blit(title_text, (screen_width//2 - title_text.get_width()//2, 220))
 
         if all_maxed:
-            # Only show health restore option
             text = font.render("All weapons maxed! Restore Health to Full", True, WHITE)
             text_rect = text.get_rect(center=(screen_width//2, 300))
             upgrade_rects.append(pygame.Rect(text_rect.left - 10, text_rect.top - 10, 
@@ -475,7 +509,6 @@ while running:
             pygame.draw.rect(screen, LIGHT_GRAY, upgrade_rects[0])
             screen.blit(text, text_rect)
         else:
-            # Horizontal weapon selection
             button_width = 180
             total_width = button_width * len(player.weapons)
             start_x = (screen_width - total_width - 20 * (len(player.weapons) - 1)) // 2
@@ -489,34 +522,42 @@ while running:
                     upgrade_text2 = font.render(f"Damage: {weapon.damage}", True, WHITE)
                     upgrade_text3 = font.render(f"Cooldown: {weapon.cooldown}", True, WHITE)
                 
-                text_rect = upgrade_text1.get_rect(center=(x + button_width//2, 300))
-                text_rect = upgrade_text2.get_rect(center=(x + button_width//2, 300))
-                text_rect = upgrade_text3.get_rect(center=(x + button_width//2, 300))
+                text_rect1 = upgrade_text1.get_rect(center=(x + button_width//2, 300-5))
+                text_rect2 = upgrade_text2.get_rect(center=(x + button_width//2, 325-5))
+                text_rect3 = upgrade_text3.get_rect(center=(x + button_width//2, 350-5))
                 button_rect = pygame.Rect(x, 280, button_width, 80)
                 upgrade_rects.append(button_rect)
                 
-                # Draw button
                 pygame.draw.rect(screen, LIGHT_GRAY if weapon.level < 10 else GRAY, button_rect)
-                screen.blit(upgrade_text, text_rect)
+                screen.blit(upgrade_text1, text_rect1)
+                screen.blit(upgrade_text2, text_rect2)
+                screen.blit(upgrade_text3, text_rect3)
 
-    # UI: Top-left - Health and Level (unchanged)
-    health_text = font.render(f"Health: {max(0, player.health)}", True, WHITE)
+    # UI: Top-left - Health and Level
+    health_text = font.render(f"Health: {int(max(0, player.health))}", True, WHITE)
     level_text = font.render(f"Level: {player.level}", True, WHITE)
     screen.blit(health_text, (5, 5))
     screen.blit(level_text, (5, 30))
     exp_ratio = player.experience / player.exp_to_next_level if player.exp_to_next_level > 0 else 0
     pygame.draw.rect(screen, BLUE, (5, 55, exp_ratio * 150, 10))
 
-    # UI: Top-right - Weapon Stats (unchanged)
-    weapon_stats = [weapon.stats() for weapon in player.weapons]
-    for i, stat in enumerate(weapon_stats):
-        stat_text = font.render(stat, True, WHITE)
+    # UI: Top-center - Kill Count
+    kill_text = font.render(f"Kills: {player.kill_count}", True, WHITE)
+    screen.blit(kill_text, (screen_width // 2 - kill_text.get_width() // 2, 5))
+
+    # UI: Top-right - Weapon Stats
+    for i, weapon in enumerate(player.weapons):
+        if weapon.name == 'Heavy':
+            color = WHITE if weapon.ready else RED
+        else:
+            color = WHITE
+        stat_text = font.render(weapon.stats(), True, color)
         screen.blit(stat_text, (screen_width - 250, 10 + i * 30))
 
     pygame.display.flip()
 
     # Game over condition
-    if player.health <= 0:
+    if player.health <= 0 or player.kill_count >= 300:
         running = False
 
 pygame.quit()
