@@ -3,6 +3,7 @@ import random
 import math
 from pygame.math import Vector2
 from upgrades import upgrade_gun, upgrade_blob, upgrade_heavy
+
 # Initialize Pygame
 pygame.init()
 
@@ -21,6 +22,7 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 GRAY = (50, 50, 50)
+LIGHT_GRAY = (100, 100, 100)
 
 # Font setup
 font = pygame.font.SysFont(None, 22)
@@ -37,13 +39,10 @@ screen_rect = screen.get_rect()
 # Drop probabilities (modifiable)
 DROP_PROBABILITIES = {
     "experience": 0.7,  # 70% chance
-    "health": 0.3       # 30% chance
+    "health": 0.05      # 30% chance
 }
 
-# Weapon upgrade dictionaries
-
-
-### Player Class
+### Player Class (unchanged)
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -86,7 +85,7 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.Surface((20, 20))
         if enemy_type == "normal":
             self.image.fill(GREEN)
-            self.speed = 100
+            self.speed = 70
             self.health = 10
         elif enemy_type == "fast":
             self.image.fill(RED)
@@ -94,7 +93,7 @@ class Enemy(pygame.sprite.Sprite):
             self.health = 10
         elif enemy_type == "strong":
             self.image.fill(BLUE)
-            self.speed = 100
+            self.speed = 50
             self.health = 100
         self.rect = self.image.get_rect(center=pos)
         self.pos = Vector2(pos)
@@ -167,6 +166,7 @@ class HealthItem(pygame.sprite.Sprite):
 ### Weapon Classes
 class Gun:
     def __init__(self, player):
+        self.name = 'Gun'
         self.player = player
         self.level = 1
         self.damage = upgrade_gun[self.level]["damage"]
@@ -205,6 +205,7 @@ class Gun:
 
 class BlobWeapon:
     def __init__(self, player):
+        self.name = "Blob"
         self.player = player
         self.level = 1
         self.damage = upgrade_blob[self.level]["damage"]
@@ -252,6 +253,7 @@ class BlobWeapon:
 
 class HeavyAttack:
     def __init__(self, player):
+        self.name = 'Heavy'
         self.player = player
         self.level = 1
         self.damage = upgrade_heavy[self.level]["damage"]
@@ -300,7 +302,6 @@ class HeavyAttack:
         reload = self.cooldown - self.timer if not self.ready else 0
         return f"Heavy (Maxed): Dmg {self.damage}, Rld {reload:.1f}s"
 
-### Utility Function
 def find_nearest_enemy(position):
     nearest = None
     min_dist = float('inf')
@@ -317,7 +318,7 @@ all_sprites.add(player)
 
 # Enemy spawning setup
 spawn_timer = 0
-base_spawn_interval = 1.0
+base_spawn_interval = 3
 
 # Game state
 game_state = "playing"
@@ -344,13 +345,27 @@ while running:
                 elif event.key == pygame.K_3 and player.weapons[2].level < 10:
                     player.weapons[2].upgrade()
                     game_state = "playing"
+        elif event.type == pygame.MOUSEBUTTONDOWN and game_state == "upgrading":
+            mouse_pos = pygame.mouse.get_pos()
+            # Check if clicked on upgrade buttons
+            all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
+            if all_maxed:
+                if upgrade_rects[0].collidepoint(mouse_pos):
+                    player.health = 100
+                    game_state = "playing"
+            else:
+                for i, rect in enumerate(upgrade_rects):
+                    if rect.collidepoint(mouse_pos) and player.weapons[i].level < 10:
+                        player.weapons[i].upgrade()
+                        game_state = "playing"
+                        break
 
     # Update game logic only when playing
     if game_state == "playing":
         all_sprites.update(dt)
 
         # Dynamic spawn interval based on player level
-        spawn_interval = max(0.5, base_spawn_interval - 0.05 * (player.level - 1))
+        spawn_interval = max(0.5, base_spawn_interval - 0.5 * (player.level - 1))
         spawn_timer += dt
         if spawn_timer >= spawn_interval:
             spawn_timer = 0
@@ -365,14 +380,14 @@ while running:
                 pos = (screen_width + 20, random.randint(0, screen_height))
             enemy_type = random.choices(
                 ["normal", "fast", "strong"],
-                weights=[60, 20, 20],
+                weights=[80, 15, 5],
                 k=1
             )[0]
             enemy = Enemy(pos, enemy_type)
             all_sprites.add(enemy)
             enemies.add(enemy)
 
-        # Collision detection
+        # Collision detection (unchanged)
         for projectile in projectiles:
             if isinstance(projectile, Blob):
                 hits = pygame.sprite.spritecollide(projectile, enemies, False)
@@ -417,7 +432,7 @@ while running:
                             items.add(item)
                         break
 
-        # Player vs Items
+        # Player vs Items (unchanged)
         hits = pygame.sprite.spritecollide(player, items, True)
         for item in hits:
             if isinstance(item, ExpItem):
@@ -430,7 +445,7 @@ while running:
             elif isinstance(item, HealthItem):
                 player.health = min(100, player.health + item.value)
 
-        # Player vs Enemies
+        # Player vs Enemies (unchanged)
         if player.invincible_timer <= 0:
             hits = pygame.sprite.spritecollide(player, enemies, False)
             if hits:
@@ -443,14 +458,48 @@ while running:
 
     # Draw upgrade menu when upgrading
     if game_state == "upgrading":
-        pygame.draw.rect(screen, GRAY, (200, 150, 400, 300))
-        text = font.render("Level Up! Choose a weapon to upgrade:", True, WHITE)
-        screen.blit(text, (220, 170))
-        for i, weapon in enumerate(player.weapons):
-            weapon_text = font.render(f"{i+1}. {weapon.stats_next_level()}", True, WHITE)
-            screen.blit(weapon_text, (220, 210 + i * 40))
+        upgrade_rects = []
+        all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
+        
+        # Background
+        pygame.draw.rect(screen, GRAY, (100, 200, 600, 200))
+        title_text = font.render("Level Up! Choose an upgrade:", True, WHITE)
+        screen.blit(title_text, (screen_width//2 - title_text.get_width()//2, 220))
 
-    # UI: Top-left - Health and Level
+        if all_maxed:
+            # Only show health restore option
+            text = font.render("All weapons maxed! Restore Health to Full", True, WHITE)
+            text_rect = text.get_rect(center=(screen_width//2, 300))
+            upgrade_rects.append(pygame.Rect(text_rect.left - 10, text_rect.top - 10, 
+                                          text_rect.width + 20, text_rect.height + 20))
+            pygame.draw.rect(screen, LIGHT_GRAY, upgrade_rects[0])
+            screen.blit(text, text_rect)
+        else:
+            # Horizontal weapon selection
+            button_width = 180
+            total_width = button_width * len(player.weapons)
+            start_x = (screen_width - total_width - 20 * (len(player.weapons) - 1)) // 2
+            
+            for i, weapon in enumerate(player.weapons):
+                x = start_x + i * (button_width + 20)
+                if weapon.level >= 10:
+                    upgrade_text = font.render(f"{weapon.stats()} - MAXED OUT", True, WHITE)
+                else:
+                    upgrade_text1 = font.render(f"{weapon.name}: Lv {weapon.level}", True, WHITE)
+                    upgrade_text2 = font.render(f"Damage: {weapon.damage}", True, WHITE)
+                    upgrade_text3 = font.render(f"Cooldown: {weapon.cooldown}", True, WHITE)
+                
+                text_rect = upgrade_text1.get_rect(center=(x + button_width//2, 300))
+                text_rect = upgrade_text2.get_rect(center=(x + button_width//2, 300))
+                text_rect = upgrade_text3.get_rect(center=(x + button_width//2, 300))
+                button_rect = pygame.Rect(x, 280, button_width, 80)
+                upgrade_rects.append(button_rect)
+                
+                # Draw button
+                pygame.draw.rect(screen, LIGHT_GRAY if weapon.level < 10 else GRAY, button_rect)
+                screen.blit(upgrade_text, text_rect)
+
+    # UI: Top-left - Health and Level (unchanged)
     health_text = font.render(f"Health: {max(0, player.health)}", True, WHITE)
     level_text = font.render(f"Level: {player.level}", True, WHITE)
     screen.blit(health_text, (5, 5))
@@ -458,7 +507,7 @@ while running:
     exp_ratio = player.experience / player.exp_to_next_level if player.exp_to_next_level > 0 else 0
     pygame.draw.rect(screen, BLUE, (5, 55, exp_ratio * 150, 10))
 
-    # UI: Top-right - Weapon Stats
+    # UI: Top-right - Weapon Stats (unchanged)
     weapon_stats = [weapon.stats() for weapon in player.weapons]
     for i, stat in enumerate(weapon_stats):
         stat_text = font.render(stat, True, WHITE)
