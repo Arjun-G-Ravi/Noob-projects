@@ -155,9 +155,26 @@ while running:
 # Display a "You Win!" message before quitting if won
 screen.fill(WHITE)
 if win:
-    win_text = font.render("You Win!", True, BLACK)
-    screen.blit(win_text, (WIDTH // 2 - 40, HEIGHT // 2))
+    win_image = pygame.image.load('win.jpeg')
+    # Resize image to fill the screen
+    win_image = pygame.transform.scale(win_image, (WIDTH, HEIGHT))
+    win_rect = win_image.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    screen.blit(win_image, win_rect)
+    
+    # Add "You Win!" text overlay
+    font = pygame.font.SysFont(None, 100)
+    win_text = font.render("You Win!", True, (255, 255, 255))
+    
+    # Add black outline for better visibility
+    outline_text = font.render("You Win!", True, (0, 0, 0))
+    
+    # Position text at (100, 100) coordinates
+    text_rect = win_text.get_rect(topleft=(10, 30))
+    
+    # Blit outline slightly offset
+    screen.blit(outline_text, (text_rect.x + 2, text_rect.y + 2))
+    screen.blit(win_text, text_rect)
+    
     pygame.display.flip()
-    pygame.time.wait(2000)
-
+    pygame.time.wait(5000)
 pygame.quit()
