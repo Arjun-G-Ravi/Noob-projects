@@ -11,15 +11,15 @@ pygame.display.set_caption("Maze Shooter")
 # Game constants
 FOV = 60 * (math.pi / 180)
 NUM_RAYS = WIDTH
-MOVE_SPEED = 0.2
+MOVE_SPEED = 3
 MOUSE_SENSITIVITY = 0.002
 MAX_SPRITE_SIZE = 500
 
 # Enemy speeds
-BOSS_SPEED = 0.01
-REGULAR_SPEED = 0.05
-FAST_SPEED = 0.1
-FIREBALL_SPEED = 0.15
+BOSS_SPEED = 0.5
+REGULAR_SPEED = .8
+FAST_SPEED = 3
+FIREBALL_SPEED = 10
 
 # Load sprites
 enemy_sprites = {
@@ -29,11 +29,13 @@ enemy_sprites = {
     "fireball": pygame.image.load("fireball.png").convert_alpha()
 }
 
+deltaTime = 0
+
 MAP = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1],
     [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
     [1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1],
@@ -42,7 +44,7 @@ MAP = [
     [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
     [1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1],
+    [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1],
     [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
@@ -130,14 +132,14 @@ def move_enemy(enemy, player_x, player_y):
     elif distance > 0:
         dx /= distance
         dy /= distance
-        new_x, new_y = enemy["x"] + dx * speed, enemy["y"] + dy * speed
+        new_x, new_y = enemy["x"] + dx * speed * deltaTime, enemy["y"] + dy * speed * deltaTime
         if MAP[int(new_y)][int(new_x)] == 0:
             enemy["x"], enemy["y"] = new_x, new_y
     
 
 def move_fireball(fireball):
-    fireball["x"] += math.cos(fireball["angle"]) * FIREBALL_SPEED
-    fireball["y"] += math.sin(fireball["angle"]) * FIREBALL_SPEED
+    fireball["x"] += math.cos(fireball["angle"]) * FIREBALL_SPEED * deltaTime
+    fireball["y"] += math.sin(fireball["angle"]) * FIREBALL_SPEED * deltaTime
     return MAP[int(fireball["y"])][int(fireball["x"])] != 1
 
 def shoot(player_x, player_y, player_angle, wall_distances):
@@ -238,19 +240,19 @@ while running:
         dx, dy = math.cos(player_angle), math.sin(player_angle)
         strafe_dx, strafe_dy = -math.sin(player_angle), math.cos(player_angle)
         if keys[pygame.K_w] or keys[pygame.K_UP]:
-            new_x, new_y = player_x + MOVE_SPEED * dx, player_y + MOVE_SPEED * dy
+            new_x, new_y = player_x + MOVE_SPEED * dx * deltaTime, player_y + MOVE_SPEED * dy * deltaTime
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x, player_y = new_x, new_y
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            new_x, new_y = player_x - MOVE_SPEED * dx, player_y - MOVE_SPEED * dy
+            new_x, new_y = player_x - MOVE_SPEED * dx * deltaTime, player_y - MOVE_SPEED * dy * deltaTime
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x, player_y = new_x, new_y
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            new_x, new_y = player_x + MOVE_SPEED * strafe_dx, player_y + MOVE_SPEED * strafe_dy
+            new_x, new_y = player_x + MOVE_SPEED * strafe_dx * deltaTime, player_y + MOVE_SPEED * strafe_dy * deltaTime
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x, player_y = new_x, new_y
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            new_x, new_y = player_x - MOVE_SPEED * strafe_dx, player_y - MOVE_SPEED * strafe_dy
+            new_x, new_y = player_x - MOVE_SPEED * strafe_dx * deltaTime, player_y - MOVE_SPEED * strafe_dy * deltaTime
             if MAP[int(new_y)][int(new_x)] == 0:
                 player_x, player_y = new_x, new_y
 
@@ -271,7 +273,7 @@ while running:
         for enemy in enemies[:]:
             move_enemy(enemy, player_x, player_y)
             if enemy["type"] == "boss":
-                if current_time - enemy["last_fireball_time"] > 3000:
+                if current_time - enemy["last_fireball_time"] > 5000:
                     dx, dy = player_x - enemy["x"], player_y - enemy["y"]
                     distance = math.hypot(dx, dy)
                     if distance > 0:
@@ -379,6 +381,6 @@ while running:
         pygame.event.set_grab(False)
         draw_game_over(not enemies or not any(e["type"] == "boss" for e in enemies))
 
-    clock.tick(60)
+    deltaTime = clock.tick(60) / 1000
 
 pygame.quit()
