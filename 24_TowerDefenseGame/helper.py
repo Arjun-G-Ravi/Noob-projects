@@ -39,11 +39,19 @@ tower_stats = {
         1: {'income': 5}
     }
 }
-
+# Constants
+WIDTH, HEIGHT = 800, 600
+FPS = 60
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
 
 enemy_stats = {
-    'basic': {'speed': 2, 'health': 100, 'size': 20, 'color': RED},
-    'fast': {'speed': 4, 'health': 50, 'size': 15, 'color': YELLOW},
-    'tanky': {'speed': 1, 'health': 300, 'size': 30, 'color': GREEN},
+    'basic': {'speed': 2, 'health': 50, 'size': 20, 'color': RED},
+    'fast': {'speed': 4, 'health': 30, 'size': 15, 'color': YELLOW},
+    'tanky': {'speed': 1, 'health': 50, 'size': 30, 'color': GREEN},
     'boss': {'speed': 1, 'health': 1000, 'size': 40, 'color': RED}
 }
