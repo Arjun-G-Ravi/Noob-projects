@@ -40,7 +40,7 @@ screen_rect = screen.get_rect()
 # Drop probabilities
 DROP_PROBABILITIES = {
     "experience": 0.7,  # 70% chance
-    "health": 0.01      # 1% chance
+    "health": 0.03      # 3% chance
 }
 
 ### Player Class
@@ -582,5 +582,3 @@ while running:
             screen.blit(stat_text, (screen_width - 250, 10 + i * 30))
 
     pygame.display.flip()
-
-# Note: Pygame.quit() is typically called here, but omitted as per original code
