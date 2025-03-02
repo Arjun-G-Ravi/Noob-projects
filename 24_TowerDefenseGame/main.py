@@ -1,7 +1,7 @@
 import pygame
 import math
 import random
-
+from helper import enemy_stats, tower_stats
 # Initialize Pygame
 pygame.init()
 
@@ -39,6 +39,8 @@ selected_tower_type = 'cannon'
 game_over = False
 win = False
 
+
+
 # Sprite groups
 enemy_group = pygame.sprite.Group()
 tower_group = pygame.sprite.Group()
@@ -48,26 +50,11 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, enemy_type):
         super().__init__()
         self.type = enemy_type
-        if enemy_type == 'basic':
-            self.image = pygame.Surface((20, 20))
-            self.image.fill(RED)
-            self.speed = 2
-            self.health = 100
-        elif enemy_type == 'fast':
-            self.image = pygame.Surface((15, 15))
-            self.image.fill(YELLOW)
-            self.speed = 4
-            self.health = 50
-        elif enemy_type == 'tanky':
-            self.image = pygame.Surface((30, 30))
-            self.image.fill(GREEN)
-            self.speed = 1
-            self.health = 300
-        elif enemy_type == 'boss':
-            self.image = pygame.Surface((40, 40))
-            self.image.fill(RED)
-            self.speed = 1
-            self.health = 1000
+        stats = enemy_stats[enemy_type]
+        self.image = pygame.Surface((stats['size'], stats['size']))
+        self.image.fill(stats['color'])
+        self.speed = stats['speed']
+        self.health = stats['health']
         self.rect = self.image.get_rect()
         self.pos = pygame.math.Vector2(path[0])
         self.rect.center = self.pos
@@ -108,38 +95,36 @@ class Tower(pygame.sprite.Sprite):
         if tower_type == 'cannon':
             self.image = pygame.Surface((30, 30))
             self.image.fill(BLUE)
-            self.range = 100
-            self.damage = 20
-            self.cooldown_max = 60
         elif tower_type == 'flamethrower':
             self.image = pygame.Surface((30, 30))
             self.image.fill(RED)
-            self.range = 80
-            self.damage = 10
-            self.cooldown_max = 30
         elif tower_type == 'ice':
             self.image = pygame.Surface((30, 30))
             self.image.fill(WHITE)
-            self.range = 90
-            self.damage = 5
-            self.cooldown_max = 45
         elif tower_type == 'generator':
             self.image = pygame.Surface((30, 30))
             self.image.fill(YELLOW)
-            self.range = 0
-            self.damage = 0
-            self.cooldown_max = 60
         self.rect = self.image.get_rect(center=position)
         self.cooldown = 0
         self.target = None
         self.attack_timer = 0
+        self.set_stats()
+
+    def set_stats(self):
+        if self.type == 'generator':
+            self.income = tower_stats['generator'][1]['income']
+        else:
+            stats = tower_stats[self.type][self.level]
+            self.damage = stats['damage']
+            self.range = stats['range']
+            self.cooldown_max = stats['cooldown']
 
     def update(self, enemies):
         if self.type == 'generator':
             global resources
             if self.cooldown <= 0:
-                resources += generator_income
-                self.cooldown = self.cooldown_max
+                resources += self.income
+                self.cooldown = 60  # 1 second at 60 FPS
             else:
                 self.cooldown -= 1
             return
@@ -215,15 +200,13 @@ class Tower(pygame.sprite.Sprite):
                 enemy.health -= self.damage * 2
 
     def upgrade(self):
-        if self.level < 10:
+        if self.level < 10 and self.type != 'generator':
             cost = 20 * self.level
             global resources
             if resources >= cost:
                 resources -= cost
                 self.level += 1
-                self.damage += 5
-                self.range += 10
-                self.cooldown_max = max(15, self.cooldown_max - 5)
+                self.set_stats()
                 return True
         return False
 
@@ -257,13 +240,10 @@ def endscreen(win):
 
 # Check if position is valid for tower placement
 def is_valid_position(pos):
-    # Check screen boundaries (towers are 30x30, so 15 pixels from edges)
     if pos[0] < 15 or pos[0] > WIDTH - 15 or pos[1] < 15 or pos[1] > HEIGHT - 15:
         return False
-    # Check if too close to path (y=280 to y=320 for largest enemy, adjust for tower height)
     if 265 < pos[1] < 335:
         return False
-    # Check if too close to other towers
     for tower in tower_group:
         if pygame.math.Vector2(tower.rect.center).distance_to(pos) < 35:
             return False
@@ -325,9 +305,15 @@ while running:
         endscreen(win)
         running = False
 
+    # Check for hovered tower
+    hovered_tower = None
+    for tower in tower_group:
+        if tower.rect.collidepoint(pygame.mouse.get_pos()):
+            hovered_tower = tower
+            break
+
     # Draw
     screen.fill(BLACK)
-    # Draw the enemy path
     for i in range(len(path) - 1):
         pygame.draw.line(screen, WHITE, path[i], path[i + 1], 5)
     tower_group.draw(screen)
@@ -360,20 +346,51 @@ while running:
     pygame.draw.rect(screen, WHITE, (130, 100, 50, 30))  # Ice
     pygame.draw.rect(screen, YELLOW, (190, 100, 50, 30)) # Generator
 
-    # Hover info for tower stats
+    # Hover info for tower selection
     pos = pygame.mouse.get_pos()
     if 10 <= pos[0] <= 60 and 100 <= pos[1] <= 130:
-        text = font.render(f"Cannon: {tower_costs['cannon']} dmg:20 cd:60", True, WHITE)
+        text = font.render(f"Cannon: {tower_costs['cannon']} dmg:20 rng:100 cd:60", True, WHITE)
         screen.blit(text, (10, 140))
     elif 70 <= pos[0] <= 120 and 100 <= pos[1] <= 130:
-        text = font.render(f"Flamethrower: {tower_costs['flamethrower']} dmg:10 cd:30", True, WHITE)
+        text = font.render(f"Flamethrower: {tower_costs['flamethrower']} dmg:10 rng:80 cd:30", True, WHITE)
         screen.blit(text, (70, 140))
     elif 130 <= pos[0] <= 180 and 100 <= pos[1] <= 130:
-        text = font.render(f"Ice: {tower_costs['ice']} dmg:5 cd:45", True, WHITE)
+        text = font.render(f"Ice: {tower_costs['ice']} dmg:5 rng:90 cd:45", True, WHITE)
         screen.blit(text, (130, 140))
     elif 190 <= pos[0] <= 240 and 100 <= pos[1] <= 130:
         text = font.render(f"Generator: {tower_costs['generator']} income:5/s", True, WHITE)
         screen.blit(text, (190, 140))
+
+    # Display hovered tower info
+    if hovered_tower:
+        pygame.draw.rect(screen, WHITE, hovered_tower.rect, 2)
+        if hovered_tower.type == 'generator':
+            text = font.render(f"Generator Income: {hovered_tower.income}/s", True, WHITE)
+            screen.blit(text, (10, 300))
+        else:
+            current_stats = tower_stats[hovered_tower.type][hovered_tower.level]
+            text1 = font.render(f"{hovered_tower.type.capitalize()} Level: {hovered_tower.level}", True, WHITE)
+            text2 = font.render(f"Damage: {current_stats['damage']}", True, WHITE)
+            text3 = font.render(f"Range: {current_stats['range']}", True, WHITE)
+            text4 = font.render(f"Cooldown: {current_stats['cooldown']}", True, WHITE)
+            screen.blit(text1, (10, 300))
+            screen.blit(text2, (10, 330))
+            screen.blit(text3, (10, 360))
+            screen.blit(text4, (10, 390))
+            if hovered_tower.level < 10:
+                next_stats = tower_stats[hovered_tower.type][hovered_tower.level + 1]
+                cost = 20 * hovered_tower.level
+                text5 = font.render(f"Upgrade cost: {cost}", True, WHITE)
+                text6 = font.render(f"Next level damage: {next_stats['damage']}", True, WHITE)
+                text7 = font.render(f"Next level range: {next_stats['range']}", True, WHITE)
+                text8 = font.render(f"Next level cooldown: {next_stats['cooldown']}", True, WHITE)
+                screen.blit(text5, (10, 420))
+                screen.blit(text6, (10, 450))
+                screen.blit(text7, (10, 480))
+                screen.blit(text8, (10, 510))
+                if resources >= cost:
+                    text9 = font.render("Click to upgrade", True, WHITE)
+                    screen.blit(text9, (10, 540))
 
     pygame.display.flip()
     clock.tick(FPS)
