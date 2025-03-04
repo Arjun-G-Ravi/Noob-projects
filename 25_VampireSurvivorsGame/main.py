@@ -26,7 +26,7 @@ LIGHT_GRAY = (100, 100, 100)
 
 # Font setup
 font = pygame.font.SysFont(None, 22)
-large_font = pygame.font.SysFont(None, 48)  # Added for end screen
+large_font = pygame.font.SysFont(None, 48)
 
 # Sprite groups
 all_sprites = pygame.sprite.Group()
@@ -71,6 +71,7 @@ class Player(pygame.sprite.Sprite):
         self.pos += velocity * dt
         self.rect.center = self.pos
         self.rect.clamp_ip(screen_rect)
+        self.pos = Vector2(self.rect.center)  # Update pos to clamped position
         for weapon in self.weapons:
             weapon.update(dt)
 
@@ -105,7 +106,11 @@ class Enemy(pygame.sprite.Sprite):
         self.pos = Vector2(pos)
 
     def update(self, dt):
-        direction = (player.pos - self.pos).normalize()
+        diff = player.pos - self.pos
+        if diff.length_squared() == 0:  # Check if positions are identical
+            direction = Vector2(0, 0)
+        else:
+            direction = diff.normalize()
         self.pos += direction * self.speed * dt
         self.rect.center = self.pos
 
@@ -168,7 +173,7 @@ class HealthItem(pygame.sprite.Sprite):
         self.image = pygame.Surface((10, 10))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect(center=pos)
-        self.value = 10
+        self.value = random.randing(1,10)
 
 ### Weapon Classes
 class Gun:
@@ -299,8 +304,8 @@ class HeavyAttack:
             self.level += 1
             self.damage = upgrade_heavy[self.level]["damage"]
             self.cooldown = upgrade_heavy[self.level]["cooldown"]
-            self.ready = False  # Reset readiness
-            self.timer = self.cooldown  # Reset timer to force full cooldown
+            self.ready = False
+            self.timer = self.cooldown
             self.num_shots = upgrade_heavy[self.level]["num_shots"]
 
     def stats(self):
@@ -336,7 +341,7 @@ base_spawn_interval = 3
 
 # Game state
 game_state = "playing"
-game_result = None  # Added to track win or loss
+game_result = None
 
 # Main game loop
 running = True
@@ -351,15 +356,21 @@ while running:
             if event.key == pygame.K_ESCAPE or event.key == pygame.K_q:
                 running = False
             if game_state == "upgrading":
-                if event.key == pygame.K_1 and player.weapons[0].level < 10:
-                    player.weapons[0].upgrade()
-                    game_state = "playing"
-                elif event.key == pygame.K_2 and player.weapons[1].level < 10:
-                    player.weapons[1].upgrade()
-                    game_state = "playing"
-                elif event.key == pygame.K_3 and player.weapons[2].level < 10:
-                    player.weapons[2].upgrade()
-                    game_state = "playing"
+                all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
+                if all_maxed:
+                    if event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_SPACE]:
+                        player.health = 100
+                        game_state = "playing"
+                else:
+                    if event.key == pygame.K_1 and player.weapons[0].level < 10:
+                        player.weapons[0].upgrade()
+                        game_state = "playing"
+                    elif event.key == pygame.K_2 and player.weapons[1].level < 10:
+                        player.weapons[1].upgrade()
+                        game_state = "playing"
+                    elif event.key == pygame.K_3 and player.weapons[2].level < 10:
+                        player.weapons[2].upgrade()
+                        game_state = "playing"
         elif event.type == pygame.MOUSEBUTTONDOWN and game_state == "upgrading":
             mouse_pos = pygame.mouse.get_pos()
             all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
@@ -560,13 +571,22 @@ while running:
         screen.blit(quit_text, (screen_width // 2 - quit_text.get_width() // 2, screen_height // 2 + 50))
 
     if game_state in ["playing", "upgrading"]:
-        # UI: Top-left - Health and Level
+        # UI: Top-left - Health bar and text
+        health_bar_width = 150
+        health_bar_height = 10
+        health_ratio = max(0, player.health / 100)  # Health is 0 to 100, ratio 0 to 1
+        pygame.draw.rect(screen, RED, (5, 5, health_bar_width, health_bar_height))  # Background
+        pygame.draw.rect(screen, GREEN, (5, 5, health_bar_width * health_ratio, health_bar_height))  # Foreground
         health_text = font.render(f"Health: {int(max(0, player.health))}", True, WHITE)
+        screen.blit(health_text, (160, 5))  # Next to the bar
+        
+        # Level text
         level_text = font.render(f"Level: {player.level}", True, WHITE)
-        screen.blit(health_text, (5, 5))
-        screen.blit(level_text, (5, 30))
+        screen.blit(level_text, (5, 25))  # Below health bar
+        
+        # Experience bar
         exp_ratio = player.experience / player.exp_to_next_level if player.exp_to_next_level > 0 else 0
-        pygame.draw.rect(screen, BLUE, (5, 55, exp_ratio * 150, 10))
+        pygame.draw.rect(screen, BLUE, (5, 40, 150 * exp_ratio, 10))  # Adjusted position
 
         # UI: Top-center - Kill Count
         kill_text = font.render(f"Kills: {player.kill_count}", True, WHITE)
@@ -582,3 +602,5 @@ while running:
             screen.blit(stat_text, (screen_width - 250, 10 + i * 30))
 
     pygame.display.flip()
+
+pygame.quit()

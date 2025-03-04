@@ -1,7 +1,3 @@
-
-
-
-
 upgrade_gun = {
     1: {"damage": 5, "cooldown": 2},
     2: {"damage": 5, "cooldown": 1},
