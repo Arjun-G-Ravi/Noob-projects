@@ -1,9 +1,19 @@
 import pygame
 from platforms import platforms
+import os
+import sys
 
 # Initialize pygame
 pygame.init()
 pygame.mixer.init()
+
+# Function to get the correct path for assets
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and PyInstaller"""
+    if hasattr(sys, '_MEIPASS'):
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath(os.path.dirname(__file__)), relative_path)
 
 # Constants
 WIDTH, HEIGHT = 500, 700
@@ -21,8 +31,8 @@ BLACK = (0, 0, 0)
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Rohit Jump")
 
-# Load player sprite and sound
-player_img = pygame.image.load("player2.png").convert_alpha()
+# Load player sprite and sound with resource_path
+player_img = pygame.image.load(resource_path("player2.png")).convert_alpha()
 player_img = pygame.transform.scale(player_img, (70, 70))
 player = pygame.Rect(WIDTH // 4, HEIGHT - 100, 70, 70)
 velocity_y = 0
@@ -32,20 +42,20 @@ current_height = 0
 max_height = 0
 best_height = 0
 last_height = 0
-fall_sound = pygame.mixer.Sound("fall.ogg")
+fall_sound = pygame.mixer.Sound(resource_path("fall.ogg"))
 sound_played = False
 falling = False
 last_platform_height = 0
 
-# Load win sprite
-win_img = pygame.image.load("win.png").convert_alpha()
+# Load win sprite with resource_path
+win_img = pygame.image.load(resource_path("win.png")).convert_alpha()
 win_img = pygame.transform.scale(win_img, (50, 50))
 
 # Font and clock
 font = pygame.font.SysFont(None, 30)
 clock = pygame.time.Clock()
 running = True
-win = False  # Added win flag initialization
+win = False
 
 while running:
     screen.fill(WHITE)
@@ -155,8 +165,7 @@ while running:
 # Display a "You Win!" message before quitting if won
 screen.fill(WHITE)
 if win:
-    win_image = pygame.image.load('win.jpeg')
-    # Resize image to fill the screen
+    win_image = pygame.image.load(resource_path('win.jpeg'))  # Use resource_path here too
     win_image = pygame.transform.scale(win_image, (WIDTH, HEIGHT))
     win_rect = win_image.get_rect(center=(WIDTH // 2, HEIGHT // 2))
     screen.blit(win_image, win_rect)
@@ -164,14 +173,9 @@ if win:
     # Add "You Win!" text overlay
     font = pygame.font.SysFont(None, 100)
     win_text = font.render("You Win!", True, (255, 255, 255))
-    
-    # Add black outline for better visibility
     outline_text = font.render("You Win!", True, (0, 0, 0))
-    
-    # Position text at (100, 100) coordinates
     text_rect = win_text.get_rect(topleft=(10, 30))
     
-    # Blit outline slightly offset
     screen.blit(outline_text, (text_rect.x + 2, text_rect.y + 2))
     screen.blit(win_text, text_rect)
     
