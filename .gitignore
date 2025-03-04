@@ -1,3 +1,6 @@
 17_chatbot_gemini/config.ini
 18_chatbot_website_groq/config.ini
 __pycache__
+build/
+dist/
+*.spec
