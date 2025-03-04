@@ -173,7 +173,7 @@ class HealthItem(pygame.sprite.Sprite):
         self.image = pygame.Surface((10, 10))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect(center=pos)
-        self.value = random.randing(1,10)
+        self.value = random.randint(1,10)
 
 ### Weapon Classes
 class Gun:
