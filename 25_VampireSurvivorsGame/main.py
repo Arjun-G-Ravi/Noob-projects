@@ -376,7 +376,9 @@ while running:
             all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
             if all_maxed:
                 if upgrade_rects[0].collidepoint(mouse_pos):
-                    player.health = 100
+                    if player.health >= 75: player.health = 100
+                    else: player.health += 25
+                    
                     game_state = "playing"
             else:
                 for i, rect in enumerate(upgrade_rects):
