@@ -27,6 +27,7 @@ LIGHT_GRAY = (100, 100, 100)
 # Font setup
 font = pygame.font.SysFont(None, 22)
 large_font = pygame.font.SysFont(None, 48)
+kill_font = pygame.font.SysFont(None, 36)  # Larger font for kill count
 
 # Sprite groups
 all_sprites = pygame.sprite.Group()
@@ -39,7 +40,7 @@ screen_rect = screen.get_rect()
 
 # Drop probabilities
 DROP_PROBABILITIES = {
-    "experience": 0.7,  # 70% chance
+    "experience": 0.6,  # 70% chance
     "health": 0.03      # 3% chance
 }
 
@@ -83,8 +84,8 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.Surface((20, 20))
         if enemy_type == "normal":
             self.image.fill(GREEN)
-            self.speed = 70
-            self.health = 10 + player_level
+            self.speed = 50
+            self.health = 20
             self.damage_rate = 20  # 1 damage per second
         elif enemy_type == "fast":
             self.image.fill(RED)
@@ -356,36 +357,29 @@ while running:
             if event.key == pygame.K_ESCAPE or event.key == pygame.K_q:
                 running = False
             if game_state == "upgrading":
-                all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
-                if all_maxed:
-                    if event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_SPACE]:
-                        player.health = 100
-                        game_state = "playing"
-                else:
-                    if event.key == pygame.K_1 and player.weapons[0].level < 10:
-                        player.weapons[0].upgrade()
-                        game_state = "playing"
-                    elif event.key == pygame.K_2 and player.weapons[1].level < 10:
-                        player.weapons[1].upgrade()
-                        game_state = "playing"
-                    elif event.key == pygame.K_3 and player.weapons[2].level < 10:
-                        player.weapons[2].upgrade()
-                        game_state = "playing"
+                if event.key == pygame.K_1 and player.weapons[0].level < 10:
+                    player.weapons[0].upgrade()
+                    game_state = "playing"
+                elif event.key == pygame.K_2 and player.weapons[1].level < 10:
+                    player.weapons[1].upgrade()
+                    game_state = "playing"
+                elif event.key == pygame.K_3 and player.weapons[2].level < 10:
+                    player.weapons[2].upgrade()
+                    game_state = "playing"
+                elif event.key == pygame.K_4 or event.key == pygame.K_SPACE:
+                    player.health = min(100, player.health + 25)  # Add 25 health, cap at 100
+                    game_state = "playing"
         elif event.type == pygame.MOUSEBUTTONDOWN and game_state == "upgrading":
             mouse_pos = pygame.mouse.get_pos()
-            all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
-            if all_maxed:
-                if upgrade_rects[0].collidepoint(mouse_pos):
-                    if player.health >= 75: player.health = 100
-                    else: player.health += 25
-                    
-                    game_state = "playing"
-            else:
-                for i, rect in enumerate(upgrade_rects):
-                    if rect.collidepoint(mouse_pos) and player.weapons[i].level < 10:
+            for i, rect in enumerate(upgrade_rects):
+                if rect.collidepoint(mouse_pos):
+                    if i < 3 and player.weapons[i].level < 10:
                         player.weapons[i].upgrade()
                         game_state = "playing"
-                        break
+                    elif i == 3:  # Health upgrade option
+                        player.health = min(100, player.health + 25)  # Add 25 health, cap at 100
+                        game_state = "playing"
+                    break
 
     # Update game logic only when playing
     if game_state == "playing":
@@ -405,10 +399,13 @@ while running:
                 pos = (-20, random.randint(0, screen_height))
             else:
                 pos = (screen_width + 20, random.randint(0, screen_height))
-            if player.level < 10: enemy_type = random.choices(["normal", "fast", "strong"], weights=[85, 10, 5], k=1)[0]
-            elif player.level < 20: enemy_type = random.choices(["normal", "fast", "strong"], weights=[60, 20, 20], k=1)[0]
-            elif player.level < 25: enemy_type = random.choices(["normal", "fast", "strong"], weights=[30, 30, 40], k=1)[0]
-            else: enemy_type = random.choices(["normal", "fast", "strong"], weights=[10, 40, 50], k=1)[0]
+            if player.level < 5: enemy_type = random.choices(["normal", "fast", "strong"], weights=[95, 5, 0], k=1)[0] # 0 - 5
+            elif player.level < 10: enemy_type = random.choices(["normal", "fast", "strong"], weights=[60, 20, 20], k=1)[0] # 5 - 10
+            elif player.level < 15: enemy_type = random.choices(["normal", "fast", "strong"], weights=[40, 20, 40], k=1)[0] # 10 - 15
+            elif player.level < 20: enemy_type = random.choices(["normal", "fast", "strong"], weights=[0, 80, 20], k=1)[0] # 15 - 20
+            elif player.level < 25: enemy_type = random.choices(["normal", "fast", "strong"], weights=[0, 50, 50], k=1)[0] # 25 - 30
+            elif player.level < 30: enemy_type = random.choices(["normal", "fast", "strong"], weights=[0, 90, 10], k=1)[0] # 35- 40
+            else: enemy_type = random.choices(["normal", "fast", "strong"], weights=[0, 50, 50], k=1)[0]
             enemy = Enemy(pos, enemy_type, player.level)
             all_sprites.add(enemy)
             enemies.add(enemy)
@@ -522,43 +519,50 @@ while running:
 
     if game_state == "upgrading":
         upgrade_rects = []
-        all_maxed = all(weapon.level >= 10 for weapon in player.weapons)
-        
-        pygame.draw.rect(screen, GRAY, (100, 200, 600, 200))
+        # pygame.draw.rect(screen, GRAY, (100, 200, 600, 200))
+        pygame.draw.rect(screen, GRAY, (50, 150, 700, 300))  # Larger box
         title_text = font.render("Level Up! Choose an upgrade:", True, WHITE)
         screen.blit(title_text, (screen_width//2 - title_text.get_width()//2, 220))
 
-        if all_maxed:
-            text = font.render("All weapons maxed! Restore Health to Full", True, WHITE)
-            text_rect = text.get_rect(center=(screen_width//2, 300))
-            upgrade_rects.append(pygame.Rect(text_rect.left - 10, text_rect.top - 10, 
-                                          text_rect.width + 20, text_rect.height + 20))
-            pygame.draw.rect(screen, LIGHT_GRAY, upgrade_rects[0])
-            screen.blit(text, text_rect)
-        else:
-            button_width = 180
-            total_width = button_width * len(player.weapons)
-            start_x = (screen_width - total_width - 20 * (len(player.weapons) - 1)) // 2
-            
-            for i, weapon in enumerate(player.weapons):
-                x = start_x + i * (button_width + 20)
-                if weapon.level >= 10:
-                    upgrade_text = font.render(f"{weapon.stats()} - MAXED OUT", True, WHITE)
-                else:
-                    upgrade_text1 = font.render(f"{weapon.name}: Lv {weapon.level}", True, WHITE)
-                    upgrade_text2 = font.render(f"Damage: {weapon.damage}", True, WHITE)
-                    upgrade_text3 = font.render(f"Cooldown: {weapon.cooldown}", True, WHITE)
-                
+        # Calculate layout for 4 options (3 weapons + health)
+        button_width = 140  # Reduced width to fit 4 options
+        total_width = button_width * 4 + 20 * 3  # 4 buttons, 3 gaps
+        start_x = (screen_width - total_width) // 2
+        
+        # Weapon upgrades
+        for i, weapon in enumerate(player.weapons):
+            x = start_x + i * (button_width + 20)
+            if weapon.level >= 10:
+                upgrade_text = font.render(f"{weapon.stats()} - MAXED OUT", True, WHITE)
+                text_rect = upgrade_text.get_rect(center=(x + button_width//2, 320))
+                button_rect = pygame.Rect(x, 280, button_width, 80)
+                pygame.draw.rect(screen, GRAY, button_rect)
+                screen.blit(upgrade_text, text_rect)
+            else:
+                upgrade_text1 = font.render(f"{weapon.name}: Lv {weapon.level}", True, WHITE)
+                upgrade_text2 = font.render(f"Damage: {weapon.damage}", True, WHITE)
+                upgrade_text3 = font.render(f"Cooldown: {weapon.cooldown}", True, WHITE)
                 text_rect1 = upgrade_text1.get_rect(center=(x + button_width//2, 300-5))
                 text_rect2 = upgrade_text2.get_rect(center=(x + button_width//2, 325-5))
                 text_rect3 = upgrade_text3.get_rect(center=(x + button_width//2, 350-5))
                 button_rect = pygame.Rect(x, 280, button_width, 80)
                 upgrade_rects.append(button_rect)
-                
-                pygame.draw.rect(screen, LIGHT_GRAY if weapon.level < 10 else GRAY, button_rect)
+                pygame.draw.rect(screen, LIGHT_GRAY, button_rect)
                 screen.blit(upgrade_text1, text_rect1)
                 screen.blit(upgrade_text2, text_rect2)
                 screen.blit(upgrade_text3, text_rect3)
+
+        # Health upgrade option (always available)
+        x = start_x + 3 * (button_width + 20)
+        health_text1 = font.render("Health", True, WHITE)
+        health_text2 = font.render("+25", True, WHITE)
+        text_rect1 = health_text1.get_rect(center=(x + button_width//2, 310))
+        text_rect2 = health_text2.get_rect(center=(x + button_width//2, 340))
+        button_rect = pygame.Rect(x, 280, button_width, 80)
+        upgrade_rects.append(button_rect)
+        pygame.draw.rect(screen, LIGHT_GRAY, button_rect)
+        screen.blit(health_text1, text_rect1)
+        screen.blit(health_text2, text_rect2)
 
     elif game_state == "end":
         screen.fill(GRAY)
@@ -590,8 +594,8 @@ while running:
         exp_ratio = player.experience / player.exp_to_next_level if player.exp_to_next_level > 0 else 0
         pygame.draw.rect(screen, BLUE, (5, 40, 150 * exp_ratio, 10))  # Adjusted position
 
-        # UI: Top-center - Kill Count
-        kill_text = font.render(f"Kills: {player.kill_count}", True, WHITE)
+        # UI: Top-center - Kill Count with larger font
+        kill_text = kill_font.render(f"Kills: {player.kill_count}", True, WHITE)
         screen.blit(kill_text, (screen_width // 2 - kill_text.get_width() // 2, 5))
 
         # UI: Top-right - Weapon Stats
