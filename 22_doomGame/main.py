@@ -23,10 +23,10 @@ FIREBALL_SPEED = 10
 
 # Load sprites
 enemy_sprites = {
-    "boss": pygame.image.load("boss.png").convert_alpha(),
-    "regular": pygame.image.load("regular.png").convert_alpha(),
-    "fast": pygame.image.load("fast.png").convert_alpha(),
-    "fireball": pygame.image.load("fireball.png").convert_alpha()
+    "boss": pygame.image.load("22_doomGame/boss.png").convert_alpha(),
+    "regular": pygame.image.load("22_doomGame/regular.png").convert_alpha(),
+    "fast": pygame.image.load("22_doomGame/fast.png").convert_alpha(),
+    "fireball": pygame.image.load("22_doomGame/fireball.png").convert_alpha()
 }
 
 deltaTime = 0

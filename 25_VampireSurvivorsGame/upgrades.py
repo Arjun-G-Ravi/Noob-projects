@@ -8,20 +8,20 @@ upgrade_gun = {
     7: {"damage": 15, "cooldown": 0.7},
     8: {"damage": 17, "cooldown": 0.6},
     9: {"damage": 20, "cooldown": 0.5},
-    10: {"damage": 25, "cooldown": 0.3}
+    10: {"damage": 30, "cooldown": 0.3}
 }
 
 upgrade_blob = {
     1: {"damage": 3, "speed": 1, "size": 20},
-    2: {"damage": 4, "speed": 1.2, "size": 22},
-    3: {"damage": 5, "speed": 1.5, "size": 24},
-    4: {"damage": 6, "speed": 1.75, "size": 26},
-    5: {"damage": 7, "speed": 2, "size": 32},
-    6: {"damage": 8, "speed": 2.5, "size": 36},
-    7: {"damage": 9, "speed": 3, "size": 40},
-    8: {"damage": 12, "speed": 3.5, "size": 44},
-    9: {"damage": 15, "speed": 4, "size": 48},
-    10: {"damage": 20, "speed": 5, "size": 50}
+    2: {"damage": 6, "speed": 1.2, "size": 22},
+    3: {"damage": 10, "speed": 1.5, "size": 24},
+    4: {"damage": 10, "speed": 1.75, "size": 26},
+    5: {"damage": 12, "speed": 2, "size": 32},
+    6: {"damage": 15, "speed": 2.5, "size": 36},
+    7: {"damage": 18, "speed": 3, "size": 40},
+    8: {"damage": 20, "speed": 3.5, "size": 44},
+    9: {"damage": 25, "speed": 4, "size": 48},
+    10: {"damage": 30, "speed": 5, "size": 50}
 }
 
 upgrade_heavy = {
@@ -34,5 +34,5 @@ upgrade_heavy = {
     7: {"damage": 35, "cooldown": 20.0, "num_shots": 32},
     8: {"damage": 40, "cooldown": 20.0, "num_shots": 32},
     9: {"damage": 45, "cooldown": 20.0, "num_shots": 32},
-    10: {"damage": 35, "cooldown": 15.0, "num_shots": 64}
+    10: {"damage": 35, "cooldown": 20.0, "num_shots": 50}
 }
