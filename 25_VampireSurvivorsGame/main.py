@@ -94,7 +94,7 @@ class Enemy(pygame.sprite.Sprite):
             self.damage_rate = 10  # 0.5 damage per second
         elif enemy_type == "strong":
             self.image.fill(BLUE)
-            self.speed = 50
+            self.speed = 100
             self.health = 100 + 3 * player_level
             self.damage_rate = 30  # 2 damage per second
         elif enemy_type == "boss":
