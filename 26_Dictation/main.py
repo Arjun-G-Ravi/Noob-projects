@@ -13,17 +13,26 @@ load_dotenv()
 
 # Initialize Groq client (replace with your API key)
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
 # Audio settings
 sample_rate = 16000  # Hz
 channels = 1
 dtype = 'int16'
-chunk_seconds = 3.0  # Smaller chunks for pseudo-streaming
+chunk_seconds = 2.0  # Smaller chunks for pseudo-streaming
 frames_per_chunk = int(sample_rate * chunk_seconds)
+rms_threshold = 500  # Adjust this value based on your environment
 
 # Global variables
 audio_queue = queue.Queue()
 buffer = np.array([], dtype=dtype)
 running_transcript = ""
+
+def calculate_rms(audio_data):
+    """
+    Calculate the Root Mean Square (RMS) of the audio data.
+    """
+    audio_data = audio_data.astype(np.float32)
+    return np.sqrt(np.mean(audio_data**2))
 
 def record_audio():
     global buffer
@@ -62,7 +71,7 @@ def transcribe_audio(audio_data):
     try:
         transcription = client.audio.transcriptions.create(
             file=audio_file,
-            model="whisper-large-v3-turbo",
+            model="whisper-large-v3",
             language="en",
             temperature=0.0
         )
@@ -76,10 +85,15 @@ def process_audio():
     while True:
         try:
             audio_chunk = audio_queue.get(timeout=10)
-            transcription = transcribe_audio(audio_chunk)
-            if transcription.strip():
-                running_transcript += " " + transcription.strip()
-                print(f"Current transcript: {running_transcript}")
+            rms = calculate_rms(audio_chunk)
+            if rms > rms_threshold:
+                transcription = transcribe_audio(audio_chunk)
+                if transcription.strip():
+                    running_transcript += " " + transcription.strip()
+                    print(f"{transcription.strip()} ")
+            else:
+                # print(f"Skipping transcription: RMS={rms:.2f} (below threshold {rms_threshold})")
+                pass
         except queue.Empty:
             print("No speech detected for 10 seconds.")
         except Exception as e:
