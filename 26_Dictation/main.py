@@ -18,7 +18,7 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 sample_rate = 16000  # Hz
 channels = 1
 dtype = 'int16'
-chunk_seconds = 2.0  # Smaller chunks for pseudo-streaming
+chunk_seconds = 3.0  # Smaller chunks for pseudo-streaming
 frames_per_chunk = int(sample_rate * chunk_seconds)
 rms_threshold = 500  # Adjust this value based on your environment
 
@@ -26,6 +26,23 @@ rms_threshold = 500  # Adjust this value based on your environment
 audio_queue = queue.Queue()
 buffer = np.array([], dtype=dtype)
 running_transcript = ""
+
+def clean_up_using_llama(input_text, model="llama3-70b-8192"):
+    if isinstance(input_text, str):
+        messages = [
+            {"role": "system", "content": "Given a string, you have to clean the string up, by changing as less as possible. Do not answer anything else."},
+            {"role": "user", "content": input_text}
+        ]
+    else:
+        messages = input_text
+    
+    response = client.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=0.3,
+    )
+    
+    return response.choices[0].message.content
 
 def calculate_rms(audio_data):
     """
@@ -105,7 +122,10 @@ def main():
     processing_thread.start()
     
     # Start recording in the main thread
+    # print(clean_up_using_llama('hi'))
     record_audio()
+    print('\nCleaned up result:')
+    print(clean_up_using_llama(running_transcript))
 
 if __name__ == "__main__":
     main()
